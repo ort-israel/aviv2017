@@ -4,7 +4,7 @@
 **/
 
 // FORDSON CustomSettings
-$fpstartwrap-bg: #e8eeef !default;
+$fpstartwrap-bg: #FFF !default;
 $fpicon-hover: #bcd5db !default;
 $fpicon-icon: darken($fpicon-hover, 10%) !default;
 $fpicon-colour: #026C87 !default;
@@ -22,8 +22,8 @@ $markettextbg: rgba(255, 255, 255, 0.8) !default;
 $markettile-radius: 5px !default;
 $navbarurl: #FFF !default;
 $card-footer-bg: #ccc !default;
-$headerfade-bg: rgba(0,0,0,0.7) !default;
-$header-color: #fff !default;
+$headerfade-bg: #d4d4d4 !default;
+$header-color: #FFF !default;
 $headings-color: #3a3a3a !default;
 $body-color: #3a3a3a !default;
 $link-color: $brand-primary !default;
@@ -32,23 +32,47 @@ $breadcrumb-padding-x: 10px !default;
 $border-radius: 4px !default;
 $breadcrumb-bg: #fff !default;
 $footer-bg: $body-bg !default;
+$learningcontentpadding: 400px !default;
+$blockwidthfordson: 280px !default;
+$slideshowheight: 250px !default;
+$activityiconsize: 36px !default;
+$activityhover: #fff6ae !default;
 
 /**
 * Layout Header
 **/
-
-
 #page-header h1 {
-font-weight:600;
-color: $header-color;
+    font-weight:600;
+    color: $header-color;
 }
 
 #page-header .headerfade {
-background: $headerfade-bg;
-border-radius: 0px 0px $card-border-radius $card-border-radius;
+    background: $headerfade-bg;
+    border-left: 1px solid $card-bg;
+    border-right: 1px solid $card-bg;
 }
-.withimage {
-    border-radius: $card-border-radius;
+
+@media screen and (min-width: 992px) {
+#page.container-fluid {
+    padding: 0 6rem !important;
+}
+}
+
+.headerbkg {
+    margin-top:48px;
+    height:$headerimagepadding;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    box-shadow: 0px 3px 5px 1px rgba(0,0,0,0.7);
+}
+div#learningcontent {
+    position:relative;
+    margin-top: $learningcontentpadding;
+    background-color: $card-bg;
 }
 
 #page-navbar .dropdown-toggle {
@@ -57,24 +81,6 @@ border-radius: 0px 0px $card-border-radius $card-border-radius;
     background-color: $breadcrumb-bg;
     border-radius: $border-radius;
 }
-@media screen and (max-width: 450px) {
-#page-navbar .dropdown-toggle {
-    display:none;
-    visibility:hidden;
-}
-}
-@media screen and (max-width: 450px) {
-#page-navbar .breadcrumb-button .btn-success {
-    display:none;
-    visibility:hidden;
-}
-}
-@media screen and (max-width: 450px) {
-#page-navbar .breadcrumb-button .btn-danger {
-    display:none;
-    visibility:hidden;
-}
-}
 
 .breadcrumb-nav .breadcrumb {margin-bottom: .5rem;}
 
@@ -82,62 +88,170 @@ border-radius: 0px 0px $card-border-radius $card-border-radius;
     border-radius: $border-radius;
     margin-left: 5px;
 }
-.pagelayout-incourse #page-header .card {
-    height: initial;
+
+.headerlogo {
+    background-color: $headerfade-bg;
+}
+.headerlogo img {
+    padding: $spacer;
 }
 
-#page-header .header-position {
+@media screen and (min-width: 991px) {
+#region-main.has-blocks {
+    width: calc(100% - #{$blockwidthfordson});
+    }
+}
+
+@media screen and (min-width: 991px) {
+[data-region="blocks-column"] {
+    width: calc(#{$blockwidthfordson} - 30px);
+    }
+}
+
+/* login on frontpage */
+.fpsignup {
+    border-radius: $border-radius;
+    background-color: $gray-lightest;
+    padding: $spacer;
+    box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.3);
+    border: 1px solid $card-bg;
+}
+.sign-up-btn {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+.fpsignup .input-group {
+    margin: 1rem 0;
+}
+.fpsignup .form-control {
+    font-size: 2rem;
+}
+.sign-up-btn button {
+    font-size: 2rem;
+}
+.col-md-4.signinform {
+    padding-left: 0px;
+    padding-right: 20px;
+    margin-right: 15px;
+}
+
+/* Teacher Dashboard */
+div#coursecontrols {
     position: absolute;
-    bottom: 0;
-    width: 100%;
+    top: -51px;
+    right: -1px;
+    padding: 7px 15px 4px 15px;
+    border-top: 5px solid $brand-primary;
+    background-color: $card-bg;
+    border-radius: 10px 10px 0px 0px;
 }
-@media screen and (max-width: 768px) {
-    #page-header .header-position {
-    position: initial;
+
+.teacherdashboard {
+    padding: 1rem;
+}
+.studentdashboard {
+    padding: 1rem;
+}
+.teacherdashbutton {
+    font-size: 16px;
+    float:right;
+    padding:5px 10px;
+    border-radius: $border-radius;
+}
+.teacherdashboard i.dashicon {
+    float:left;
+    padding: 0px 4px;
+}
+.coursestafflisting img.userpicture {
+    margin-right: 0;
+    float: right;
+}
+.thiscoursebutton {
+    font-size: 16px;
+    float:right;
+    padding:5px 10px;
+    border-radius: $border-radius;
+}
+.thiscoursebutton .dropdown-menu {
+    right: -10px;
+    left: initial;
+}
+.editcogbutton {
+    float:right;
+    border-radius: $border-radius;
+}
+.enrollcodebutton {
+    font-size: 16px;
+    float:right;
+    padding:5px 10px;
+    border-radius: $border-radius;
+}
+.teacherdashbutton:hover, .thiscoursebutton:hover, .enrollcodebutton:hover, .editcogbutton:hover {
+    background-color: darken($card-bg, 5%)
+}
+
+@media screen and (max-width: 576px) {
+    div#coursecontrols {
+        position: initial;
     }
-
-}
-.pagelayout-incourse #page-header .header-position {
-    position: initial;
-    bottom: 0;
-    width: 100%;
-}
-
-#page-header .card {
-    background-image: url([[pix:theme|headerbg]]);
-    background-position: center;
-    background-size: cover;
-    height:$headerimagepadding;
-}
-@media screen and (max-width: 768px) {
-    #page-header .card {
-    height: 100%;
+    div#coursecontrols {
+    border-radius: 0px 0px 0px 0px;
     }
-
-}
-.pagelayout-incourse #page-header .card {
-    height: initial;
-}
-
-#page-header .card-block {
-    bottom: 0;
-    width: 100%;
+    .enrollcodebutton {
+    display:none;
+    }
 }
 
-.pagelayout-incourse #page-header .card-block {
-    position: initial;
-    bottom: 0;
-    width: 100%;
+/* Footer */
+ul.footercontact {
+    list-style: none;
 }
 
-#page-header .card-block {padding: .5rem .5rem; margin-bottom:0px}
-#page-header .card {margin-bottom:0px}
+/* Slideshow */
+.slide1image, .slide2image, .slide3image {
+    height: $slideshowheight;
+}
+.carousel-caption.d-none.d-md-block {
+    background: rgba(0,0,0,0.7);
+    border-radius: 1rem 1rem 0 0;
+}
+.carousel-caption {
+    bottom: 0px;
+}
+.carousel-indicators {
+    bottom: 0!important;
+}
 
-.thiscourse {float:left;}
-
+.carousel-indicators li {
+    width: 40px;
+    height: 10px;
+    margin: 0;
+    border-radius: 0px;
+}
+.carousel-indicators .active {
+    width: 40px;
+    height: 10px;
+    margin: 0;
+    background-color: #fff;
+    border-radius: 0px;
+}
+a.left.carousel-control .fa-chevron-left {
+    font-size: 35px;
+    position: absolute;
+    left: 10px;
+    bottom: 40%;
+}
+a.right.carousel-control .fa-chevron-right {
+    font-size: 35px;
+    position: absolute;
+    right: 10px;
+    bottom: 40%;
+}
 
 /* Enhanced Homepage */
-
+.fpwonderbox {
+    margin-bottom:1rem;
+}
 .fpstartwrap {
     margin:0px;
     border-radius: 5px;
@@ -149,9 +263,9 @@ border-radius: 0px 0px $card-border-radius $card-border-radius;
     text-align: left;
     background-color:$fpstartwrap-bg;
     width:100%;
+    text-align:center;
 }
 .fpstart .iconset {
-  float:left;
   display:block;
 }
 
@@ -188,22 +302,6 @@ border-radius: 0px 0px $card-border-radius $card-border-radius;
     border-radius: 5px;
 }
 
-.fptextbox {
-    text-align: left;
-    padding: $spacer;
-}
-
-.fpsearch {
-    text-align: center;
-    padding: $spacer;
-}
-.fpsearch .form-control:focus {
-    background-color: #fff;
-}
-.fpsearch .form-control {
-    background-color: $fpicon-hover;
-}
-
 div#fpslider {
     background-color: $fpstartwrap-bg;
     padding: $spacer;
@@ -226,20 +324,16 @@ div#fpslider {
     margin-bottom: initial;
 }
 
+.markettiles {
+    margin: 1rem 0;
+}
 .market-tile {
-    margin: 1rem;
+    margin: 1rem 0rem;
     background-color: $body-bg;
     padding: 1rem;
     border: 1px solid $gray-base;
-    border-radius: $card-border-radius;
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2);
+    border-top: 7px solid;
 }
-/*
-.markettiles .col-md-4 {
-    padding: 0;
-    margin: 0;
-}
-*/
 .marketcontent {
     padding:1rem; 
     background-color: $markettextbg;
@@ -259,10 +353,26 @@ div#fpslider {
   outline: 1px solid slategrey;
 }
 
+form#enrolform_easy {
+    text-align: center;
+    padding: 20px 0px;
+}
+form#enrolform_easy .input-group-addon.qr-button {
+    font-size: 2rem;
+}
+
+form#enrolform_easy input#enrolform_course_code {
+    font-size: 2rem;
+}
+
+form#enrolform_easy button.btn.btn-primary {
+    font-size: 2rem;
+}
+
 /**
 * Available Courses
 **/
-
+.coursedimmed {background-color: #dedede; }
 .class-box-fp {
     height: $courseboxheight;
     margin: 1rem;
@@ -278,6 +388,7 @@ div#fpslider {
 .class-box-fp .course-title {
     background-color: $card-bg;
     padding: $spacer;
+    padding-top: 2rem;
     margin-bottom: 0;
     text-align: center;
     box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2);
@@ -302,6 +413,19 @@ div#fpslider {
     padding: 1rem;
 }
 
+.course-title {
+    padding-top: 1rem;
+}
+
+.class-list {
+    clear: both;
+}
+
+.coursesmorelink {
+    padding: 1rem;
+}
+
+/*
 .class-box .course-title h4 a:hover {text-decoration: none;}
 
 .class-box .course-title {
@@ -321,13 +445,13 @@ div#fpslider {
 }
 
 .class-box .course-title:hover:after {transform: scaleX(1); }
+*/
 
 .course-image-view {padding-top:10rem;}
 .dash-course-image-view {padding-top:5rem;}
 
 .class-box .course-summary {
-    padding:1rem;
-    max-height: 7rem;
+    height: 3rem;
     overflow:auto;
     margin-bottom: 1rem;
 }
@@ -377,6 +501,25 @@ div#fpslider {
     padding-left:3px;
 }
 
+.courseimagecontainer:hover .course-overlay {
+    opacity: 1;
+}
+
+.courseimagecontainer:hover .course-image-view {
+    opacity: 0.3;
+}
+
+.course-overlay {
+    -webkit-transition: .5s ease;
+    -o-transition: .5s ease;
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    left: 40%;
+    font-size: 5rem;
+    margin-top: -8rem;
+    color: $gray-dark;
+}
 
 /** 
 * TIDY UP 
@@ -385,31 +528,35 @@ div#fpslider {
 #page-badges-mybadges .markettiles {display:none;}
 #page-user-files .fpwonderbox {display:none;}
 
+.p-a-1 {padding: 0 1rem !important;}
+
 .socials_wrapper {
     margin:0 auto;
     .socials {
-        text-align:center;
         margin-bottom:0;
     }
 }
+.socials a:hover{
+    text-decoration:none;
+}
+
 .single-section h3.sectionname {
     text-align: initial;
 }
+
 .pagelayout-incourse #page-navbar .dropdown-toggle {
     display: none;
 }
+
 #region-main .block-region .card {
     box-shadow: initial;
     -webkit-box-shadow: initial;
     border: 0;
 }
 
-//fixes alignment where group icons appear over edit menu
-.action-menu .menubar .dropdown {
-    float: left;
-}
-.course-content ul.topics li.section .left {
-    padding-top: initial;
+//Fix for collapsed topic course format
+body.format-topcoll h3.sectionname:before {
+    display: none;
 }
 
 /* H5P regression fix for editor https://moodle.org/mod/forum/discuss.php?d=347602#p1402801 */
@@ -419,3 +566,26 @@ div#fpslider {
     }
 }
 /* End H5P */
+
+/*.back-to-top {
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display:none;
+    z-index: 2;
+}*/
+
+#back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 2;
+    cursor: pointer;
+    transition: opacity 0.2s ease-out;
+    opacity: 0;
+}
+
+#back-to-top.show {
+    opacity: 1;
+}

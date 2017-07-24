@@ -27,50 +27,62 @@ defined('MOODLE_INTERNAL') || die();
 
 $page = new admin_settingpage('theme_fordson_menusettings', get_string('menusettings', 'theme_fordson'));
 
-// Show hide Course Activity Menu toggle.
-$name = 'theme_fordson/activitymenu';
-$title = get_string('activitymenu', 'theme_fordson');
-$description = get_string('activitymenu_desc', 'theme_fordson');
+// This is the descriptor for Course Management Panel
+$name = 'theme_fordson/coursemanagementinfo';
+$heading = get_string('coursemanagementinfo', 'theme_fordson');
+$information = get_string('coursemanagementinfodesc', 'theme_fordson');
+$setting = new admin_setting_heading($name, $heading, $information);
+$page->add($setting);
+
+// Show/hide coursemanagement slider toggle.
+$name = 'theme_fordson/coursemanagementtoggle';
+$title = get_string('coursemanagementtoggle', 'theme_fordson');
+$description = get_string('coursemanagementtoggle_desc', 'theme_fordson');
 $default = 1;
 $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
 $setting->set_updatedcallback('theme_reset_all_caches');
 $page->add($setting);
-// Show hide user enrollment toggle.
-$name = 'theme_fordson/userenrollmenu';
-$title = get_string('userenrollmenu', 'theme_fordson');
-$description = get_string('userenrollmenu_desc', 'theme_fordson');
+
+// Frontpage Textbox.
+$name = 'theme_fordson/coursemanagementtextbox';
+$title = get_string('coursemanagementtextbox', 'theme_fordson');
+$description = get_string('coursemanagementtextbox_desc', 'theme_fordson');
+$default = '';
+$setting = new admin_setting_confightmleditor($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$page->add($setting);
+
+// Frontpage Textbox.
+$name = 'theme_fordson/studentdashboardtextbox';
+$title = get_string('studentdashboardtextbox', 'theme_fordson');
+$description = get_string('studentdashboardtextbox_desc', 'theme_fordson');
+$default = '';
+$setting = new admin_setting_confightmleditor($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$page->add($setting);
+
+// Show/hide course editing cog.
+$name = 'theme_fordson/courseeditingcog';
+$title = get_string('courseeditingcog', 'theme_fordson');
+$description = get_string('courseeditingcog_desc', 'theme_fordson');
 $default = 0;
 $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
 $setting->set_updatedcallback('theme_reset_all_caches');
 $page->add($setting);
-// Show hide user enrollment toggle.
-$name = 'theme_fordson/groupmanagemenu';
-$title = get_string('groupmanagemenu', 'theme_fordson');
-$description = get_string('groupmanagemenu_desc', 'theme_fordson');
-$default = 0;
+
+// Show/hide course editing cog.
+$name = 'theme_fordson/showstudentgrades';
+$title = get_string('showstudentgrades', 'theme_fordson');
+$description = get_string('showstudentgrades_desc', 'theme_fordson');
+$default = 1;
 $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
 $setting->set_updatedcallback('theme_reset_all_caches');
 $page->add($setting);
-// Show hide user enrollment toggle.
-$name = 'theme_fordson/questionbankmenu';
-$title = get_string('questionbankmenu', 'theme_fordson');
-$description = get_string('questionbankmenu_desc', 'theme_fordson');
-$default = 0;
-$setting = new admin_setting_configcheckbox($name, $title, $description, $default);
-$setting->set_updatedcallback('theme_reset_all_caches');
-$page->add($setting);
-// Show hide user enrollment toggle.
-$name = 'theme_fordson/questioncategorymenu';
-$title = get_string('questioncategorymenu', 'theme_fordson');
-$description = get_string('questioncategorymenu_desc', 'theme_fordson');
-$default = 0;
-$setting = new admin_setting_configcheckbox($name, $title, $description, $default);
-$setting->set_updatedcallback('theme_reset_all_caches');
-$page->add($setting);
-// Show hide user enrollment toggle.
-$name = 'theme_fordson/activitylistingmenu';
-$title = get_string('activitylistingmenu', 'theme_fordson');
-$description = get_string('activitylistingmenu_desc', 'theme_fordson');
+
+// Show/hide course editing cog.
+$name = 'theme_fordson/showstudentcompletion';
+$title = get_string('showstudentcompletion', 'theme_fordson');
+$description = get_string('showstudentcompletion_desc', 'theme_fordson');
 $default = 1;
 $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
 $setting->set_updatedcallback('theme_reset_all_caches');
@@ -126,6 +138,14 @@ $displaycourse = get_string('activateoncoursepage', 'theme_fordson');
 $default = '1';
 $choices = array('1'=>$alwaysdisplay, '2'=>$displayhome, '3'=>$displaycourse);
 $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$page->add($setting);
+
+$name = 'theme_fordson/shownavclosed';
+$title = get_string('shownavclosed', 'theme_fordson');
+$description = get_string('shownavclosed_desc', 'theme_fordson');
+$default = 0;
+$setting = new admin_setting_configcheckbox($name, $title, $description, $default);
 $setting->set_updatedcallback('theme_reset_all_caches');
 $page->add($setting);
 

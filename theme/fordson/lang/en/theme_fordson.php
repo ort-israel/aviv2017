@@ -83,9 +83,8 @@ $string['bodybackground'] = 'Body Background Colour';
 $string['bodybackground_desc'] = 'The main colour to use for the background.';
 $string['footerbg'] = 'Footer Background Colour';
 $string['footerbg_desc'] = 'The background colour of the footer.';
-$string['fpsearch'] = 'Find and Enroll in Courses ';
-$string['headerscreen'] = 'Header Text Background';
-$string['headerscreen_desc'] = 'This background colour appears below the text in the header image area.  This is meant to help make the text and breadcrumbs standout when using a header image.';
+$string['headerscreen'] = 'Header Box Background';
+$string['headerscreen_desc'] = 'This background colour appears in the header area to help separate it from the course content.';
 $string['headingcolor'] = 'Headings Colour';
 $string['headingcolor_desc'] = 'H1,H2,H3,H4,H5.H6 colour settings.';
 $string['headercolor'] = 'Page Header Text Colour';
@@ -109,11 +108,46 @@ $string['backgroundimage'] = 'Default page background image';
 $string['backgroundimage_desc'] = 'Background image for pages';
 $string['loginimage'] = 'Default Login image';
 $string['loginimage_desc'] = 'Background image for login page';
+$string['learningcontentpadding'] = 'Learning Content Spacing';
+$string['learningcontentpadding_desc'] = 'This controls how much space between the top of the page and the main course content. Generally, you want this to be less than the height of the header image.';
+$string['showcourseheaderimage'] = 'Show Course Images';
+$string['showcourseheaderimage_desc'] = 'Allow teachers to customize the course header image by uploading an image file into course settings.';
+$string['headerlogo'] = 'Header Logo';
+$string['headerlogo_desc'] = 'This logo will be displayed at the top of the page in the header area. It uses bootstrap responsive image scaling.';
 
-// Social Networks.
-$string['socialheading'] = 'Social Networking';
-$string['socialheadingsub'] = 'Engage your users with social networking.';
-$string['socialdesc'] = 'Provide direct links to the core social networks that promote your brand.  These will appear in the header of every page.';
+//Slideshow
+$string['slideshowsettings'] = 'Slideshow';
+$string['slideshowheight'] = 'Slideshow Height';
+$string['slideshowheight_desc'] = 'Adjust the height of the slideshow.';
+$string['showslideshow'] = 'Activate Slideshow';
+$string['showslideshow_desc'] = 'Check this option to turn on the slideshow feature.';
+$string['slide1info'] = 'Slide 1';
+$string['slide1infodesc'] = 'Slide 1 details.';
+$string['slide2info'] = 'Slide 2';
+$string['slide2infodesc'] = 'Slide 2 details.';
+$string['slide3info'] = 'Slide 3';
+$string['slide3infodesc'] = 'Slide 3 details.';
+$string['slidetitle'] = 'Slide Title';
+$string['slidetitle_desc'] = 'Enter a title for this slide.';
+$string['slidecontent'] = 'Slide Description';
+$string['slidecontent_desc'] = 'Add a description for this slide.';
+$string['slideimage'] = 'Slide Image';
+$string['slideimage_desc'] = 'Add a background image for this slide.';
+
+
+// Footer
+$string['footerheading'] = 'Footer';
+$string['brandorganization'] = 'Organization Name';
+$string['brandorganizationdesc'] = 'Organization name to appear in the footer.';
+$string['brandwebsite'] = 'Organization Website';
+$string['brandwebsitedesc'] = 'Website address to appear in footer for organization.';
+$string['brandphone'] = 'Organization Phone';
+$string['brandphonedesc'] = 'Phone number to appear in footer.';
+$string['brandemail'] = 'Organization Email';
+$string['brandemaildesc'] = 'Email address for organization that appears in footer.';
+$string['footerheadingsub'] = 'Customize the footer of the homepage';
+$string['footerdesc'] = 'The items below allow you provide branding to the theme footer.';
+$string['footerheadingsocial'] ='Social Icons';
 $string['socialnetworks'] = 'Social Networks';
 $string['facebook'] = 'Facebook URL';
 $string['facebookdesc'] = 'Enter the URL of your Facebook page. (i.e http://www.facebook.com/)';
@@ -156,16 +190,14 @@ $string['fptextbox'] = 'Homepage Textbox Authenticated User';
 $string['fptextbox_desc'] = 'This textbox appears on the homepage once a user authenticates. It is ideal for putting a welcome message and providing instructions for the learner.';
 $string['fptextboxlogout'] = 'Homepage Textbox Visitor';
 $string['fptextboxlogout_desc'] = 'This textbox appears on the homepage for visitors and is ideal for putting a welcome message or link to the login page.';
-$string['searchtoggle'] = 'Show the Homepage Searchbox';
-$string['searchtoggle_desc'] = 'Check this in order to show the homepage searchbox for courses.';
 $string['slidetextbox'] = 'Slide Textbox';
 $string['slidetextbox_desc'] = 'This textbox content will be displayed when the Slide Button is pressed.';
 $string['sectionicon'] = 'Course Section Icon';
-$string['sectionicon_desc'] = 'This allows you to change the icon that appears next to each section in a course.  These are Font-Awesome icons. These appear in the following presets: Default and Evolve-D.';
+$string['sectionicon_desc'] = 'This allows you to change the icon that appears next to each topic/week in a course.  These are Font-Awesome icons.';
 $string['headericon'] = 'Header Title Icon';
-$string['headericon_desc'] = 'This allows you to change the icon that appears in the header area next to the page title. These are Font-Awesome icons. These appear in the following presets: Default and Evolve-D.';
+$string['headericon_desc'] = 'This allows you to change the icon that appears in the header area next to the page title. These are Font-Awesome icons.';
 $string['enablefrontpageavailablecoursebox'] = 'Enable Enhanced Course Display';
-$string['enablefrontpageavailablecoursebox_desc'] = 'Enhanced Course Display will display courses as tiles in a grid and use icons in a grid view for course categories. To use Moodle default presentation uncheck this option.';
+$string['enablefrontpageavailablecoursebox_desc'] = 'Enhanced Course Display will display courses as tiles in a grid. To use Moodle default presentation of courses uncheck this option.';
 $string['courseboxheight'] = 'Frontpage Courses Tile Height';
 $string['courseboxheight_desc'] = 'Control the height of the Course tile on the frontpage.';
 $string['catsicon'] = 'Category Icon';
@@ -177,31 +209,62 @@ $string['trimsummary_desc'] = 'Enter a number to trim the summary length.  This 
 $string['titletooltip'] = 'Course Title Tooltip';
 $string['titletooltip_desc'] = 'If using Trim Course Title you can use tooltips which will display the entire course title in a tooltip.  Check this box to turn on tooltips.';
 $string['dashactivityoverview'] = 'ACTIVITIES OVERVIEW';
+$string['blockwidthfordson'] = 'Block Column Width';
+$string['blockwidthfordson_desc'] = 'Adjust the width of the block column.';
+$string['fpsignup'] = 'Sign In';
+$string['showloginform'] = 'Show Login Form';
+$string['showloginform_desc'] = 'Uncheck this to hide the custom login form on the homepage for logged out users.';
+$string['backtotop'] = 'Back to Top';
+$string['showbacktotop'] = 'Show Back to Top Button';
+$string['showbacktotop_desc'] = 'Uncheck this to hide the Back to Top button in the lower right of the page.';
+$string['activityiconsize'] = 'Activity Icon Size';
+$string['activityiconsize_desc'] = 'Adjust the size of the activity icons used in courses.';
+$string['enablecategoryicon'] = 'Category Display Icons';
+$string['enablecategoryicon_desc'] = 'When checked this will display course categories as icons';
+
+//teacher and student dashboard slider
+$string['userlinks'] = 'User Links';
+$string['userlinks_desc'] = 'Manage your students';
+$string['qbank'] = 'Question Bank';
+$string['qbank_desc'] = 'Create and organize quiz questions';
+$string['badges'] = 'Badges';
+$string['badges_desc'] = 'Award your students';
+$string['coursemanage'] = 'Course Settings';
+$string['coursemanage_desc'] = 'Manage your entire course';
+$string['coursemanagementbutton'] = 'Course Management';
+$string['studentdashbutton'] = 'This Course';
+$string['courseinfo'] = 'Course Description';
+$string['coursestaff'] = 'Course Teachers';
+$string['activitylinkstitle'] = 'Activities';
+$string['activitylinkstitle_desc'] = 'View All Activities in Course';
+$string['myprogresstext'] = 'My Progress';
+$string['mygradestext'] = 'My Grades';
+
 
 // Menu Settings
 $string['menusettings'] = 'Menu settings';
 $string['thiscourse'] = 'This Course';
-$string['thiscourseenroll'] = 'User Enrollment';
-$string['thiscoursegroups'] = 'Group Management';
-$string['thiscoursequestion'] = 'Question Bank';
-$string['thiscoursequestioncat'] = 'Question Categories';
 $string['headerimagepadding'] = 'Header Image Height';
 $string['headerimagepadding_desc'] = 'Control the padding and height of the header image for courses.';
-$string['activitymenu'] = 'Show This Course Drop Down Menu';
-$string['activitymenu_desc'] = 'Show the This Course drop down menu.  This menu appears next to the breadcrumbs and will display a listing of all activities for the student.  You can also customize the menu by clicking on the menu items below to control what will appear.';
+$string['activitymenu'] = 'Show Grouped Activities Menu';
+$string['activitymenu_desc'] = 'Show the grouped activity listings in the student and teacher panels.  This menu displays a grouped list of all activities for the student and teacher.';
 
-$string['userenrollmenu'] = 'Show Enrollment Link';
-$string['userenrollmenu_desc'] = 'Include a link to the Enrollment page in This Course drop down menu.';
-$string['groupmanagemenu'] = 'Show Group Management Link';
-$string['groupmanagemenu_desc'] = 'Include a link to the Group Management page in This Course drop down menu.';
-$string['questioncategorymenu'] = 'Show Question Categories Link';
-$string['questioncategorymenu_desc'] = 'Include a link to the Question Categories page in This Course drop down menu.';
-$string['questionbankmenu'] = 'Show Question Bank Link';
-$string['questionbankmenu_desc'] = 'Include a link to the Question Bank page in This Course drop down menu.';
-$string['activitylistingmenu'] = 'Show Activity Listings';
-$string['activitylistingmenu_desc'] = 'Include a link to show activities in This Course drop down menu.';
+$string['coursemanagementinfo'] = 'Course Management Panel Menu';
+$string['coursemanagementinfodesc'] = 'These settings allow you to display and easy to use course management menu for teachers.  The Course Management Menu now includes the This Course Drop-down, a sliding Course Admin panel, and the ability to include the default Moodle Course Editing Cog.';
+$string['coursemanagementtoggle'] = 'Show Student and Teacher Dashboard Panels';
+$string['coursemanagementtoggle_desc'] = 'This displays an easy to use sliding panel for teachers to manage their course. It will also display a course overview panel for students with grades, course completion, and other items from the course.';
+$string['coursemanagementtextbox'] = 'Course Management Message';
+$string['coursemanagementtextbox_desc'] = 'Add a message for teachers in the course management panel on every course page.';
+$string['studentdashboardtextbox'] = 'Student Dashboard Message';
+$string['studentdashboardtextbox_desc'] = 'Add a message for students in the student dashboard panel on every course page.';
+$string['courseeditingcog'] = 'Show Default Course Settings Menu';
+$string['courseeditingcog_desc'] = 'If using the Course Management Panel the default menu is hidden.  By checking this you can show the default menu as well as the teacher course management panel. This is ideal if using a third party plugin which uses the course menu for access to settings.';
+$string['showstudentcompletion'] = 'Show Student Completion';
+$string['showstudentcompletion_desc'] = 'Show student completion radial in student dashboard panel.  Even with this checked the course must have completion turned on in order to display.';
+$string['showstudentgrades'] = 'Show Student Grades';
+$string['showstudentgrades_desc'] = 'Show student gradebook link in student dashboard panel.  Even with this checked the course must have Show Student Grades turned on in order to display.';
 
-$string['setting_removenodesheading'] = 'Remove Menu Items from the Nav Drawer';
+$string['setting_removenodesheading'] = 'Customize the Nav Drawer';
 $string['setting_removenodesperformancehint'] = 'Technically, this is done by setting the Menu Item\'s showinflatnavigation attribute to false. Thus, the node will only be hidden from the nav drawer, but it will remain in the navigation tree and can still be accessed by other parts of Moodle.';
 $string['setting_removecalendarnode'] = 'Remove "Calendar" Menu Item';
 $string['setting_removecalendarnode_desc'] = 'Enabling this setting will remove the "Calendar" Menu Item from Boost\'s nav drawer.';
@@ -244,7 +307,8 @@ $string['mymodules'] = 'My Modules';
 $string['myclasses'] = 'My Classes';
 $string['noenrolments'] = 'You have no current enrolments';
 $string['siteadminquicklink'] = 'Site Administration';
-
+$string['shownavclosed'] = 'Nav Drawer Closed by Default';
+$string['shownavclosed_desc'] = 'Show the navigation drawer collapsed for all users by default on each page.';
 
 //FP Icon Nav
 $string['navicon1'] = 'Homepage Icon One';
@@ -288,7 +352,7 @@ $string['editoff'] = 'Turn Edit Off';
 
 //Marketing Tiles
 $string['marketingheading'] = 'Marketing Tiles';
-$string['marketinginfodesc'] = 'Enter the settings for your marketing spot.';
+$string['marketinginfodesc'] = 'Enter the settings for your marketing spot.  You must include a title in order for the Marketing Spot to appear.  The title will activate the individual Marketing Spots.';
 $string['marketingheadingsub'] = 'Three locations on the front page to add information and links';
 $string['marketboxcolor'] = 'Marketing Box Background Color';
 $string['marketboxcolor_desc'] = 'The color of the background for the marketing box.';
@@ -306,7 +370,7 @@ $string['marketing4'] = 'Marketing Spot Four';
 $string['marketing5'] = 'Marketing Spot Five';
 $string['marketing6'] = 'Marketing Spot six';
 $string['marketingtitle'] = 'Title';
-$string['marketingtitledesc'] = 'Title to show in this marketing spot';
+$string['marketingtitledesc'] = 'Title to show in this marketing spot.  You must include a title in order for the Marketing Tile to appear.';
 $string['marketingicon'] = 'Link Icon';
 $string['marketingicondesc'] = 'Name of the icon you wish to use in the marketing URL Button. List is <a href="http://fortawesome.github.io/Font-Awesome/cheatsheet/" target="_new">here</a>.  Just enter what is after "fa-", e.g. "star".';
 $string['marketingimage'] = 'Image';

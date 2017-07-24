@@ -35,6 +35,9 @@ use context_course;
 use pix_url;
 use html_writer;
 use heading;
+use pix_icon;
+use image_url;
+use single_select;
 
 require_once($CFG->dirroot . '/course/renderer.php');
 
@@ -47,50 +50,9 @@ require_once($CFG->dirroot . '/course/renderer.php');
  */
 
 if (theme_fordson_get_setting('enablefrontpageavailablecoursebox')) {
-class course_renderer extends \core_course_renderer {
+class course_renderer extends \theme_boost\output\core\course_renderer {
     
     protected $countcategories = 0;
-    
-    /**
-     * Renders html to display a course search form.
-     *
-     * @param string $value default value to populate the search field
-     * @param string $format display format - 'plain' (default), 'short' or 'navbar'
-     * @return string
-     */
-    public function course_search_form($value = '', $format = 'plain') {
-        static $count = 0;
-        $formid = 'coursesearch';
-        if ((++$count) > 1) {
-            $formid .= $count;
-        }
-
-        switch ($format) {
-            case 'navbar' :
-                $formid = 'coursesearchnavbar';
-                $inputid = 'navsearchbox';
-                $inputsize = 20;
-                break;
-            case 'short' :
-                $inputid = 'shortsearchbox';
-                $inputsize = 12;
-                break;
-            default :
-                $inputid = 'coursesearchbox';
-                $inputsize = 30;
-        }
-
-        $data = (object) [
-            'searchurl' => (new moodle_url('/course/search.php'))->out(false),
-            'id' => $formid,
-            'inputid' => $inputid,
-            'inputsize' => $inputsize,
-            'value' => $value
-        ];
-
-        return $this->render_from_template('theme_fordson/course_search_form', $data);
-    }
-    
 
     public function frontpage_available_courses($id=0) {
     	/* available courses */
@@ -116,7 +78,7 @@ class course_renderer extends \core_course_renderer {
     	$header = '
     			<div id="frontpage-course-list">
     				<div class="class-list">
-        				<h2>'.$newcourse.'</h2>
+        				<h4>'.$newcourse.'</h4>
         			</div>
         			<div class="courses frontpage-course-list-all">';
     	
@@ -138,7 +100,7 @@ class course_renderer extends \core_course_renderer {
                     
                     $trimtitle = theme_fordson_course_trim_char($course->fullname, $trimtitlevalue);
 
-    				$noimgurl = $OUTPUT->pix_url('noimg', 'theme');
+    				$noimgurl = $OUTPUT->image_url('noimg', 'theme');
     				$courseurl = new moodle_url('/course/view.php', array('id' => $courseid ));
     
     				if ($course instanceof stdClass) {
@@ -203,26 +165,12 @@ class course_renderer extends \core_course_renderer {
     }
 
     public function view_available_courses($id = 0, $courses = NULL, $totalcount = NULL) {
+
         /* available courses */
         global $CFG, $OUTPUT, $PAGE;
-        require_once($CFG->libdir. '/coursecatlib.php');
-    
-        $chelper = new coursecat_helper();
-        $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED)->set_courses_display_options(array(
-                'recursive' => false,
-                'limit' => $CFG->frontpagecourselimit,
-                'viewmoreurl' => new moodle_url('/course/index.php'),
-                'viewmoretext' => new lang_string('fulllistofcourses')
-        ));
-
-        $chelper->set_attributes(array('class' => 'category-course-list-all'));
-        if (!$courses) {
-            $courses = coursecat::get($id)->get_courses($chelper->get_courses_display_options());
-            $totalcount = coursecat::get($id)->get_courses_count($chelper->get_courses_display_options());
-        }
 
         $rcourseids = array_keys($courses);
-        $acourseids = array_chunk($rcourseids, 3);
+        $acourseids = array_chunk($rcourseids, 4);
         
         if($id!=0){
         $newcourse = get_string('availablecourses');
@@ -232,15 +180,16 @@ class course_renderer extends \core_course_renderer {
 
         $header = '
                 <div id="category-course-list">
+                    <div class="courses category-course-list-all">
+                    <hr>
                     <div class="class-list">
-                        <h2>'.$newcourse.'</h2>
-                    </div>
-                    <div class="courses category-course-list-all">';
+                        <h4>'.$newcourse.'</h4>
+                    </div>';
         
         $content = '';
         
-        $footer = '
-                    </div>
+        $footer = '<hr>
+                   </div>
                 </div>';
     
         if (count($rcourseids) > 0) {
@@ -256,13 +205,15 @@ class course_renderer extends \core_course_renderer {
 
                     $summary = theme_fordson_strip_html_tags($course->summary);
                     $summary = theme_fordson_course_trim_char($summary, $trimsummaryvalue);
-
                     
                     $trimtitle = theme_fordson_course_trim_char($course->fullname, $trimtitlevalue);
     
-                    $noimgurl = $OUTPUT->pix_url('noimg', 'theme');
-                    $courseurl = new moodle_url('/course/view.php', array('id' => $courseid ));
-    
+                    $noimgurl = $OUTPUT->image_url('noimg', 'theme');
+
+                    $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
+
+                    
+                    
                     if ($course instanceof stdClass) {
                         require_once($CFG->libdir. '/coursecatlib.php');
                         $course = new course_in_list($course);
@@ -288,10 +239,11 @@ class course_renderer extends \core_course_renderer {
                             $imgurl = $noimgurl;
                         }
                     }
-                    
-                    
+                   
                    $rowcontent .= '
-                        <div class="col-md-4">
+                        <div class="col-md-3">';
+                    $rowcontent .= html_writer::start_tag('div', array('class' => $course->visible ? '' : 'coursedimmed'));
+                    $rowcontent .= '
                             <div class="class-box">
                                 ';
                                 
@@ -300,33 +252,36 @@ class course_renderer extends \core_course_renderer {
                                 } else {
                                 $tooltiptext = '';
                                 }
-
+                       
                        $rowcontent .= '
-                                    <div class="course-title">
-                                    <h4><a '.$tooltiptext.' href="'.$courseurl.'">'.$trimtitle.'</a></h4>
-                                    </div>
-                                    <a href="'.$courseurl.'">
+                                    <a '.$tooltiptext.' href="'.$courseurl.'">
+                                    <div class="courseimagecontainer">
                                     <div class="course-image-view" style="background-image: url('.$imgurl.');background-repeat: no-repeat;background-size:cover; background-position:center;">
+                                    </div>
+                                    <div class="course-overlay">
+                                    <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="course-title">
+                                    <h4>'.$trimtitle.'</h4>
+                                    </div>
                                     </div>
                                     </a>
                                     <div class="course-summary">
                                     '.$summary.'
                                     </div>
                                 </div>
+                        </div>
                         </div>';
-                        }
-
+                        } 
                 $content .= $rowcontent;
                 $content .= '</div> </div>';
             }
         }
-    
+
         $coursehtml = $header.$content.$footer;
 
-            $coursehtml .= '<br/><br/>';
-            return $coursehtml;
+        return $coursehtml;
     }
-
 
 
     /**
@@ -339,9 +294,13 @@ class course_renderer extends \core_course_renderer {
      * @param int $depth depth of the category in the current tree
      * @return string
      */
-        protected function coursecat_category(coursecat_helper $chelper, $coursecat, $depth) {
+    protected function coursecat_category(coursecat_helper $chelper, $coursecat, $depth) {
+        if (!theme_fordson_get_setting('enablecategoryicon')) {
+            return parent::coursecat_category($chelper, $coursecat, $depth);
+        }
 
         global $CFG, $OUTPUT;
+
         // open category tag
         $classes = array('category');
         if (empty($coursecat->visible)) {
@@ -411,13 +370,85 @@ class course_renderer extends \core_course_renderer {
         }
         ++$this->countcategories;
         return $content;
+    
     }
-         
+    
+    
     protected function coursecat_courses(coursecat_helper $chelper, $courses, $totalcount = null) {
-       
-            $categoryid = optional_param('categoryid', 0, PARAM_INT);
-            $content = '<div class="clearfix"></div>';
+        
+        global $CFG;
+
+        if ($totalcount === null) {
+            $totalcount = count($courses);
+        }
+        if (!$totalcount) {
+            // Courses count is cached during courses retrieval.
+            return '';
+        }
+
+        if ($chelper->get_show_courses() == self::COURSECAT_SHOW_COURSES_AUTO) {
+            // In 'auto' course display mode we analyse if number of courses is more or less than $CFG->courseswithsummarieslimit
+            if ($totalcount <= $CFG->courseswithsummarieslimit) {
+                $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED);
+            } else {
+                $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_COLLAPSED);
+            }
+        }
+
+        // prepare content of paging bar if it is needed
+        $paginationurl = $chelper->get_courses_display_option('paginationurl');
+        $paginationallowall = $chelper->get_courses_display_option('paginationallowall');
+        if ($totalcount > count($courses)) {
+            // there are more results that can fit on one page
+            if ($paginationurl) {
+                // the option paginationurl was specified, display pagingbar
+                $perpage = $chelper->get_courses_display_option('limit', $CFG->coursesperpage);
+                $page = $chelper->get_courses_display_option('offset') / $perpage;
+                $pagingbar = $this->paging_bar($totalcount, $page, $perpage,
+                        $paginationurl->out(false, array('perpage' => $perpage)));
+                if ($paginationallowall) {
+                    $pagingbar .= html_writer::tag('div', html_writer::link($paginationurl->out(false, array('perpage' => 'all')),
+                            get_string('showall', '', $totalcount)), array('class' => 'paging paging-showall'));
+                }
+            } else if ($viewmoreurl = $chelper->get_courses_display_option('viewmoreurl')) {
+                // the option for 'View more' link was specified, display more link
+                $viewmoretext = $chelper->get_courses_display_option('viewmoretext', new lang_string('viewmore'));
+                $morelink = html_writer::tag('div', html_writer::tag('a', html_writer::start_tag('i', array('class' => 'fa-graduation-cap' . ' fa fa-fw')) .
+                html_writer::end_tag('i') . $viewmoretext, array('href' => $viewmoreurl, 'class' => 'btn btn-primary coursesmorelink')), array('class' => 'paging paging-morelink'));
+                
+            }
+        } else if (($totalcount > $CFG->coursesperpage) && $paginationurl && $paginationallowall) {
+            // there are more than one page of results and we are in 'view all' mode, suggest to go back to paginated view mode
+            $pagingbar = html_writer::tag('div', html_writer::link($paginationurl->out(false, array('perpage' => $CFG->coursesperpage)),
+                get_string('showperpage', '', $CFG->coursesperpage)), array('class' => 'paging paging-showperpage'));
+        }
+
+        // display list of courses
+        $attributes = $chelper->get_and_erase_attributes('courses');
+        $content = html_writer::start_tag('div', $attributes);
+
+        if (!empty($pagingbar)) {
+            $content .= $pagingbar;
+        }
+        $categoryid = optional_param('categoryid', 0, PARAM_INT);
+        $coursecount = 0;
+
             $content .= $this->view_available_courses($categoryid, $courses, $totalcount);
+        
+
+        if (!empty($pagingbar)) {
+            $content .= $pagingbar;
+        }
+        if (!empty($morelink)) {
+            $content .= $morelink;
+        }
+
+        $content .= html_writer::end_tag('div'); // .courses
+
+       
+            
+            $content .= '<div class="clearfix"></div>';
+
             return $content;
     }
   

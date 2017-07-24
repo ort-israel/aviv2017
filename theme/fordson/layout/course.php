@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 user_preference_allow_ajax_update('drawer-open-nav', PARAM_ALPHA);
 require_once($CFG->libdir . '/behat/lib.php');
 
-if (isloggedin()) {
+if (isloggedin() && $PAGE->theme->settings->shownavclosed==0) {
     $navdraweropen = (get_user_preferences('drawer-open-nav', 'true') == 'true');
 } else {
     $navdraweropen = false;
@@ -43,6 +43,7 @@ $regionmainsettingsmenu = $OUTPUT->region_main_settings_menu();
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
     'output' => $OUTPUT,
+    'showbacktotop' => $PAGE->theme->settings->showbacktotop==1,
     'sidepreblocks' => $blockshtml,
     'hasblocks' => $hasblocks,
     'bodyattributes' => $bodyattributes,
@@ -57,6 +58,11 @@ fordson_local_navigation_extend_navigation($PAGE->navigation);
 } else if($PAGE->theme->settings->toggledrawermenu==3) {
 fordson_boostnavigation_extend_navigation($PAGE->navigation);
 fordson_local_navigation_extend_navigation($PAGE->navigation);
+}
+
+if ($PAGE->theme->settings->showbacktotop==1) {
+$PAGE->requires->jquery();
+$PAGE->requires->js('/theme/fordson/javascript/scrolltotop.js');
 }
 
 $templatecontext['flatnavigation'] = $PAGE->flatnav;

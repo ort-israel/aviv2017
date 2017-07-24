@@ -31,13 +31,9 @@ $page = new admin_settingpage('theme_fordson_images', get_string('imagesettings'
 $name = 'theme_fordson/headerimagepadding';
 $title = get_string('headerimagepadding', 'theme_fordson');
 $description = get_string('headerimagepadding_desc', 'theme_fordson');;
-$default = '275px';
+$default = '500px';
 $choices = array(
         '100px' => '100px',
-        '105px' => '105px',
-        '110px' => '110px',
-        '115px' => '115px',
-        '120px' => '120px',
         '125px' => '125px',
         '150px' => '150px',
         '175px' => '175px',
@@ -50,8 +46,41 @@ $choices = array(
         '350px' => '350px',
         '375px' => '375px',
         '400px' => '400px',
+        '425px' => '425px',
+        '450px' => '450px',
+        '475px' => '475px',
+        '500px' => '500px',
+        '525px' => '525px',
+        '550px' => '550px',
+        '575px' => '575px',
+        '600px' => '600px',
+        '625px' => '625px',
+        '650px' => '650px',
+        '675px' => '675px',
+        '700px' => '700px',
+        '725px' => '725px',
+        '750px' => '750px',
+        '775px' => '775px',
+        '800px' => '800px',
     );
 $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$page->add($setting);
+
+// Show hide user enrollment toggle.
+$name = 'theme_fordson/showcourseheaderimage';
+$title = get_string('showcourseheaderimage', 'theme_fordson');
+$description = get_string('showcourseheaderimage_desc', 'theme_fordson');
+$default = 1;
+$setting = new admin_setting_configcheckbox($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$page->add($setting);
+
+// logo image.
+$name = 'theme_fordson/headerlogo';
+$title = get_string('headerlogo', 'theme_fordson');
+$description = get_string('headerlogo_desc', 'theme_fordson');
+$setting = new admin_setting_configstoredfile($name, $title, $description, 'headerlogo');
 $setting->set_updatedcallback('theme_reset_all_caches');
 $page->add($setting);
 
@@ -78,7 +107,6 @@ $description = get_string('loginimage_desc', 'theme_fordson');
 $setting = new admin_setting_configstoredfile($name, $title, $description, 'loginimage');
 $setting->set_updatedcallback('theme_reset_all_caches');
 $page->add($setting);
-
 
 // Must add the page after definiting all the settings!
 $settings->add($page);

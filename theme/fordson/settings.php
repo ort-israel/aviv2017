@@ -38,15 +38,16 @@ defined('MOODLE_INTERNAL') || die();
 
 if ($ADMIN->fulltree) {
     // Note new tabs layout for admin settings pages.
-    $settings = new theme_fordson_admin_settingspage_tabs('themesettingfordson', get_string('configtitle', 'theme_fordson'));
+    $settings = new theme_boost_admin_settingspage_tabs('themesettingfordson', get_string('configtitle', 'theme_fordson'));
 
     require('settings/presets_settings.php');
     require('settings/colours_settings.php');
     require('settings/menu_settings.php');
     require('settings/content_settings.php');
     require('settings/image_settings.php');
-    require('settings/socialicons_settings.php');
+    require('settings/footer_settings.php');
     require('settings/fpicons_settings.php');
     require('settings/markettiles_settings.php');
+    require('settings/slideshow_settings.php');
 
 }
