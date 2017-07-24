@@ -327,6 +327,24 @@ $string['footertitledesc'] = 'Title to show in this footer spot.';
 $string['footercontent'] = 'Content';
 $string['footercontentdesc'] = 'Content to show in this footer spot';
 
+// Logos Settings.
+$string['logos_settings'] = 'Logos settings';
+$string['logos_headingsub'] = 'Primary and Secondary Logos.';
+$string['logos_desc'] = 'Insert the primary and secondary logos.';
+$string['logo_primary'] = 'Insert the primary logo.';
+$string['logo_primary_desc'] = 'Insert the primary logos.';
+$string['logo_secondary'] = 'Insert the secondary logo.';
+$string['logo_secondary_desc'] = 'Insert the secondary logos.';
+
+
 //Alerts
 $string['alert'] = 'Homepage Alert';
 $string['alert_desc'] = 'This is a special alert message that will appear on the homepage.';
+
+// Aviv2018 specific strings
+$string['region-above-content'] = 'Middle';
+$string['statisticstitle'] = 'The campus in Numbers';
+$string['courses'] = 'Courses';
+$string['teachers'] = 'Teachers';
+$string['students'] = 'Studentss';
+

@@ -39,13 +39,17 @@ if ($navdraweropen) {
 
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 $blockshtml = $OUTPUT->blocks('side-pre');
+$blocksabovecontent = $OUTPUT->blocks('above-content');
 $hasblocks = strpos($blockshtml, 'data-block=') !== false;
+$hasabovecontentblocks = strpos($blocksabovecontent, 'data-block=') !== false;
 $regionmainsettingsmenu = $OUTPUT->region_main_settings_menu();
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, array('context' => context_course::instance(SITEID))),
     'output' => $OUTPUT,
     'sidepreblocks' => $blockshtml,
     'hasblocks' => $hasblocks,
+    'abovecontentblocks' => $blocksabovecontent,
+    'hasabovecontentblocks' => $hasabovecontentblocks,
     'bodyattributes' => $bodyattributes,
     'navdraweropen' => $navdraweropen,
     'regionmainsettingsmenu' => $regionmainsettingsmenu,

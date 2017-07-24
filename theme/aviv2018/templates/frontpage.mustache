@@ -52,7 +52,7 @@
 <html {{{ output.htmlattributes }}}>
 <head>
     <title>{{{ output.page_title }}}</title>
-    <link rel="shortcut icon" href="{{{ output.favicon }}}" />
+    <link rel="shortcut icon" href="{{{ output.favicon }}}"/>
     {{{ output.standard_head_html }}}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -69,28 +69,34 @@
         {{{ output.full_header }}}
 
         <div id="page-content" class="row">
+            {{#hasabovecontentblocks}}
+                <div id="region-above-main-blocks" class="col-xs-12">
+                    {{{ abovecontentblocks }}}
+                </div>
+            {{/hasabovecontentblocks}}
             <div id="region-main-box" class="col-xs-12">
                 {{#hasregionmainsettingsmenu}}
-                <div id="region-main-settings-menu" class="hidden-print {{#hasblocks}}has-blocks{{/hasblocks}}">
-                    <div> {{{ output.region_main_settings_menu }}} </div>
-                </div>
+                    <div id="region-main-settings-menu" class="hidden-print {{#hasblocks}}has-blocks{{/hasblocks}}">
+                        <div> {{{ output.region_main_settings_menu }}} </div>
+                    </div>
                 {{/hasregionmainsettingsmenu}}
                 <section id="region-main" {{#hasblocks}}class="has-blocks"{{/hasblocks}}>
                     <div class="card card-block">
-                    {{#hasregionmainsettingsmenu}}
-                        <div class="region_main_settings_menu_proxy"></div>
-                    {{/hasregionmainsettingsmenu}}
-                    {{{ output.course_content_header }}}
-                    {{{ output.fp_wonderbox }}}
-                    {{{ output.main_content }}}
-                    {{{ output.fp_marketingtiles }}}
-                    {{{ output.course_content_footer }}}
+                        {{#hasregionmainsettingsmenu}}
+                            <div class="region_main_settings_menu_proxy"></div>
+                        {{/hasregionmainsettingsmenu}}
+                        {{{ output.course_content_header }}}
+                        {{! output.fp_wonderbox }}
+                        {{{ output.main_content }}}
+                        {{{ output.fp_marketingtiles }}}
+                        {{{ output.fp_statistics }}}
+                        {{{ output.course_content_footer }}}
                     </div>
                 </section>
                 {{#hasblocks}}
-                <section data-region="blocks-column" class="hidden-print">
-                    {{{ sidepreblocks }}}
-                </section>
+                    <section data-region="blocks-column" class="hidden-print">
+                        {{{ sidepreblocks }}}
+                    </section>
                 {{/hasblocks}}
             </div>
         </div>
@@ -126,9 +132,9 @@
 </body>
 </html>
 {{#js}}
-require(['theme_boost/loader']);
-require(['jquery','theme_boost/tooltip'], function($){$('[data-toggle="tooltip"]').tooltip()});
-require(['theme_boost/drawer'], function(mod) {
+    require(['theme_boost/loader']);
+    require(['jquery','theme_boost/tooltip'], function($){$('[data-toggle="tooltip"]').tooltip()});
+    require(['theme_boost/drawer'], function(mod) {
     mod.init();
-});
+    });
 {{/js}}

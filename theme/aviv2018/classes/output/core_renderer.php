@@ -36,12 +36,12 @@ use paging_bar;
 use url_select;
 use context_course;
 use pix_icon;
+use theme_config;
 
 defined('MOODLE_INTERNAL') || die;
 
-require_once($CFG->dirroot . '/blocks/course_overview/locallib.php');
-require_once($CFG->dirroot . "/course/renderer.php");
-require_once($CFG->libdir . '/coursecatlib.php');
+require_once($CFG->dirroot ."/course/renderer.php");
+require_once($CFG->libdir.'/coursecatlib.php');
 
 /**
  * Renderers to align Moodle's HTML with that expected by Bootstrap
@@ -64,6 +64,7 @@ class core_renderer extends \core_renderer {
      * @return string the HTML to output.
      */
     public function box_start($classes = 'generalbox', $id = null, $attributes = array()) {
+
         if (is_array($classes)) {
             $classes = implode(' ', $classes);
         }
@@ -130,12 +131,12 @@ class core_renderer extends \core_renderer {
                 width: 100%; height: 100%;'));
         }
         $html .= html_writer::start_div('header-position');
-        $html .= html_writer::start_div('headerfade');
+        //$html .= html_writer::start_div('headerfade');
         $html .= html_writer::start_div('card-block');
         $html .= html_writer::div($this->context_header_settings_menu(), 'pull-xs-right context-header-settings-menu');
         $html .= html_writer::start_div('pull-xs-left');
         $html .= $this->context_header();
-        $html .= html_writer::end_div();
+        $html .= html_writer::end_div(); // End pull-xs-left
         $pageheadingbutton = $this->page_heading_button();
         if (empty($PAGE->layout_options['nonavbar'])) {
             $html .= html_writer::start_div('clearfix w-100 pull-xs-left', array('id' => 'page-navbar'));
@@ -152,7 +153,7 @@ class core_renderer extends \core_renderer {
             $html .= html_writer::end_div(); // End withimage inline style div.
         }
         $html .= html_writer::end_div(); // End card.
-        $html .= html_writer::end_div(); // End card.
+        //$html .= html_writer::end_div(); // End card headerfade.
         $html .= html_writer::end_div(); // End card.
         $html .= html_writer::end_div(); // End col-xs-12 p-a-1.
         $html .= html_writer::end_tag('header');
@@ -222,9 +223,10 @@ class core_renderer extends \core_renderer {
         global $SITE;
 
         if ($this->should_display_main_logo($headinglevel)) {
-            $sitename = format_string($SITE->fullname, true, array('context' => context_course::instance(SITEID)));
-            return html_writer::div(html_writer::empty_tag('img', [
-                'src' => $this->get_logo_url(null, 150), 'alt' => $sitename]), 'logo');
+            return '';/* Lea 2017/07 - Don't show logo in header. Deleted code:
+             $sitename = format_string($SITE->fullname, true, array('context' => context_course::instance(SITEID)));
+             html_writer::div(html_writer::empty_tag('img', [
+                'src' => $this->get_logo_url(null, 150), 'alt' => $sitename]), 'logo');*/
         }
 
         return parent::context_header($headerinfo, $headinglevel);
@@ -363,6 +365,14 @@ class core_renderer extends \core_renderer {
                 $branchlabel = $branchtitle;
                 $branchurl = new moodle_url('/admin/search.php');
                 $branch = $menu->add($branchlabel, $branchurl, $branchtitle);
+            }
+
+            /* Add logo - Lea */
+            if (empty($imgurl)) {
+                $imgurl = $this->page->theme->setting_file_url('headerdefaultimage', 'headerdefaultimage', true);
+                if (!$imgurl) {
+                    //$imgurl = $noimgurl;
+                }
             }
         }
 
@@ -1245,11 +1255,60 @@ class core_renderer extends \core_renderer {
         return $this->render_from_template('theme_aviv2018/fpmarkettiles', $fp_marketingtiles);
     }
 
+
+    /**
+     * @return bool|string
+     */
+    public function fp_statistics() {
+        global $DB;
+        /* Get Cours Count*/
+        $coursecount = $DB->count_records('course'); // Get course count
+
+        /* Get teacher count - editingteacher + teacher */
+        $teacherrole = $DB->get_records_list('role', 'shortname', array('editingteacher', 'teacher'), '', 'id');
+        $teacherroleids = array_column($teacherrole, 'id');
+        // because we want to get the count of 2 kinds of teachers, we create the sql query ourselves
+        //list($cnd, $params) = $DB->get_in_or_equal($teacherroleids);
+        $teachercountsql = "SELECT id FROM mdl_role_assignments WHERE roleid in (" . implode($teacherroleids, ',') . ")";
+        $teachercount = isset($teacherrole) ? count($DB->get_records_sql($teachercountsql, $teacherroleids)) : '';
+
+        /* Get student count - student */
+        $studentrole = $DB->get_record('role', array('shortname' => 'student'), 'id');
+        $studentcount = isset($teacherrole) ? $DB->count_records('role_assignments', array('roleid' => $studentrole->id)) : '';
+
+        /* Get strings*/
+        $statisticstitle = get_string('statisticstitle', 'theme_aviv2018');
+        $statisticscourses = get_string('courses', 'theme_aviv2018');
+        $statisticsteachers = get_string('teachers', 'theme_aviv2018');
+        $statisticsstudents = get_string('students', 'theme_aviv2018');
+
+        /* Build object to be read by mustache */
+        $fp_statistics = ['statisticstitle' => $statisticstitle,
+            'statisticscourses' => $statisticscourses, 'statisticsteachers' => $statisticsteachers, 'statisticsstudents' => $statisticsstudents,
+            'coursecount' => $coursecount, 'teachercount' => $teachercount, 'studentcount' => $studentcount];
+        return $this->render_from_template('theme_aviv2018/fpstatistics', $fp_statistics);
+    }
+
+    /**
+     * Put logo in top menu. Called from header.mustache
+     * Lea 2017/7. Code taken from earlier function context_header
+     */
+    public function get_campus_primary_logo_url() {
+        global $PAGE;
+        $headerbg = $PAGE->theme->setting_file_url('logo_primary', 'logo_primary');
+        $headerbg = $this->get_logo_url(null, 150);
+        /*echo $headerbg;
+        echo $this->get_logo_url(null, 150);*/
+        return $headerbg; //$this->get_logo_url(null, 150);
+    }
+
     public
     function footnote() {
         global $PAGE;
         $footnote = '';
         $footnote = (empty($PAGE->theme->settings->footnote)) ? false : format_text($PAGE->theme->settings->footnote);
+        /* Add constatn footer message - Lea 2017/06 */
+        $footnote .= (!empty($PAGE->theme->settings->footer1)) ? $PAGE->theme->settings->footer1 : '';
 
 
         return $footnote;
