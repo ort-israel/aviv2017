@@ -29,9 +29,31 @@ This means when Moodle updates the core Boost theme those changes will be applie
 # Install from Github
 Click on the button to "Clone or Download" https://github.com/dbnschools/moodle-theme_fordson . When downloaded to your computer, unzip it. It should create a folder named "moodle-theme_fordson-master". Rename the folder so that it is "fordson" (without quotes). You can FTP that folder to your moodle site in /moodle/theme/ directory. Or you can create a new ZIP file of the "fordson" folder and upload and install it via the Plugin Administration in Site Administration. 
 
+## Fordson Moodle 33 1.5.8
+* Fixed issue where site uses custom roles to define teacher and non-editing teacher roles.  This caused Fordson to not identify the teacher role to display contact information to the student in the student "This Course" panel. This caused Fordson to display all users of the course as teachers.  This fix will show no users as teachers.  In file classes/output/core_renderer.php you can find code comments on where you should change the teacher and non-editing teacher shortnames to match your customized roles around lines 775 and 797.
+
+## Fordson Moodle 33 1.5.7
+* New Activity Completion Report Link was added to the teacher dashboard panel just below Participants link. 
+* Unique CSS classes for student buttons in This Course dashboard.  Can be used to hide the Course Administration button for students if not needed.
+* Fixed issue with $gradeslink variable for dashboard template.  Used same name twice.  Changed variable for grade view student to $gradeslinkstudent.
+
+## Fordson Moodle 33 1.5.6
+* New Course Style 4 is exactly the same as style one but adds a course summary back into the display.  This was at the request of a user.  It is the only course display option that includes a course summary.
+* New Add Activity/Resource picker feature- Control the "Add an Activity or Resource" panel in courses.  Using a comma separated list you can add a list of top or commonly used activities or choose to only show custom items.  This gives you control over what items a teacher can use and how they are presented (ordering) to the teacher.  Special thanks to Oliver Jackson at https://www.hillbrook.qld.edu.au/.  I saw he had forked Fordson on Github and had added some customizations.  This being one of them.  This is a great feature!
+* New Custom Label for Activity/Resource custom menu of modules.  This allows you to call the module label whatever you want. "Top Modules", "Most Used Activities", "Learning Tools", etc are examples.
+* New permissions for Activity/Resource menu.  If restricted, teachers will only see the custom menu.  However, with the new checkbox you can allow users with the role of Manager to see all acitivities and resources.  Site Administrators will always see all menu items regardless of settings.
+* Added Participants link for teachers in the course management panel.  This is still available in the nav drawer for students.  Since Moodle has announced the possible merging of participants and users I am holding off on any further integrations until we see what happens.
+
+## Fordson Moodle 33 1.5.5
+* New Feature:  Pick from 3 different styles to display courses on the frontpage as well as course category and search pages.  Each style has unique look and feel.  
+* Cleaned up some of the content area settings page to group settings.
+* Course Tile Height setting now applies to all three styles as well as anywhere the course tile may appear.
+* New setting to control the spacing on the sides of the main content box.  
+* CSS and styling fixes.
+* Added teacher names to course tile display.  Removed course summary.  May revisit in future if I can find a cleaner way to all the information in a small tiled box. Our students need to see the teacher name to identify the proper course.
+
 ## Fordson Moodle 33 1.5.4
 * Added option to toggle on/off course category icons.  The icons were removed in previous version but we realize some may find them useful and better than the Moodle default.  
-
 
 ## Fordson Moodle 33 1.5.3 2017062200
 * Major change to course directory listings.  We opted to remove the icon display of categories.  User feedback suggested this was too many clicks and a useability issue when browsing for a course.  Instead of icons, we kept courses displayed as boxes and used the default Moodle list category display which allows the user to collapse and expand to view courses as boxes.  This makes browsing courses MUCH faster and easier for the user.

@@ -37,10 +37,12 @@ $blockwidthfordson: 280px !default;
 $slideshowheight: 250px !default;
 $activityiconsize: 36px !default;
 $activityhover: #fff6ae !default;
+$gutterwidth: 6rem !default;
 
 /**
 * Layout Header
 **/
+
 #page-header h1 {
     font-weight:600;
     color: $header-color;
@@ -54,7 +56,7 @@ $activityhover: #fff6ae !default;
 
 @media screen and (min-width: 992px) {
 #page.container-fluid {
-    padding: 0 6rem !important;
+    padding: 0 $gutterwidth  !important;
 }
 }
 
@@ -69,6 +71,7 @@ $activityhover: #fff6ae !default;
     width:100%;
     box-shadow: 0px 3px 5px 1px rgba(0,0,0,0.7);
 }
+
 div#learningcontent {
     position:relative;
     margin-top: $learningcontentpadding;
@@ -92,6 +95,7 @@ div#learningcontent {
 .headerlogo {
     background-color: $headerfade-bg;
 }
+
 .headerlogo img {
     padding: $spacer;
 }
@@ -108,7 +112,13 @@ div#learningcontent {
     }
 }
 
+.moodle-dialogue-bd div[role="alert"] {
+    background-color: $brand-danger;
+    padding: 1rem;
+}
+
 /* login on frontpage */
+
 .fpsignup {
     border-radius: $border-radius;
     background-color: $gray-lightest;
@@ -116,19 +126,24 @@ div#learningcontent {
     box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.3);
     border: 1px solid $card-bg;
 }
+
 .sign-up-btn {
     margin-top: 2rem;
     margin-bottom: 1rem;
 }
+
 .fpsignup .input-group {
     margin: 1rem 0;
 }
+
 .fpsignup .form-control {
     font-size: 2rem;
 }
+
 .sign-up-btn button {
     font-size: 2rem;
 }
+
 .col-md-4.signinform {
     padding-left: 0px;
     padding-right: 20px;
@@ -136,6 +151,7 @@ div#learningcontent {
 }
 
 /* Teacher Dashboard */
+
 div#coursecontrols {
     position: absolute;
     top: -51px;
@@ -149,43 +165,52 @@ div#coursecontrols {
 .teacherdashboard {
     padding: 1rem;
 }
+
 .studentdashboard {
     padding: 1rem;
 }
+
 .teacherdashbutton {
     font-size: 16px;
     float:right;
     padding:5px 10px;
     border-radius: $border-radius;
 }
+
 .teacherdashboard i.dashicon {
     float:left;
     padding: 0px 4px;
 }
+
 .coursestafflisting img.userpicture {
     margin-right: 0;
     float: right;
 }
+
 .thiscoursebutton {
     font-size: 16px;
     float:right;
     padding:5px 10px;
     border-radius: $border-radius;
 }
+
 .thiscoursebutton .dropdown-menu {
     right: -10px;
     left: initial;
 }
+
 .editcogbutton {
     float:right;
     border-radius: $border-radius;
 }
+
 .enrollcodebutton {
     font-size: 16px;
     float:right;
     padding:5px 10px;
     border-radius: $border-radius;
 }
+
 .teacherdashbutton:hover, .thiscoursebutton:hover, .enrollcodebutton:hover, .editcogbutton:hover {
     background-color: darken($card-bg, 5%)
 }
@@ -203,21 +228,26 @@ div#coursecontrols {
 }
 
 /* Footer */
+
 ul.footercontact {
     list-style: none;
 }
 
 /* Slideshow */
+
 .slide1image, .slide2image, .slide3image {
     height: $slideshowheight;
 }
+
 .carousel-caption.d-none.d-md-block {
     background: rgba(0,0,0,0.7);
     border-radius: 1rem 1rem 0 0;
 }
+
 .carousel-caption {
     bottom: 0px;
 }
+
 .carousel-indicators {
     bottom: 0!important;
 }
@@ -228,6 +258,7 @@ ul.footercontact {
     margin: 0;
     border-radius: 0px;
 }
+
 .carousel-indicators .active {
     width: 40px;
     height: 10px;
@@ -235,12 +266,14 @@ ul.footercontact {
     background-color: #fff;
     border-radius: 0px;
 }
+
 a.left.carousel-control .fa-chevron-left {
     font-size: 35px;
     position: absolute;
     left: 10px;
     bottom: 40%;
 }
+
 a.right.carousel-control .fa-chevron-right {
     font-size: 35px;
     position: absolute;
@@ -249,13 +282,16 @@ a.right.carousel-control .fa-chevron-right {
 }
 
 /* Enhanced Homepage */
+
 .fpwonderbox {
     margin-bottom:1rem;
 }
+
 .fpstartwrap {
     margin:0px;
     border-radius: 5px;
 }
+
 .fpstart {
     display: inline-block;
     border-radius: 2px;
@@ -265,6 +301,7 @@ a.right.carousel-control .fa-chevron-right {
     width:100%;
     text-align:center;
 }
+
 .fpstart .iconset {
   display:block;
 }
@@ -279,6 +316,7 @@ a.right.carousel-control .fa-chevron-right {
     background-color: $fpicon-icon;
     border-radius: 5px;
 }
+
 .fpiconcreate {
     display: inline-block;
     margin: 5px;
@@ -289,13 +327,17 @@ a.right.carousel-control .fa-chevron-right {
     background-color: $brand-success;
     border-radius: 5px;
 }
+
 .fpicon a {color: $fpicon-colour;}
+
 .fpiconcreate a {color: $fpicon-colour;}
+
 .fpicon:hover {
     background-color: $fpicon-hover;
     padding: 5px;
     border-radius: 5px;
 }
+
 .fpiconcreate:hover {
     background-color: $brand-danger;
     padding: 5px;
@@ -312,6 +354,7 @@ div#fpslider {
 .alertbox {
     text-align:center;
 }
+
 .alertmessage {
     display:inline-block;
     background-color: $brand-warning;
@@ -319,6 +362,7 @@ div#fpslider {
     padding: 15px;
     margin: 20px;
 }
+
 .alertmessage p{
     margin-top: initial;
     margin-bottom: initial;
@@ -327,6 +371,7 @@ div#fpslider {
 .markettiles {
     margin: 1rem 0;
 }
+
 .market-tile {
     margin: 1rem 0rem;
     background-color: $body-bg;
@@ -334,6 +379,7 @@ div#fpslider {
     border: 1px solid $gray-base;
     border-top: 7px solid;
 }
+
 .marketcontent {
     padding:1rem; 
     background-color: $markettextbg;
@@ -341,13 +387,16 @@ div#fpslider {
     overflow:auto;
     margin-bottom: 1rem;
 }
+
 .marketcontent::-webkit-scrollbar {
     width: 7px;
 }
+
 .marketcontent::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 7px rgba(0,0,0,0.3);
     border-radius: 5%;
 }
+
 .marketcontent::-webkit-scrollbar-thumb {
   background-color: darkgrey;
   outline: 1px solid slategrey;
@@ -357,6 +406,7 @@ form#enrolform_easy {
     text-align: center;
     padding: 20px 0px;
 }
+
 form#enrolform_easy .input-group-addon.qr-button {
     font-size: 2rem;
 }
@@ -372,10 +422,9 @@ form#enrolform_easy button.btn.btn-primary {
 /**
 * Available Courses
 **/
-.coursedimmed {background-color: #dedede; }
+
 .class-box-fp {
     height: $courseboxheight;
-    margin: 1rem;
     background-color: $body-bg;
     padding: 1rem;
     border: 1px solid $body-bg;
@@ -405,12 +454,18 @@ form#enrolform_easy button.btn.btn-primary {
 
 .class-box-fp .course-title:hover:after  {transform: scaleX(1); }
 
+.courseimagecontainer {
+    height: calc(45%);
+}
+
 .class-box {
     margin-bottom: 2rem;
     border: 1px solid $card-bg;
     border-radius: $card-border-radius;
     box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.3);
     padding: 1rem;
+    height: $courseboxheight;
+    overflow: hidden;
 }
 
 .course-title {
@@ -425,43 +480,27 @@ form#enrolform_easy button.btn.btn-primary {
     padding: 1rem;
 }
 
-/*
-.class-box .course-title h4 a:hover {text-decoration: none;}
-
-.class-box .course-title {
-    padding-top: $spacer;
-    padding-bottom: 0px;
-    margin-bottom: 0px;
-    text-align: center;
+.course-image-view {
+    height: 100%;
 }
 
-.class-box .course-title:after {
-    text-decoration: none;
-    display:block;
-    content: '';
-    border-bottom: solid 1rem $brand-primary;  
-    transform: scaleX(0);  
-    transition: transform 250ms ease-in-out;
-}
-
-.class-box .course-title:hover:after {transform: scaleX(1); }
-*/
-
-.course-image-view {padding-top:10rem;}
 .dash-course-image-view {padding-top:5rem;}
 
 .class-box .course-summary {
-    height: 3rem;
+    height: 4rem;
     overflow:auto;
     margin-bottom: 1rem;
 }
+
 .class-box .course-summary::-webkit-scrollbar {
     width: 7px;
 }
+
 .class-box .course-summary::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 7px rgba(0,0,0,0.3);
     border-radius: 5%;
 }
+
 .class-box .course-summary::-webkit-scrollbar-thumb {
     background-color: darken($brand-primary, 15%);
     outline: 1px solid slategrey;
@@ -517,9 +556,134 @@ form#enrolform_easy button.btn.btn-primary {
     position: absolute;
     left: 40%;
     font-size: 5rem;
-    margin-top: -8rem;
+    margin-top: -7rem;
     color: $gray-dark;
 }
+
+.coursestyle2 {
+    width: 100%;
+    height: $courseboxheight;
+    background-color: #000;
+    color: #fff;
+    text-align: left;
+    font-size: 16px;
+    -webkit-box-shadow: 0 0 5px rgba(0,0,0,.15);
+    box-shadow: 0 0 5px rgba(0,0,0,.15);
+}
+
+.coursedimmed1 {
+    background-color: rgba(150,150,150,0.9);
+
+}
+
+.coursedimmed2 {
+    background-color: rgba(150,150,150,0.9);
+    height: 100%;
+}
+
+.coursedimmed3 {
+    background-color: rgba(150,150,150,.9);
+    padding: 1rem;
+}
+
+.class-box-courseview {
+    background-color: #dae6e5;
+    border: 1px solid #dae6e5;
+    -webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    height: 100%;
+}
+
+.coursestyle2 * {
+  -webkit-transition: all 0.35s;
+  transition: all 0.35s;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.coursestyle2 figcaption {
+  position: absolute;
+  height: 98px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  overflow: hidden;
+  padding: 15px;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.coursestyle2 h3 {
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  margin: 3px 0;
+}
+
+a.coursestyle2url {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+a.coursestyle3url {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.coursestyle2:hover figcaption,
+.coursestyle2.hover figcaption {
+  height: calc(100%);
+}
+
+.coursestyle2:hover p.course-summary::-webkit-scrollbar {
+    width: 7px;
+}
+
+.coursestyle2:hover p.course-summary::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 7px rgba(0,0,0,0.3);
+    border-radius: 5%;
+}
+
+.coursestyle2:hover p.course-summary::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+@media screen and (min-width: 992px) {
+    .coursestyle2:hover p.course-summary,
+    .coursestyle2.hover p.course-summary {
+      overflow-y: auto;
+      height: 5rem;
+    }
+}
+
+.coursestyle2 .course-card {
+    margin-top: 4rem;
+}
+
+.coursestyle2:hover .course-card {
+    margin-top: 0rem;
+}
+
+ul.teacherscourseview {
+    list-style-type: none;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.tilecontainer {
+    position: relative;
+    margin: 3rem 0 2rem 0;
+}
+
 
 /** 
 * TIDY UP 
@@ -529,6 +693,19 @@ form#enrolform_easy button.btn.btn-primary {
 #page-user-files .fpwonderbox {display:none;}
 
 .p-a-1 {padding: 0 1rem !important;}
+
+.glossarycontrol span.helplink {
+    padding: 1rem;
+    background-color: $body-bg;
+    border-radius: $border-radius;
+}
+
+.quizattemptcounts {
+    padding: 1rem;
+    background-color: $body-bg;
+    border-radius: $border-radius;
+}
+
 
 .socials_wrapper {
     margin:0 auto;
@@ -567,15 +744,6 @@ body.format-topcoll h3.sectionname:before {
 }
 /* End H5P */
 
-/*.back-to-top {
-    cursor: pointer;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display:none;
-    z-index: 2;
-}*/
-
 #back-to-top {
     position: fixed;
     bottom: 20px;
@@ -588,4 +756,31 @@ body.format-topcoll h3.sectionname:before {
 
 #back-to-top.show {
     opacity: 1;
+}
+
+
+
+
+/* Fix print page for Assignments */
+
+@media print {
+
+    .path-mod-assign [data-region="grade-panel"] {
+        position: relative !important;
+    }
+
+    .gradingform_rubric .criterion .levels .level.checked {
+        background-color: #ccc;
+        -webkit-print-color-adjust: exact;
+    }
+    .editor_atto_content {
+        position: relative !important;
+        -webkit-print-color-adjust: exact;
+        display: block !important;
+    }
+
+    .path-mod-assign [data-region="user-info"] .nowrap {
+    padding: 3rem;
+    }
+
 }

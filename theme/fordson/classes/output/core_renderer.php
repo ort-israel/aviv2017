@@ -677,9 +677,13 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $easycodelink = new moodle_url('/enrol/editinstance.php', array('courseid' => $PAGE->course->id, 'id' => $easyenrollinstance->id, 'type' =>'easy'));
         }
         $gradestitle = get_string('gradesoverview', 'gradereport_overview');
-        $gradeslink = new moodle_url('/grade/report/grader/index.php', array('id' => $PAGE->course->id));
+        $gradeslink = new moodle_url('/grade/report/index.php', array('id' => $PAGE->course->id));
         $enroltitle = get_string('enrolledusers', 'enrol');
         $enrollink = new moodle_url('/enrol/users.php', array('id' => $PAGE->course->id));
+        $participantstitle = get_string('participants', 'moodle');
+        $participantslink = new moodle_url('/user/index.php', array('id' => $PAGE->course->id));
+        $activitycompletiontitle = get_string('activitycompletion', 'completion');
+        $activitycompletionlink = new moodle_url('/report/progress/index.php', array('course' => $PAGE->course->id));
         $grouptitle = get_string('groups', 'group');
         $grouplink = new moodle_url('/group/index.php', array('id' => $PAGE->course->id));
         $enrolmethodtitle = get_string('enrolmentinstances', 'enrol');
@@ -749,7 +753,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $progresschart = $this->render_from_template('block_myoverview/progress-chart', $progresschartcontext);
             $gradeslink = new moodle_url('/grade/report/user/index.php', array('id' => $PAGE->course->id));
 
-
+            $gradeslinkstudent = new moodle_url('/grade/report/user/index.php', array('id' => $PAGE->course->id));
             $hascourseinfogroup = array (
                 'title' => get_string('courseinfo', 'theme_fordson'),
                 'icon' => 'map'
@@ -767,44 +771,49 @@ class core_renderer extends \theme_boost\output\core_renderer {
             );
             $courseteachers = array();
             $courseother = array();
+            //If you created custom roles, please change the shortname value to match the name of your role.  This is teacher.
             $role = $DB->get_record('role', array('shortname' => 'editingteacher'));
-            $context = context_course::instance($PAGE->course->id);
-            $teachers = get_role_users($role->id, $context, false,
-                'u.id, u.firstname, u.middlename, u.lastname, u.alternatename,
-                u.firstnamephonetic, u.lastnamephonetic, u.email, u.picture,
-                u.imagealt');
+            if($role){
+                $context = context_course::instance($PAGE->course->id);
+                $teachers = get_role_users($role->id, $context, false,
+                    'u.id, u.firstname, u.middlename, u.lastname, u.alternatename,
+                    u.firstnamephonetic, u.lastnamephonetic, u.email, u.picture,
+                    u.imagealt');
 
-            foreach ($teachers as $staff) {
-                $picture = $OUTPUT->user_picture($staff, array('size' => 50));
-                $messaging = new moodle_url('/message/index.php', array('id' => $staff->id));
-                $hasmessaging = $CFG->messaging==1;
-                $courseteachers[] = array (
-                    'name' => $staff->firstname . ' ' . $staff->lastname . ' ' . $staff->alternatename,
-                    'email' => $staff->email,
-                    'picture' => $picture,
-                    'messaging' => $messaging,
-                    'hasmessaging' => $hasmessaging
-                );
+                foreach ($teachers as $staff) {
+                    $picture = $OUTPUT->user_picture($staff, array('size' => 50));
+                    $messaging = new moodle_url('/message/index.php', array('id' => $staff->id));
+                    $hasmessaging = $CFG->messaging==1;
+                    $courseteachers[] = array (
+                        'name' => $staff->firstname . ' ' . $staff->lastname . ' ' . $staff->alternatename,
+                        'email' => $staff->email,
+                        'picture' => $picture,
+                        'messaging' => $messaging,
+                        'hasmessaging' => $hasmessaging
+                    );
+                }
             }
+            //If you created custom roles, please change the shortname value to match the name of your role.  This is non-editing teacher.
             $role = $DB->get_record('role', array('shortname' => 'teacher'));
-            $context = context_course::instance($PAGE->course->id);
-            $teachers = get_role_users($role->id, $context, false,
-                'u.id, u.firstname, u.middlename, u.lastname, u.alternatename,
-                u.firstnamephonetic, u.lastnamephonetic, u.email, u.picture,
-                u.imagealt');
-            foreach ($teachers as $staff) {
-                $picture = $OUTPUT->user_picture($staff, array('size' => 50));
-                $messaging = new moodle_url('/message/index.php', array('id' => $staff->id));
-                $hasmessaging = $CFG->messaging==1;
-                $courseother[] = array (
-                    'name' => $staff->firstname . ' ' . $staff->lastname,
-                    'email' => $staff->email,
-                    'picture' => $picture,
-                    'messaging' => $messaging,
-                    'hasmessaging' => $hasmessaging
-                );
+            if($role){
+                $context = context_course::instance($PAGE->course->id);
+                $teachers = get_role_users($role->id, $context, false,
+                    'u.id, u.firstname, u.middlename, u.lastname, u.alternatename,
+                    u.firstnamephonetic, u.lastnamephonetic, u.email, u.picture,
+                    u.imagealt');
+                foreach ($teachers as $staff) {
+                    $picture = $OUTPUT->user_picture($staff, array('size' => 50));
+                    $messaging = new moodle_url('/message/index.php', array('id' => $staff->id));
+                    $hasmessaging = $CFG->messaging==1;
+                    $courseother[] = array (
+                        'name' => $staff->firstname . ' ' . $staff->lastname,
+                        'email' => $staff->email,
+                        'picture' => $picture,
+                        'messaging' => $messaging,
+                        'hasmessaging' => $hasmessaging
+                    );
+                }
             }
-
             $activitylinkstitle = get_string('activitylinkstitle', 'theme_fordson');
             $activitylinkstitle_desc = get_string('activitylinkstitle_desc', 'theme_fordson');
             $mygradestext = get_string('mygradestext', 'theme_fordson');
@@ -842,6 +851,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         'coursemanagementmessage' =>$coursemanagementmessage,
         'progresschart' => $progresschart,
         'gradeslink' => $gradeslink,
+        'gradeslinkstudent' => $gradeslinkstudent,
         'hascourseinfogroup' => $hascourseinfogroup,
         'courseinfo' => $courseinfo,
         'hascoursestaffgroup' => $hascoursestaff,
@@ -861,6 +871,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
         'dashlinks' => array(
                 array('hasuserlinks' => $gradestitle, 'title' => $gradestitle, 'url' => $gradeslink),
                 array('hasuserlinks' => $enroltitle, 'title' => $enroltitle, 'url' => $enrollink),
+                array('hasuserlinks' => $participantstitle, 'title' => $participantstitle, 'url' => $participantslink),
+                array('hasuserlinks' => $activitycompletiontitle, 'title' => $activitycompletiontitle, 'url' => $activitycompletionlink),
                 array('hasuserlinks' => $grouptitle, 'title' => $grouptitle, 'url' => $grouplink),
                 array('hasuserlinks' => $enrolmethodtitle, 'title' => $enrolmethodtitle, 'url' => $enrolmethodlink),
                 array('hasuserlinks' => $logstitle, 'title' => $logstitle, 'url' => $logslink),

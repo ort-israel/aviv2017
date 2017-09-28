@@ -183,6 +183,15 @@ $string['sociallinkicon'] = 'Link Icon';
 $string['sociallinkicondesc'] = 'Enter the fontawesome name of the icon for your link<br />A full list of FontAwesome icons can be found at http://fontawesome.io/icons/';
 
 // Content settings.
+
+$string['coursetileinfo'] = 'Course Display Options';
+$string['coursetileinfodesc'] = 'These settings allow you to customize how courses will be displayed on the frontpage as well as course categories.';
+$string['textcontentinfo'] = 'Custom Content';
+$string['textcontentinfodesc'] = 'Use the textboxes below to add a customized information for users.';
+$string['generalcontentinfo'] = 'General Content Display Settings';
+$string['generalcontentinfodesc'] = 'The options below help you customize the way content is displayed and turn on additional features for Fordson.';
+$string['enrollcoursecard'] = 'Enroll';
+
 $string['contentsettings'] = 'Content areas';
 $string['footnote'] = 'Footnote';
 $string['footnotedesc'] = 'Footnote content editor for main footer';
@@ -198,8 +207,8 @@ $string['headericon'] = 'Header Title Icon';
 $string['headericon_desc'] = 'This allows you to change the icon that appears in the header area next to the page title. These are Font-Awesome icons.';
 $string['enablefrontpageavailablecoursebox'] = 'Enable Enhanced Course Display';
 $string['enablefrontpageavailablecoursebox_desc'] = 'Enhanced Course Display will display courses as tiles in a grid. To use Moodle default presentation of courses uncheck this option.';
-$string['courseboxheight'] = 'Frontpage Courses Tile Height';
-$string['courseboxheight_desc'] = 'Control the height of the Course tile on the frontpage.';
+$string['courseboxheight'] = 'Course Tile Height';
+$string['courseboxheight_desc'] = 'Control the height of the Course tile on the frontpage and course categories.';
 $string['catsicon'] = 'Category Icon';
 $string['catsicon_desc'] = 'Choose an icon to represent course categories.';
 $string['trimtitle'] = 'Trim Course Title';
@@ -221,6 +230,14 @@ $string['activityiconsize'] = 'Activity Icon Size';
 $string['activityiconsize_desc'] = 'Adjust the size of the activity icons used in courses.';
 $string['enablecategoryicon'] = 'Category Display Icons';
 $string['enablecategoryicon_desc'] = 'When checked this will display course categories as icons';
+$string['coursestyle1'] = 'Style One';
+$string['coursestyle2'] = 'Style Two';
+$string['coursestyle3'] = 'Style Three';
+$string['coursestyle4'] = 'Style Four w/course summary';
+$string['coursetilestyle'] = 'Course Tile Display';
+$string['coursetilestyle_desc'] = 'When viewing course categories you can choose from the following styles to display courses.';
+$string['gutterwidth'] = 'Content Padding';
+$string['gutterwidth_desc'] = 'This setting controls how much spacing is used on the left and right of the main content.';
 
 //teacher and student dashboard slider
 $string['userlinks'] = 'User Links';
@@ -396,3 +413,21 @@ $string['markettextbg_desc'] = 'Background colour for the text area of the marke
 //Alerts
 $string['alert'] = 'Homepage Alert';
 $string['alert_desc'] = 'This is a special alert message that will appear on the homepage.';
+
+// OCJ HILLBROOK MOD
+// modchooser extensions strings
+$string['modchoosersettingspage'] = 'Activities/Resources';
+$string['commonlyused'] = 'Customized activity and resource modules.';
+$string['commonlyuseddesc'] = 'Comma separated list of activities/resources to list at top of Activity/Resource Picker.<br>
+Default Activities:<br>
+assign,chat,choice,data,feedback,forum,glossary,lesson,lti,quiz,scorm,survey,wiki,workshop<br>
+DEfault Resources:<br>
+book,file,folder,imscp,label,page,resource,url';
+$string['modchoosercommonlyused'] = 'Commonly Used';
+$string['showonlycustomactivities'] = 'Show Only Custom Menu';
+$string['showonlycustomactivities_desc'] = 'If checked only the custom menu will be displayed.  This allows an organization to pick and choose which activities and resources will be used in courses. WARNING:  You must have a comma separated list of activities/resources set in the textbox above.  Otherwise you will not see any activities or resources when editing a course.';
+$string['modchoosercommonlyusedtitle'] = '{$a}';
+$string['modchoosercustomlabel'] = 'Custom Chooser Label';
+$string['modchoosercustomlabel_desc'] = 'Add your own custom label for this new menu in the Chooser Module panel.';
+$string['showalltomanager'] = 'Show All Activities and Resources to Managers';
+$string['showalltomanager_desc'] = 'This setting will allow users who have the role of Manager see and access ALL activities and resources even if it is set to only show the custom menu.  Generally, a manager role is given to a user at the site or category level.  Teachers will still only see the custom menu.  This feature is determined by the user permission: View the Site Administration Tree - moodle/site:configview . Site Administrators will always see all activities and resources.';
