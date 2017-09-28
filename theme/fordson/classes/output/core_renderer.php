@@ -62,7 +62,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
     public function full_header() {
 
         global $PAGE, $COURSE;
-        
+
         $html = html_writer::start_tag('header', array('id' => 'page-header', 'class' => 'row'));
         $html .= html_writer::start_div('col-xs-12 p-a-1');
         $html .= html_writer::start_div('card');
@@ -105,7 +105,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
     public function headerimage() {
         global $CFG, $COURSE, $PAGE, $OUTPUT;
                 // Get course overview files.
-        
+
         if (empty($CFG->courseoverviewfileslimit)) {
             return '';
         }
@@ -182,7 +182,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $html .= html_writer::end_div();
 
         return $html;
-        
+
     }
 
 
@@ -234,9 +234,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $branchlabel = $branchtitle;
             $branchurl   = new moodle_url('/my/index.php');
             $branchsort  = 10000;
- 
+
             $branch = $menu->add($branchlabel, $branchurl, $branchtitle, $branchsort);
-            
+
             if ($courses = enrol_get_my_courses(NULL, 'fullname ASC')) {
                 foreach ($courses as $course) {
                     if ($course->visible){
@@ -282,7 +282,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         return $content;
     }
-        
+
 
     protected function render_thiscourse_menu(custom_menu $menu) {
         global $CFG;
@@ -310,7 +310,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
                 foreach ($data as $modname => $modfullname) {
                     if ($modname === 'resources') {
-                        
+
                         $branch->add($modfullname, new moodle_url('/course/resources.php', array('id' => $PAGE->course->id)));
                     } else {
 
@@ -318,7 +318,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                                 array('id' => $PAGE->course->id)));
                     }
                 }
-                
+
         }
 
         return $this->render_thiscourse_menu($menu);
@@ -392,7 +392,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $hasslideicon   = (empty($PAGE->theme->settings->slideicon && isloggedin() && !isguestuser())) ? false : $PAGE->theme->settings->slideicon;
         $slideiconbuttonurl   = 'data-toggle="collapse" data-target="#collapseExample';
         $slideiconbuttontext   = (empty($PAGE->theme->settings->slideiconbuttontext)) ? false : $PAGE->theme->settings->slideiconbuttontext;
-        
+
         $hasnav1icon    = (empty($PAGE->theme->settings->nav1icon && isloggedin() && !isguestuser())) ? false : $PAGE->theme->settings->nav1icon;
         $hasnav2icon     = (empty($PAGE->theme->settings->nav2icon && isloggedin() && !isguestuser())) ? false : $PAGE->theme->settings->nav2icon;
         $hasnav3icon  = (empty($PAGE->theme->settings->nav3icon && isloggedin() && !isguestuser())) ? false : $PAGE->theme->settings->nav3icon;
@@ -401,7 +401,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $hasnav6icon      = (empty($PAGE->theme->settings->nav6icon && isloggedin() && !isguestuser())) ? false : $PAGE->theme->settings->nav6icon;
         $hasnav7icon        = (empty($PAGE->theme->settings->nav7icon && isloggedin() && !isguestuser())) ? false : $PAGE->theme->settings->nav7icon;
         $hasnav8icon   = (empty($PAGE->theme->settings->nav8icon && isloggedin() && !isguestuser())) ? false : $PAGE->theme->settings->nav8icon;
-        
+
         $nav1buttonurl   = (empty($PAGE->theme->settings->nav1buttonurl)) ? false : $PAGE->theme->settings->nav1buttonurl;
         $nav2buttonurl   = (empty($PAGE->theme->settings->nav2buttonurl)) ? false : $PAGE->theme->settings->nav2buttonurl;
         $nav3buttonurl   = (empty($PAGE->theme->settings->nav3buttonurl)) ? false : $PAGE->theme->settings->nav3buttonurl;
@@ -410,7 +410,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $nav6buttonurl   = (empty($PAGE->theme->settings->nav6buttonurl)) ? false : $PAGE->theme->settings->nav6buttonurl;
         $nav7buttonurl   = (empty($PAGE->theme->settings->nav7buttonurl)) ? false : $PAGE->theme->settings->nav7buttonurl;
         $nav8buttonurl   = (empty($PAGE->theme->settings->nav8buttonurl)) ? false : $PAGE->theme->settings->nav8buttonurl;
-        
+
         $nav1buttontext   = (empty($PAGE->theme->settings->nav1buttontext)) ? false : format_text($PAGE->theme->settings->nav1buttontext);
         $nav2buttontext   = (empty($PAGE->theme->settings->nav2buttontext)) ? false : format_text($PAGE->theme->settings->nav2buttontext);
         $nav3buttontext   = (empty($PAGE->theme->settings->nav3buttontext)) ? false : format_text($PAGE->theme->settings->nav3buttontext);
@@ -419,7 +419,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $nav6buttontext   = (empty($PAGE->theme->settings->nav6buttontext)) ? false : format_text($PAGE->theme->settings->nav6buttontext);
         $nav7buttontext   = (empty($PAGE->theme->settings->nav7buttontext)) ? false : format_text($PAGE->theme->settings->nav7buttontext);
         $nav8buttontext   = (empty($PAGE->theme->settings->nav8buttontext)) ? false : format_text($PAGE->theme->settings->nav8buttontext);
-        
+
         $fptextbox  = (empty($PAGE->theme->settings->fptextbox && isloggedin())) ? false : format_text($PAGE->theme->settings->fptextbox);
         $fptextboxlogout  = (empty($PAGE->theme->settings->fptextboxlogout && !isloggedin())) ? false : format_text($PAGE->theme->settings->fptextboxlogout);
         $slidetextbox  = (empty($PAGE->theme->settings->slidetextbox && isloggedin())) ? false : format_text($PAGE->theme->settings->slidetextbox);
@@ -431,7 +431,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $marketing1buttonurl  = (empty($PAGE->theme->settings->marketing1buttonurl)) ? false : $PAGE->theme->settings->marketing1buttonurl;
         $marketing1target  = (empty($PAGE->theme->settings->marketing1target)) ? false : $PAGE->theme->settings->marketing1target;
         $marketing1image = (empty($PAGE->theme->settings->marketing1image)) ? false : 'marketing1image';
-        
+
         $hasmarketing2  = (empty($PAGE->theme->settings->marketing2 && $PAGE->theme->settings->togglemarketing == 1)) ? false : format_text($PAGE->theme->settings->marketing2);
         $marketing2content  = (empty($PAGE->theme->settings->marketing2content)) ? false : format_text($PAGE->theme->settings->marketing2content);
         $marketing2buttontext  = (empty($PAGE->theme->settings->marketing2buttontext)) ? false : format_text($PAGE->theme->settings->marketing2buttontext);
@@ -451,7 +451,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $marketing4buttontext  = (empty($PAGE->theme->settings->marketing4buttontext)) ? false : format_text($PAGE->theme->settings->marketing4buttontext);
         $marketing4buttonurl  = (empty($PAGE->theme->settings->marketing4buttonurl)) ? false : $PAGE->theme->settings->marketing4buttonurl;
         $marketing4target  = (empty($PAGE->theme->settings->marketing4target)) ? false : $PAGE->theme->settings->marketing4target;
-        $marketing4image = (empty($PAGE->theme->settings->marketing4image)) ? false : 'marketing4image'; 
+        $marketing4image = (empty($PAGE->theme->settings->marketing4image)) ? false : 'marketing4image';
 
         $hasmarketing5  = (empty($PAGE->theme->settings->marketing5 && $PAGE->theme->settings->togglemarketing == 1)) ? false : format_text($PAGE->theme->settings->marketing5);
         $marketing5content  = (empty($PAGE->theme->settings->marketing5content)) ? false : format_text($PAGE->theme->settings->marketing5content);
@@ -467,7 +467,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $marketing6target  = (empty($PAGE->theme->settings->marketing6target)) ? false : $PAGE->theme->settings->marketing6target;
         $marketing6image = (empty($PAGE->theme->settings->marketing6image)) ? false : 'marketing6image';
 
-        
+
         $fp_wonderboxcontext = [
 
             'hasfptextbox' => (!empty($PAGE->theme->settings->fptextbox && isloggedin())),
@@ -514,8 +514,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
             ),
 
         ];
-    
-        
+
+
         return $this->render_from_template('theme_fordson/fpwonderbox', $fp_wonderboxcontext);
 
     }
@@ -529,7 +529,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $marketing1buttonurl  = (empty($PAGE->theme->settings->marketing1buttonurl)) ? false : $PAGE->theme->settings->marketing1buttonurl;
         $marketing1target  = (empty($PAGE->theme->settings->marketing1target)) ? false : $PAGE->theme->settings->marketing1target;
         $marketing1image = (empty($PAGE->theme->settings->marketing1image)) ? false : 'marketing1image';
-        
+
         $hasmarketing2  = (empty($PAGE->theme->settings->marketing2 && $PAGE->theme->settings->togglemarketing == 2)) ? false : format_text($PAGE->theme->settings->marketing2);
         $marketing2content  = (empty($PAGE->theme->settings->marketing2content)) ? false : format_text($PAGE->theme->settings->marketing2content);
         $marketing2buttontext  = (empty($PAGE->theme->settings->marketing2buttontext)) ? false : format_text($PAGE->theme->settings->marketing2buttontext);
@@ -549,7 +549,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $marketing4buttontext  = (empty($PAGE->theme->settings->marketing4buttontext)) ? false : format_text($PAGE->theme->settings->marketing4buttontext);
         $marketing4buttonurl  = (empty($PAGE->theme->settings->marketing4buttonurl)) ? false : $PAGE->theme->settings->marketing4buttonurl;
         $marketing4target  = (empty($PAGE->theme->settings->marketing4target)) ? false : $PAGE->theme->settings->marketing4target;
-        $marketing4image = (empty($PAGE->theme->settings->marketing4image)) ? false : 'marketing4image'; 
+        $marketing4image = (empty($PAGE->theme->settings->marketing4image)) ? false : 'marketing4image';
 
         $hasmarketing5  = (empty($PAGE->theme->settings->marketing5 && $PAGE->theme->settings->togglemarketing == 2)) ? false : format_text($PAGE->theme->settings->marketing5);
         $marketing5content  = (empty($PAGE->theme->settings->marketing5content)) ? false : format_text($PAGE->theme->settings->marketing5content);
@@ -603,7 +603,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $slide3 = (empty($PAGE->theme->settings->slide3title)) ? false : format_text($PAGE->theme->settings->slide3title);
         $slide3content = (empty($PAGE->theme->settings->slide3content)) ? false : format_text($PAGE->theme->settings->slide3content);
         $showtext3 = (empty($PAGE->theme->settings->slide3title)) ? false : format_text($PAGE->theme->settings->slide3title);
-        
+
         $fp_slideshow = [
 
             'hasfpslideshow' => $slideshowon,
@@ -650,14 +650,14 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $haseditcog = $PAGE->theme->settings->courseeditingcog;
         $editcog = html_writer::div($this->context_header_settings_menu(), 'pull-xs-right context-header-settings-menu');
         $thiscourse = $this->thiscourse_menu();
-        $showincourseonly = isset($COURSE->id) && $COURSE->id > 1 && $PAGE->theme->settings->coursemanagementtoggle && isloggedin() && !isguestuser(); 
+        $showincourseonly = isset($COURSE->id) && $COURSE->id > 1 && $PAGE->theme->settings->coursemanagementtoggle && isloggedin() && !isguestuser();
         $globalhaseasyenrollment = enrol_get_plugin('easy');
         $coursehaseasyenrollment = '';
         if($globalhaseasyenrollment) {
             $coursehaseasyenrollment = $DB->record_exists('enrol', array('courseid' => $COURSE->id, 'enrol' => 'easy'));
             $easyenrollinstance = $DB->get_record('enrol', array('courseid' => $COURSE->id, 'enrol' => 'easy'));
         }
-        
+
         //link catagories
         $haspermission = has_capability('enrol/category:config', $context) && $PAGE->theme->settings->coursemanagementtoggle && isset($COURSE->id) && $COURSE->id > 1;
         $userlinks = get_string('userlinks', 'theme_fordson');
@@ -670,7 +670,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $coursemanagedesc = get_string('coursemanage_desc', 'theme_fordson');
         $coursemanagementmessage = (empty($PAGE->theme->settings->coursemanagementtextbox)) ? false : format_text($PAGE->theme->settings->coursemanagementtextbox);
         $studentdashboardtextbox = (empty($PAGE->theme->settings->studentdashboardtextbox)) ? false : format_text($PAGE->theme->settings->studentdashboardtextbox);
-        
+
         //user links
         if($coursehaseasyenrollment && isset($COURSE->id) && $COURSE->id > 1){
             $easycodetitle = get_string('header_coursecodes', 'enrol_easy');
@@ -684,7 +684,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $grouplink = new moodle_url('/group/index.php', array('id' => $PAGE->course->id));
         $enrolmethodtitle = get_string('enrolmentinstances', 'enrol');
         $enrolmethodlink = new moodle_url('/enrol/instances.php', array('id' => $PAGE->course->id));
-        
+
         //user reports
         $logstitle = get_string('logs', 'moodle');
         $logslink = new moodle_url('/report/log/index.php', array('id' => $PAGE->course->id));
@@ -704,7 +704,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $qimportlink = new moodle_url('/question/import.php', array('courseid' => $PAGE->course->id));
         $qexporttitle = get_string('export', 'question');
         $qexportlink = new moodle_url('/question/export.php', array('courseid' => $PAGE->course->id));
-        
+
         //manage course
         $courseadmintitle = get_string('courseadministration', 'moodle');
         $courseadminlink = new moodle_url('/course/admin.php', array('courseid' => $PAGE->course->id));
@@ -720,13 +720,13 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $courseimportlink = new moodle_url('/backup/import.php', array('id' => $PAGE->course->id));
         $courseedittitle = get_string('editcoursesettings', 'moodle');
         $courseeditlink = new moodle_url('/course/edit.php', array('id' => $PAGE->course->id));
-        
+
         //badges
         $badgemanagetitle = get_string('managebadges', 'badges');
         $badgemanagelink = new moodle_url('/badges/index.php?type=2', array('id' => $PAGE->course->id));
         $badgeaddtitle = get_string('newbadge', 'badges');
         $badgeaddlink = new moodle_url('/badges/newbadge.php?type=2', array('id' => $PAGE->course->id));
-        
+
         //misc
         $recyclebintitle = get_string('pluginname', 'tool_recyclebin');
         $recyclebinlink = new moodle_url('/admin/tool/recyclebin/index.php', array('contextid' => $PAGE->context->id));
@@ -748,7 +748,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             ];
             $progresschart = $this->render_from_template('block_myoverview/progress-chart', $progresschartcontext);
             $gradeslink = new moodle_url('/grade/report/user/index.php', array('id' => $PAGE->course->id));
-            
+
 
             $hascourseinfogroup = array (
                 'title' => get_string('courseinfo', 'theme_fordson'),
@@ -818,7 +818,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $hasuserpermission = has_capability('moodle/course:viewhiddenactivities', $context);
             $hasgradebookshow = $PAGE->course->showgrades == 1 && $PAGE->theme->settings->showstudentgrades == 1;
             $hascompletionshow = $PAGE->course->enablecompletion == 1 && $PAGE->theme->settings->showstudentgrades == 1;
-            
+
 
         //send to template
         $dashlinks = [
@@ -889,9 +889,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
         if ($globalhaseasyenrollment && $coursehaseasyenrollment) {
             $dashlinks['dashlinks'][] = array('haseasyenrollment' => $coursehaseasyenrollment, 'title' => $easycodetitle, 'url' => $easycodelink);
 
-        } 
+        }
             return $this->render_from_template('theme_fordson/teacherdash', $dashlinks );
-        
+
     }
 
     public function footnote() {
