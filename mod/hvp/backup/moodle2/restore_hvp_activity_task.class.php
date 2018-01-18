@@ -109,4 +109,23 @@ class restore_hvp_activity_task extends restore_activity_task {
 
         return $rules;
     }
+
+    /**
+     * Encodes URLs to the index.php and view.php scripts
+     * Added by Lea 2018 (from Nadav)
+     *
+     * @param string $content some HTML text that eventually contains URLs to the activity instance scripts
+     * @return string the content with the URLs encoded
+     */
+    static public function encode_content_links($content) {
+        global $CFG;
+        $base = preg_quote($CFG->wwwroot,"/");
+        // Link to the list of glossaries
+        $search="/(".$base."\/mod\/hvp\/index.php\?id\=)([0-9]+)/";
+        $content= preg_replace($search, '$@HVPINDEX*$2@$', $content);
+        // Link to hvp view by moduleid
+        $search="/(".$base."\/mod\/hvp\/view.php\?id\=)([0-9]+)/";
+        $content= preg_replace($search, '$@HVPVIEWBYID*$2@$', $content);
+        return $content;
+    }
 }
