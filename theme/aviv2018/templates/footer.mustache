@@ -1,0 +1,37 @@
+<footer id="page-footer" class="bg-inverse">
+    <div class="row">
+        <div id="course-footer" class="col-md-4 footer-section">
+            <h3>{{#str}}footnoteabouttitle, theme_aviv2018{{/str}}</h3>
+            {{{ output.footer_about }}}
+        </div>
+        <div id="footer-details" class="col-md-4 footer-section">
+            <h3>{{{ output.footer_details_title }}}</h3>
+            <ul >
+                <li>{{{ output.footer_address }}}</li>
+                <li>{{#str}}email, theme_aviv2018{{/str}}: {{{ output.footer_email }}}</li>
+                <li>{{#str}}phone, theme_aviv2018{{/str}}: {{{ output.footer_phone }}}</li>
+                <li><a href="{{{ output.footer_tutorials_link_url }}}">{{#str}}tutorials, theme_aviv2018{{/str}}</a>
+                </li>
+            </ul>
+        </div>
+        <div id="footer-icons" class="col-md-4 footer-section footer-icons">
+            <ul class="row">
+                <li class="col-xs-8 col-md-12 col-xl-6 campus-logo"><a href="{{{ config.wwwroot }}}">
+                    <img src="{{{ config.wwwroot }}}/theme/aviv2018/pix/footer_logo_campus.png" alt="{{sitename}}"></a>
+                </li>
+                <li class="col-xs-4 col-md-8 col-xl-4"><a href="http://ort.org.il">
+                    <img src="{{{ config.wwwroot }}}/theme/aviv2018/pix/footer_logo_ort.png" alt="{{sitename}}"></a>
+                </li>
+                <li class="facebook-icon col-md-4 col-xl-2"><a href="{{{ output.footer_facebook }}}">
+                    <img src="{{{ config.wwwroot }}}/theme/aviv2018/pix/footer_facbook.png" alt="{{sitename}}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="copyright">
+        {{#str}}copyrighttext, theme_aviv2018{{/str}}
+    </div>
+
+    {{{ output.standard_end_of_body_html }}}
+
+</footer>

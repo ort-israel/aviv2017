@@ -1,0 +1,317 @@
+body:not(.pagelayout-frontpage),
+  /*not sure why body doesnt strach to the bottom. Adding the wrapper fixed it for now*/
+body:not(.pagelayout-frontpage) #page-wrapper {
+  background-color: $inner-bg;
+}
+
+//for a strange reason when logged out the header would fall - this fix it
+.pagelayout-frontpage.notloggedin #page-wrapper {
+  min-height: auto;
+}
+
+/*background wide image:*/
+.headerbkg {
+  @include breakpoint(desktop) {
+    margin-top: $nav-bar-height;
+  }
+  height: 32rem;
+  box-shadow: none;
+}
+
+div#learningcontent {
+  margin-top: 20rem;
+}
+
+/* purple headline*/
+body:not(.pagelayout-frontpage) #page-header {
+  padding: 2rem;
+  margin-bottom: 4rem;
+  background-color: $header-background;
+  position: relative;
+  &:before {
+    /* This should also apply to #page-header on every page except front page */
+    content: "";
+    border-style: solid;
+    border-width: 1.5rem 1.5rem 0 1.5rem;
+    border-color: $card-title-background-color transparent transparent transparent;
+    position: absolute;
+    bottom: -1.5rem;
+    z-index: 1;
+    left: 50%;
+    transform: translate(-50%, 0);
+    @include breakpoint(laptop) {
+      transform: none;
+      left: auto;
+      //right: 8rem;
+      right: 8vw;
+    }
+  }
+}
+
+.page-header-headings {
+  & h1 {
+    font-size: $font-size-h1;
+  }
+}
+
+.breadcrumb-nav {
+  margin-top: 1.5rem;
+  .breadcrumb {
+    border-radius: 0;
+    padding: 1rem 2rem;
+  }
+
+}
+
+/*Headlines*/
+//in inner pages
+body:not(.pagelayout-frontpage) .card-title {
+  font-size: $font-size-course-title;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+/*only featuredcourses needs padding in presentage on the right*/
+body:not(.pagelayout-frontpage):not(.pagelayout-mydashboard) .block_featuredcourses .card-title,
+body.pagelayout-coursecategory .card-title {
+  padding-right: 5%;
+}
+
+/*COURSE CONTROL:*/
+div#coursecontrols {
+  top: -48px;
+  left: 0;
+  border-top: 0;
+  border-radius: 0;
+  background-color: $transparent;
+  //color: $card-knowledge;
+  font-weight: 600;
+  font-size: 2rem;
+  width: auto;
+  padding: 0;
+}
+
+.teacherdashbutton,
+.thiscoursebutton,
+.editcogbutton {
+  /* float: none; */
+  /* Lea - this is part of what makes the cog button overlap the tab*/
+  text-align: left;
+  //color: $card-knowledge;
+  background-color: $course-upper-buttons-bg;
+  border-radius: 0;
+  &:hover {
+    //color: $card-knowledge;
+    background-color: $course-upper-buttons-bg;
+  }
+  a {
+    color: inherit;
+    &:hover {
+      color: inherit;
+    }
+  }
+
+}
+
+.teacherdashbutton,
+.thiscoursebutton {
+  padding: 1.1rem 2rem;
+
+}
+
+.editcogbutton .context-header-settings-menu .dropdown {
+  padding-left: 1rem;
+  padding-right: 1.5rem;
+  margin-right: 0.4rem;
+}
+
+.editcogbutton ~ .teacherdashbutton {
+  margin-left: 0.5rem;
+}
+
+.has-enrol-link {
+  .editcogbutton {
+    width: 0;
+  }
+  /*enrol link button - only for students*/
+  .editcogbutton .context-header-settings-menu .dropdown {
+    padding: 0;
+  }
+  .dropdown-toggle {
+    display: none;
+  }
+  .dropdown-menu {
+    display: block;
+    position: absolute;
+    margin-top: 0;
+    //top: 1.6rem;
+    top: -0.6rem;
+    left: 10.6rem;
+    border-radius: 0;
+    background-color: $brand-primary;
+    .dropdown-item {
+      color: $buttons-text-color;
+      font-size: $font-size-root;
+      font-weight: 600;
+      padding: 0.6rem 2rem;
+      border: 0;
+      &:hover,
+      &:focus {
+        background-color: $transparent;
+      }
+      a,
+      a .icon {
+        //color: $buttons-text-color;
+        color: inherit;
+      }
+    }
+
+  }
+}
+
+/*the part that is presented after pressing the button - in this course - teacher & student*/
+.collapse.in {
+  background-color: $course-upper-buttons-bg;
+  //box-shadow: 0 -4px 0 0 $course-upper-buttons-bg;
+  //transition: 0.5s box-shadow;
+
+  .row {
+    margin: 2rem 0;
+    .dashtitle {
+      background-color: $manage-course-headlines;
+      padding: 1rem 2rem;
+      h3,
+      .card-title {
+        font-weight: 600;
+        font-size: inherit;
+      }
+    }
+  }
+
+}
+
+//for student 4 first items in the right nav bar:
+.pagelayout-incourse #region-main,
+#region-main.has-blocks {
+  padding: 0 3rem;
+}
+
+/*
+course that a student isn't inroll to it yet (after pressing the enroll button)
+*/
+.pagelayout-incourse.path-enrol {
+  h2 {
+    color: $brand-primary;
+    font-size: $font-size-h2-bigger;
+    font-weight: bold;
+  }
+  .box {
+    .coursebox {
+      @include flex-direction(row);
+      @include flex-wrap(nowrap);
+      border: 0;
+      .courseimagewrapper {
+      }
+    }
+  }
+}
+
+/*Student - Updates in my course - in archive or my courses - round icon and course name*/
+.course-info-container {
+  .media {
+    .media-body {
+      @include display-inline-flex();
+      @include flex-direction(column);
+      @include justify-content(center);
+    }
+  }
+}
+
+/*Student and Teacher - headed in grades*/
+#page-header .pull-xs-left .page-context-header {
+  @include display-flex();
+  @include align-items(center);
+}
+
+.grade-navigation {
+  .nav {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+
+body:not(.pagelayout-coursecategory):not(pagelayout-pagelayout-frontpage) {
+  /*Rachel - 7.1.18 - dont know if it's right and its not infecting other designes.*/
+  #region-main {
+    padding: 1rem 3rem 5rem;
+  }
+
+  h2,
+  h3 {
+    font-weight: 600;
+    margin-bottom: 3rem;
+  }
+
+}
+
+/*for table borders*/
+.table th, table.collection th, table.flexible th, .generaltable th, .table td, table.collection td, table.flexible td, .generaltable td {
+  border-color: #ddd;
+}
+/*
+******  MY PAGE******
+*/
+/*for my page - teacher-student-admin*/
+.pagelayout-mydashboard {
+
+  /*top navigation - timeline & courses*/
+  .nav-tabs {
+    border-bottom: 0.8rem solid $brand-primary;
+    @include breakpoint(tablet) {
+      margin-bottom: 3rem;
+    }
+
+    .nav-item {
+      .nav-link,
+      &:hover {
+        border-bottom-color: $transparent;
+      }
+      .active {
+        color: $navbar-light-color;
+        background-color: $brand-primary;
+      }
+    }
+  }
+  .tab-content{
+    .row.text-xs-center{
+      @include justify-content(center);
+    }
+  }
+
+  /*courses view*/
+  .courses-view-course-item {
+    background-color: $light-gray;
+  }
+
+
+  /*for features courses to trach to max 100%*/
+  .card-block {
+    .card-group {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+}
+
+/*for Student -> Files*/
+/*may effect other pages.... (09.1.2018)*/
+.pagelayout-standard {
+  .generalbox {
+    .row.form-group {
+      @include flex-direction(column);
+      .col-form-label {
+        font-weight: 600;
+      }
+    }
+  }
+}

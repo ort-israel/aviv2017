@@ -52,19 +52,10 @@ function theme_aviv2018_pluginfile($course, $cm, $context, $filearea, $args, $fo
         return $theme->setting_file_serve('backgroundimage', $args, $forcedownload, $options);
     } else if ($filearea === 'loginimage') { // Login page image.
         return $theme->setting_file_serve('loginimage', $args, $forcedownload, $options);
-    } else if ($filearea === 'marketing1image') { // Login page image.
-        return $theme->setting_file_serve('marketing1image', $args, $forcedownload, $options);
-    } else if ($filearea === 'marketing2image') { // Login page image.
-        return $theme->setting_file_serve('marketing2image', $args, $forcedownload, $options);
-    } else if ($filearea === 'marketing3image') { // Login page image.
-        return $theme->setting_file_serve('marketing3image', $args, $forcedownload, $options);
-    } else if ($filearea === 'marketing4image') { // Login page image.
-        return $theme->setting_file_serve('marketing4image', $args, $forcedownload, $options);
-    } else if ($filearea === 'marketing5image') { // Login page image.
-        return $theme->setting_file_serve('marketing5image', $args, $forcedownload, $options);
-    } else if ($filearea === 'marketing6image') { // Login page image.
-        return $theme->setting_file_serve('marketing6image', $args, $forcedownload, $options);
-
+    } else if ($filearea === 'logo_primary') { // Logo image.
+        return $theme->setting_file_serve('logo_primary', $args, $forcedownload, $options);
+    } else if ($filearea === 'logo_secondary') { // Logo image.
+        return $theme->setting_file_serve('logo_secondary', $args, $forcedownload, $options);
     } else {
         send_file_not_found();
     }

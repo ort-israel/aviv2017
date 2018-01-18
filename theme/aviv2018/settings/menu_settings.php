@@ -17,60 +17,72 @@
 /**
  * Heading and course images settings page file.
  *
- * @package    theme_aviv2018
- * @copyright  2017 ORT Israel Team
- * @credits    theme_boost - MoodleHQ; theme_fordson - Chris Kenniburg
+ * @packagetheme_fordson
+ * @copyright  2016 Chris Kenniburg
+ * @creditstheme_boost - MoodleHQ
  * @licensehttp://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$page = new admin_settingpage('theme_aviv2018_menusettings', get_string('menusettings', 'theme_aviv2018'));
+$page = new admin_settingpage('theme_fordson_menusettings', get_string('menusettings', 'theme_fordson'));
 
-// Show hide Course Activity Menu toggle.
-$name = 'theme_aviv2018/activitymenu';
-$title = get_string('activitymenu', 'theme_aviv2018');
-$description = get_string('activitymenu_desc', 'theme_aviv2018');
+// This is the descriptor for Course Management Panel
+$name = 'theme_aviv2018/coursemanagementinfo';
+$heading = get_string('coursemanagementinfo', 'theme_aviv2018');
+$information = get_string('coursemanagementinfodesc', 'theme_aviv2018');
+$setting = new admin_setting_heading($name, $heading, $information);
+$page->add($setting);
+
+// Show/hide coursemanagement slider toggle.
+$name = 'theme_aviv2018/coursemanagementtoggle';
+$title = get_string('coursemanagementtoggle', 'theme_aviv2018');
+$description = get_string('coursemanagementtoggle_desc', 'theme_aviv2018');
 $default = 1;
 $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
 $setting->set_updatedcallback('theme_reset_all_caches');
 $page->add($setting);
-// Show hide user enrollment toggle.
-$name = 'theme_aviv2018/userenrollmenu';
-$title = get_string('userenrollmenu', 'theme_aviv2018');
-$description = get_string('userenrollmenu_desc', 'theme_aviv2018');
+
+// Frontpage Textbox.
+$name = 'theme_aviv2018/coursemanagementtextbox';
+$title = get_string('coursemanagementtextbox', 'theme_aviv2018');
+$description = get_string('coursemanagementtextbox_desc', 'theme_aviv2018');
+$default = '';
+$setting = new admin_setting_confightmleditor($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$page->add($setting);
+
+// Frontpage Textbox.
+$name = 'theme_aviv2018/studentdashboardtextbox';
+$title = get_string('studentdashboardtextbox', 'theme_aviv2018');
+$description = get_string('studentdashboardtextbox_desc', 'theme_aviv2018');
+$default = '';
+$setting = new admin_setting_confightmleditor($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$page->add($setting);
+
+// Show/hide course editing cog.
+$name = 'theme_aviv2018/courseeditingcog';
+$title = get_string('courseeditingcog', 'theme_aviv2018');
+$description = get_string('courseeditingcog_desc', 'theme_aviv2018');
 $default = 0;
 $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
 $setting->set_updatedcallback('theme_reset_all_caches');
 $page->add($setting);
-// Show hide user enrollment toggle.
-$name = 'theme_aviv2018/groupmanagemenu';
-$title = get_string('groupmanagemenu', 'theme_aviv2018');
-$description = get_string('groupmanagemenu_desc', 'theme_aviv2018');
-$default = 0;
+
+// Show/hide course editing cog.
+$name = 'theme_aviv2018/showstudentgrades';
+$title = get_string('showstudentgrades', 'theme_aviv2018');
+$description = get_string('showstudentgrades_desc', 'theme_aviv2018');
+$default = 1;
 $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
 $setting->set_updatedcallback('theme_reset_all_caches');
 $page->add($setting);
-// Show hide user enrollment toggle.
-$name = 'theme_aviv2018/questionbankmenu';
-$title = get_string('questionbankmenu', 'theme_aviv2018');
-$description = get_string('questionbankmenu_desc', 'theme_aviv2018');
-$default = 0;
-$setting = new admin_setting_configcheckbox($name, $title, $description, $default);
-$setting->set_updatedcallback('theme_reset_all_caches');
-$page->add($setting);
-// Show hide user enrollment toggle.
-$name = 'theme_aviv2018/questioncategorymenu';
-$title = get_string('questioncategorymenu', 'theme_aviv2018');
-$description = get_string('questioncategorymenu_desc', 'theme_aviv2018');
-$default = 0;
-$setting = new admin_setting_configcheckbox($name, $title, $description, $default);
-$setting->set_updatedcallback('theme_reset_all_caches');
-$page->add($setting);
-// Show hide user enrollment toggle.
-$name = 'theme_aviv2018/activitylistingmenu';
-$title = get_string('activitylistingmenu', 'theme_aviv2018');
-$description = get_string('activitylistingmenu_desc', 'theme_aviv2018');
+
+// Show/hide course editing cog.
+$name = 'theme_aviv2018/showstudentcompletion';
+$title = get_string('showstudentcompletion', 'theme_aviv2018');
+$description = get_string('showstudentcompletion_desc', 'theme_aviv2018');
 $default = 1;
 $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
 $setting->set_updatedcallback('theme_reset_all_caches');
@@ -126,6 +138,14 @@ $displaycourse = get_string('activateoncoursepage', 'theme_aviv2018');
 $default = '1';
 $choices = array('1'=>$alwaysdisplay, '2'=>$displayhome, '3'=>$displaycourse);
 $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$page->add($setting);
+
+$name = 'theme_aviv2018/shownavclosed';
+$title = get_string('shownavclosed', 'theme_aviv2018');
+$description = get_string('shownavclosed_desc', 'theme_aviv2018');
+$default = 0;
+$setting = new admin_setting_configcheckbox($name, $title, $description, $default);
 $setting->set_updatedcallback('theme_reset_all_caches');
 $page->add($setting);
 

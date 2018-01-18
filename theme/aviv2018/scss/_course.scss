@@ -1,0 +1,142 @@
+/*
+Course - category
+*/
+/*category combo select*/
+.categorypicker .form-inline{
+  background-color: $input-background;
+  padding: 1rem 1rem 0;
+  .custom-select{
+    background-color: $transparent;
+    border: 0;
+  }
+  label{
+    vertical-align: bottom;
+  }
+}
+/*course search*/
+
+body.pagelayout-coursecategory .card-title.category-name{
+  color: $brand-primary;
+  font-size: 3rem;
+}
+#coursesearch {
+  margin-bottom: 3rem;
+  label{
+    vertical-align: middle;
+    vertical-align: -moz-middle-with-baseline;
+    vertical-align: -webkit-baseline-middle;
+  }
+  input[type="text"]{
+    border: 0;
+    background-color: $input-background;
+    padding: 0.8rem 0.8rem 0.9rem 0.8rem;
+    vertical-align: top;
+  }
+  input[type="submit"]{
+    background-image: url([[pix:theme|search]]);
+    border: none;
+    text-indent: -99999px;
+    overflow: hidden;
+    width: 5rem;
+    height: 4.5rem;
+    vertical-align: top;
+  }
+}
+
+
+/*
+Course - All course details
+*/
+.course-content{
+  margin: 0 2rem;
+}
+.course-about {
+  background-color: $course-about-bg;
+  font-weight: 600;
+  line-height: $line-height-big;
+  padding: 1.5rem;
+  margin: 2rem;
+  bottom: 2rem;
+  a {
+    //text-decoration: underline;
+  }
+  /*course-about*/
+  .card-title{
+    width: 100%;
+    padding-right: 1.5rem;
+  }
+
+  .card {
+    border: none;
+    background-color: transparent;
+  }
+  .courseinfowrapper {
+    padding: 2rem 3rem 3rem;
+  }
+  .metadata {
+    margin: 0;
+    position: relative;
+    .fielddefinition{
+      // this is to prevent line to break into 2 in chrome
+      white-space: nowrap;
+    }
+
+  }
+  .fielddefinition, .fieldvalue {
+    display: inline-block;
+    margin: 0;
+  }
+
+  .metadatacontact {
+    padding: 0 3rem;
+    &:before {
+      display: block;
+      content: "";
+      font-family: FontAwesome;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+
+}
+//fixing images inside course for mobile view
+.courseimagewrapper{
+  img{
+    max-width: 100%;
+  }
+}
+
+
+/*course count pages - when the course is defined to be a single page one*/
+.course-content .section-summary .section-summary-activities .activity-count {
+  font-size: $font-size-root;
+  margin: 0.3rem 0.3rem 0.3rem 1rem;
+}
+
+/*in a one topic on page there's topic navigation. This is for the section name not to be so close to navigation*/
+.section-navigation .sectionname{
+  margin-top: 5rem;
+}
+
+/*topics backgroun color*/
+.topics{
+  .section{
+    border: 0;
+    margin: 3rem 0;
+    background-color: $inner-bg;
+  }
+}
+/*when pressing one of the topic above - there's no need for the background color*/
+.section-navigation ~ .topics  .section{
+  background-color: $transparent;
+}
+
+
+
+/*sidebar*/
+#region-main-box [data-region="blocks-column"]{
+  margin: 2rem 0 0 2rem;
+}
+
+

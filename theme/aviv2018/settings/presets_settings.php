@@ -17,9 +17,9 @@
 /**
  * Presets settings page file.
  *
- * @package    theme_aviv2018
- * @copyright  2017 ORT Israel Team
- * @credits    theme_boost - MoodleHQ; theme_fordson - Chris Kenniburg
+ * @package    theme_fordson
+ * @copyright  2016 Chris Kenniburg
+ * @credits    theme_boost - MoodleHQ
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

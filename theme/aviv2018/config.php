@@ -17,6 +17,9 @@ defined('MOODLE_INTERNAL') || die();
 // as the directory name for our theme.
 $THEME->name = 'aviv2018';
 
+// Call the theme lib file.
+require_once(__DIR__ . '/lib.php');
+
 // This setting list the style sheets we want to include in our theme. Because we want to use SCSS instead of CSS - we won't
 // list any style sheets. If we did we would list the name of a file in the /style/ folder for our theme without any css file
 // extensions.
@@ -37,43 +40,50 @@ $THEME->layouts = [
     // The site home page.
     'frontpage' => array(
         'file' => 'frontpage.php',
-        'regions' => array('side-pre','above-content'),
-        'defaultregion' => 'side-pre',
+        'regions' => array('in-header', 'above-content'),
+        'defaultregion' => 'above-content',
         'options' => array('nonavbar' => true, 'langmenu' => true),
+    ),
+    // My dashboard page.
+    'mydashboard' => array(
+        'file' => 'mydashboard.php',
+        'regions' => array('below-content'),
+        'defaultregion' => 'below-content',
+        'options' => array('nonavbar' => true, 'langmenu' => true),
+    ),
+    // Category page
+    'coursecategory' => array(
+        'file' => 'columns2.php',
+        'regions' => array('below-content'),
+        'defaultregion' => 'below-content',
     ),
     // Main course page.
     'course' => array(
         'file' => 'course.php',
-        'regions' => array('side-pre'),
+        'regions' => array('side-pre','below-content'),
         'defaultregion' => 'side-pre',
     ),
     'incourse' => array(
-        'file' => 'course.php',
+        'file' => 'incourse.php',
         'regions' => array('side-pre'),
         'defaultregion' => 'side-pre',
     ),
-    'coursecategory' => array(
-        'file' => 'columns2.php',
+    // Server administration scripts. We want 2 columns like in classic boost, so copied columns2.php from boost and called ii admin.php
+    'admin' => array(
+        'file' => 'admin.php',
         'regions' => array('side-pre'),
         'defaultregion' => 'side-pre',
     ),
 ];
 
-// Call main theme scss - including the selected preset.
-$THEME->scss = function($theme) {
+
+// Call css/scss processing functions and renderers.
+$THEME->scss = function ($theme) {
     return theme_aviv2018_get_main_scss_content($theme);
 };
 
-// Call css/scss processing functions and renderers.
-$THEME->csstreepostprocessor = 'theme_aviv2018_css_tree_post_processor';
-$THEME->extrascsscallback = 'theme_aviv2018_get_extra_scss';
-$THEME->prescsscallback = 'theme_aviv2018_get_pre_scss';
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';
-
 $THEME->addblockposition = BLOCK_ADDBLOCK_POSITION_FLATNAV;
-
-$THEME->supportscssoptimisation = false;
-$THEME->enable_dock = false;
-$THEME->yuicssmodules = array();
 $THEME->requiredblocks = '';
+
 

@@ -1,0 +1,18 @@
+/* STATISTICS */
+.statistics {
+  text-align: center;
+  .statistics-title {
+    font-weight: 800;
+    font-size: $font-size-title;
+  }
+
+  [class*="num"] {
+    text-align: center;
+  }
+  .statisticsdefinition {
+    font-weight: 800;
+    font-size: 7.5rem;
+    color: $dark-purple;
+    margin: 0;
+  }
+}

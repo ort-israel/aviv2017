@@ -149,22 +149,22 @@ function aviv2018_boostnavigation_extend_navigation(global_navigation $navigatio
     }
 
     // Check if admin wanted us to remove the calendar node from Boost's nav drawer.
-    if (!empty($PAGE->theme->settings->removecalendarnode)) {
-        // If yes, do it.
+//    if (!empty($PAGE->theme->settings->removecalendarnode)) {
+//        // If yes, do it.
         if ($calendarnode = $navigation->find('calendar', global_navigation::TYPE_CUSTOM)) {
             // Hide calendar node.
             $calendarnode->showinflatnavigation = false;
         }
-    }
+//    }
 
     // Check if admin wanted us to remove the privatefiles node from Boost's nav drawer.
-    if (!empty($PAGE->theme->settings->removeprivatefilesnode)) {
+//    if (!empty($PAGE->theme->settings->removeprivatefilesnode)) {
         // If yes, do it.
         if ($privatefilesnode = aviv2018_boostnavigation_find_privatefiles_node($navigation)) {
             // Hide privatefiles node.
             $privatefilesnode->showinflatnavigation = false;
         }
-    }
+//    }
 
     // Check if admin wanted us to remove the mycourses node from Boost's nav drawer.
     if (!empty($PAGE->theme->settings->removemycoursesnode)) {
@@ -372,7 +372,7 @@ function aviv2018_navigation_custom_menu_item(custom_menu_item $menunode, $paren
  *
  * This function is based in a short peace of Moodle code
  * in  Name processing on user_convert_text_to_menu_items.
- *  
+ *
  * @param string $string text to translate.
  * @return string
  */
@@ -385,6 +385,6 @@ function aviv2018_local_navigation_get_string($string) {
             // Treat this as atext language string.
             $title = get_string($text[0], $text[1]);
         }
-    } 
+    }
     return $title;
 }

@@ -12,6 +12,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 // We will add callbacks here as we add features to our theme.
-require('lib/scss_lib.php');
-require('lib/filesettings_lib.php');
-require('lib/aviv2018_lib.php');
+require(__DIR__ . '/lib/scss_lib.php');
+require(__DIR__ . '/lib/filesettings_lib.php');
+require(__DIR__ . '/lib/aviv2018_lib.php');

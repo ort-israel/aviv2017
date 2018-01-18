@@ -36,19 +36,19 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+
 if ($ADMIN->fulltree) {
     // Note new tabs layout for admin settings pages.
-    $settings = new theme_aviv2018_admin_settingspage_tabs('themesettingaviv2018', get_string('configtitle', 'theme_aviv2018'));
+    $settings = new theme_boost_admin_settingspage_tabs('themesettingaviv2018', get_string('configtitle', 'theme_aviv2018'));
 
-    require('settings/presets_settings.php');
-    require('settings/colours_settings.php');
-    require('settings/menu_settings.php');
-    require('settings/content_settings.php');
-    require('settings/image_settings.php');
-    require('settings/socialicons_settings.php');
-    require('settings/fpicons_settings.php');
-    require('settings/markettiles_settings.php');
-    require('settings/footer_settings.php');
-    require('settings/logos_settings.php');
-
+    global $CFG;
+    //require $CFG->dirroot . '/theme/fordson/settings/presets_settings.php'; // must take the presets from our theme
+    require __DIR__ . '/settings/logos_settings.php';
+    require __DIR__ . '/settings/header_title_settings.php';
+    require __DIR__ . '/settings/footer_settings.php';
+    require __DIR__ . '/settings/image_settings.php';
+    //require $CFG->dirroot . '/theme/fordson/settings/colours_settings.php';
+    //require __DIR__ . '/settings/menu_settings.php';
+    require $CFG->dirroot . '/theme/fordson/settings/content_settings.php';
+    require $CFG->dirroot . '/theme/fordson/settings/fpicons_settings.php';
 }

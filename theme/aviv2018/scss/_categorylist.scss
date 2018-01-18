@@ -1,0 +1,72 @@
+.block_category_list,
+.pagelayout-coursecategory .course_category_tree.category-browse{
+  background-color: $category-list-background;
+  padding-bottom: 3rem;
+
+  ul.card-group {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    width: 90%; /*needed for ie 10+ for full width*/
+    //@include justify-content(space-between);
+    @include breakpoint(laptop) {
+      //@include justify-content(flex-start);
+      //margin: 0 2rem;
+    }
+
+    li {
+      font-weight: 600;
+      text-align: center;
+      /*width: 45%;*/
+      flex: 0 0 47%;
+      padding: 0;
+      //margin-bottom: 4rem;
+      margin: 0 1% 4rem;
+      background-color: $card-knowledge;
+      border-radius: 0 0 0.7rem 0.7rem;
+
+      @include breakpoint(laptop) {
+        width: 30%;
+        flex: 0 0 30%;
+        margin: 0 1.6% 4rem;
+
+      }
+      @include breakpoint(desktop) {
+        width: 23%;
+        flex: 0 0 23%;
+        margin: 0 1% 4rem;
+
+      }
+      a {
+        display: block;
+
+        .metadatacateimage {
+          width: 100%;
+        }
+        div {
+          padding: 0.5rem 0;
+        }
+      }
+      /* Lea 2017 - for category page*/
+      h3,
+      .numberofcourse {
+        font-size: inherit;
+        font-weight: inherit;
+      }
+    }
+  }
+
+}
+
+/*only in home-page there's a need for the box-shadow*/
+.block_category_list{
+  @include breakpoint(tablet) {
+    /* compensate on the padding of container-fluid by giving a big box shadow the same color as the title background */
+    box-shadow: 10rem 0 0 0 $category-list-background, -10rem 0 0 0 $category-list-background;
+  }
+}
+
+/*in courses list there need a background color but the design is same as featuredcourses:*/
+.pagelayout-coursecategory .course_category_tree{
+  background-color: $category-list-background;
+}

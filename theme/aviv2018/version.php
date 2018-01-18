@@ -25,12 +25,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2017052102;
+$plugin->version   = 2017052107;
 $plugin->release  = 'v1.0.0';
 $plugin->maturity  = MATURITY_STABLE;
 $plugin->requires  = 2016110800;
 $plugin->component = 'theme_aviv2018';
 $plugin->dependencies = array(
     'theme_boost'  => 2016102100,
-    'theme_fordson'=> 2017032700,
+    'theme_fordson'=> 2017071200,
 );

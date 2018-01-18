@@ -45,32 +45,9 @@ function theme_aviv2018_css_tree_post_processor($tree, $theme) {
 function theme_aviv2018_get_main_scss_content($theme) {
     global $CFG;
 
-    $scss = '';
-    $filename = !empty($theme->settings->preset) ? $theme->settings->preset : null;
-    $fs = get_file_storage();
+    /* Lea 10/2017 - No more presets. There is only one color scheme for this theme */
 
-    $context = context_system::instance();
-    $iterator = new DirectoryIterator($CFG->dirroot . '/theme/aviv2018/scss/preset/');
-    $presetisset = '';
-    foreach ($iterator as $pfile) {
-        if (!$pfile->isDot()) {
-            $presetname = substr($pfile, 0, strlen($pfile) - 5); // Name - '.scss'.
-            if ($filename == $presetname) {
-                $scss .= file_get_contents($CFG->dirroot . '/theme/aviv2018/scss/preset/' . $pfile);
-                $presetisset = true;
-            }
-        }
-    }
-    if (!$presetisset) {
-        $filename .= '.scss';
-        if ($filename && ($presetfile = $fs->get_file($context->id, 'theme_aviv2018', 'preset', 0    , '/', $filename))) {
-            $scss .= $presetfile->get_content();
-        } else {
-            // Safety fallback - maybe new installs etc.
-            $scss .= file_get_contents($CFG->dirroot . '/theme/aviv2018/scss/preset/default.scss');
-        }
-    }
-
+    $scss = file_get_contents($CFG->dirroot . '/theme/aviv2018/scss/moodle.scss');
     return $scss;
 }
 
@@ -102,7 +79,6 @@ function theme_aviv2018_get_pre_scss($theme) {
         'fpiconnavhover' => ['fpicon-hover'],
         'fpiconcolour' => ['fpicon-colour'],
         'headerimagepadding' => ['headerimagepadding'],
-        'markettextbg' => ['markettextbg'],
         'navbarurl' => ['navbarurl'],
         'footerbg' => ['footer-bg'],
         'headerscreen' => ['headerfade-bg'],
@@ -136,7 +112,7 @@ function theme_aviv2018_get_pre_scss($theme) {
     $headerbg = $theme->setting_file_url('headerdefaultimage', 'headerdefaultimage');
     if (isset($headerbg)) {
         // Add a fade in transition to avoid the flicker on course headers ***.
-        $prescss .= 'header#page-header .card {background-image: url("'.$headerbg.'"); background-size:cover; background-position:center;}';
+        $prescss .= 'header#page-header {background-image: url("'.$headerbg.'"); background-size:cover; background-position:center;}';
     }
 
     // Set the background image for the page.
@@ -151,47 +127,6 @@ function theme_aviv2018_get_pre_scss($theme) {
         $prescss .= 'body#page-login-index {background-image: url("'.$loginbg.'") !important; background-size:cover; background-position:center;}';
     }
 
-    // Set the default image for the header.
-    $marketing1image = $theme->setting_file_url('marketing1image', 'marketing1image');
-    if (isset($marketing1image)) {
-        // Add a fade in transition to avoid the flicker on course headers ***.
-        $prescss .= '.marketing1image {background-image: url("'.$marketing1image.'"); background-size:cover; background-position:center;}';
-    }
-
-    // Set the default image for the header.
-    $marketing2image = $theme->setting_file_url('marketing2image', 'marketing2image');
-    if (isset($marketing2image)) {
-        // Add a fade in transition to avoid the flicker on course headers ***.
-        $prescss .= '.marketing2image {background-image: url("'.$marketing2image.'"); background-size:cover; background-position:center;}';
-    }
-
-    // Set the default image for the header.
-    $marketing3image = $theme->setting_file_url('marketing3image', 'marketing3image');
-    if (isset($marketing3image)) {
-        // Add a fade in transition to avoid the flicker on course headers ***.
-        $prescss .= '.marketing3image {background-image: url("'.$marketing3image.'"); background-size:cover; background-position:center;}';
-    }
-
-    // Set the default image for the header.
-    $marketing4image = $theme->setting_file_url('marketing4image', 'marketing4image');
-    if (isset($marketing4image)) {
-        // Add a fade in transition to avoid the flicker on course headers ***.
-        $prescss .= '.marketing4image {background-image: url("'.$marketing4image.'"); background-size:cover; background-position:center;}';
-    }
-
-    // Set the default image for the header.
-    $marketing5image = $theme->setting_file_url('marketing5image', 'marketing5image');
-    if (isset($marketing5image)) {
-        // Add a fade in transition to avoid the flicker on course headers ***.
-        $prescss .= '.marketing5image {background-image: url("'.$marketing5image.'"); background-size:cover; background-position:center;}';
-    }
-
-    // Set the default image for the header.
-    $marketing6image = $theme->setting_file_url('marketing6image', 'marketing6image');
-    if (isset($marketing6image)) {
-        // Add a fade in transition to avoid the flicker on course headers ***.
-        $prescss .= '.marketing6image {background-image: url("'.$marketing6image.'"); background-size:cover; background-position:center;}';
-    }
 
     return $prescss;
 }

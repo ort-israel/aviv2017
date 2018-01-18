@@ -1,22 +1,19 @@
 <div class="statistics">
-    <div class="container-fluid">
-        <div class="row">
-
-            <div class="col-md-4">
-                <div class="statistics-tile">
-                    <h3 class="card-title">{{{statisticstitle}}}</h3>
-                    <dl>
-                        <dt>{{{statisticscourses}}}</dt>
-                        <dd>{{{coursecount}}}</dd>
-                        <dt>{{{statisticsteachers}}}</dt>
-                        <dd>{{{teachercount}}}</dd>
-                        <dt>{{{statisticsstudents}}}</dt>
-                        <dd>{{{studentcount}}}</dd>
-                    </dl>
-                </div>
-            </div>
-
+    <h3 class="card-title statistics-title">{{{statisticstitle}}}</h3>
+    <dl class="statisticslist card-group">
+        <div class="course-num col-lg-4 col-md-4">
+            <dt class="statisticsterm">{{{statisticscourses}}}</dt>
+            <dd class="statisticsdefinition">{{{coursecount}}}</dd>
         </div>
-    </div>
+        <div class="teacher-num col-lg-4 col-md-4">
+            <dt class="statisticsterm">{{{statisticsteachers}}}</dt>
+            <dd class="statisticsdefinition">{{{teachercount}}}</dd>
+        </div>
+        <div class="student-num col-lg-4 col-md-4">
+            <dt class="statisticsterm">{{{statisticsstudents}}}</dt>
+            <dd class="statisticsdefinition">{{{studentcount}}}</dd>
+        </div>
+    </dl>
+    <div>{{#str}}thecountgoeson, theme_aviv2018{{/str}}&hellip;</div>
+    <div class="btn btn-secondary">{{#str}}startlearning, theme_aviv2018{{/str}}!</div>
 </div>
-<div style="clear:both;"></div>

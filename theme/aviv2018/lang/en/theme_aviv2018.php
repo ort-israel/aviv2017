@@ -17,6 +17,9 @@ $string['pluginname'] = 'Aviv 2018';
 $string['choosereadme'] = 'Theme aviv 2018 is a child theme of Fordson. It is customized to ORT ISrael needs.';
 $string['configtitle'] = 'Aviv 2018';
 $string['region-side-pre'] = 'Right';
+$string['region-in-header'] = 'In Header';
+$string['region-above-content'] = 'Above Content';
+$string['region-below-content'] = 'Below Content';
 $string['generalsettings'] = 'General settings';
 $string['advancedsettings'] = 'Advanced settings';
 $string['iconnavheading'] = 'Icon Navigation';
@@ -32,57 +35,6 @@ $string['presetfiles_desc'] = 'Preset files can be used to dramatically alter th
 $string['preset'] = 'Theme preset';
 $string['preset_desc'] = 'Pick a preset to broadly change the look of the theme.';
 
-// Colours Settings.
-$string['colours_settings'] = 'Colours';
-$string['colours_headingsub'] = 'Colour Settings';
-$string['colours_desc'] = 'Colour choosers will allow you to customize the look and feel of the main elements on the page.  If you are using a Preset other than the default, you will need to remove any custom colors below for best results as these will over-ride the Preset with undesireable results.  Generally, the Preset will have default colors that you will want to see before customizing them here.';
-$string['brandColour'] = 'Brand Colour';
-$string['brandColour_desc'] = 'Your main brand colour';
-$string['brandprimary'] = 'Brand Primary';
-$string['brandprimary_desc'] = 'Your main brand colour';
-$string['brandsuccess'] = 'Brand Success';
-$string['brandsuccess_desc'] = 'Brand colour for succesful alerts, postive panels, buttons, etc';
-$string['brandinfo'] = 'Brand info';
-$string['brandinfo_desc'] = 'Brand colour information alerts and panels, etc';
-$string['brandwarning'] = 'Brand Warning';
-$string['brandwarning_desc'] = 'Brand colour for warning alerts and panels, etc';
-$string['branddanger'] = 'Brand Danger';
-$string['branddanger_desc'] = 'Brand colour for danger alerts and panels, etc';
-$string['brandgray'] = 'Gray Base';
-$string['brandgray_desc'] = 'Gray Base setting - This is the colour used to create gray shades. Default will be #000,
-    but this can be adapted if there is a need to adjust contrast levels';
-$string['breadcrumbbkg'] = 'Breadcrumb Background Colour';
-$string['breadcrumbbkg_desc'] = 'Breadcrumb background colour.';
-$string['navbarbkg'] = 'Top Navigation bar Background Colour';
-$string['navbarbkg_desc'] = 'Top sticky navigation bar background colour.';
-$string['navbarurl'] = 'Top Navigation bar Link Colour';
-$string['navbarurl_desc'] = 'Top sticky navigation bar link and menu colour.';
-$string['fpstartwrap'] = 'Homepage Icon Navigation Background';
-$string['fpstartwrap_desc'] = 'Background colour of the icon navigation bar.';
-$string['fpicon-colour'] = 'Homepage Icon Link Colour';
-$string['fpicon-colour_desc'] = 'Colour of the icon navigation links.';
-$string['fpiconnavhover'] = 'Homepage Icon Hover Background';
-$string['fpiconnavhover_desc'] = 'Homepage icon navigation bar background colour when hovering over button.';
-$string['cardbkg'] = 'Content Background Colour';
-$string['cardbkg_desc'] = 'Content background colour for course content and blocks.';
-$string['drawerbkg'] = 'Side Drawer Background Colour';
-$string['drawerbkg_desc'] = 'Side Drawer background colour for the menu on the left side of the page.';
-$string['bodybackground'] = 'Body Background Colour';
-$string['bodybackground_desc'] = 'The main colour to use for the background.';
-$string['footerbg'] = 'Footer Background Colour';
-$string['footerbg_desc'] = 'The background colour of the footer.';
-$string['fpsearch'] = 'Find and Enroll in Courses ';
-$string['headerscreen'] = 'Header Text Background';
-$string['headerscreen_desc'] = 'This background colour appears below the text in the header image area.  This is meant to help make the text and breadcrumbs standout when using a header image.';
-$string['headingcolor'] = 'Headings Colour';
-$string['headingcolor_desc'] = 'H1,H2,H3,H4,H5.H6 colour settings.';
-$string['headercolor'] = 'Page Header Text Colour';
-$string['headercolor_desc'] = 'This alters the Page Heading H1 color so that it might stand out better ontop of the header image.';
-$string['bodycolor'] = 'Default Text Colour';
-$string['bodycolor_desc'] = 'Default text color.';
-$string['linkcolor'] = 'Default Link Colour';
-$string['linkcolor_desc'] = 'Default link color.';
-
 $string['rawscss'] = 'Raw SCSS';
 $string['rawscss_desc'] = 'Use this field to provide SCSS code which will be injected at the end of the style sheet.';
 $string['rawscsspre'] = 'Raw initial SCSS';
@@ -97,44 +49,6 @@ $string['backgroundimage'] = 'Default page background image';
 $string['backgroundimage_desc'] = 'Background image for pages';
 $string['loginimage'] = 'Default Login image';
 $string['loginimage_desc'] = 'Background image for login page';
-
-// Social Networks.
-$string['socialheading'] = 'Social Networking';
-$string['socialheadingsub'] = 'Engage your users with social networking.';
-$string['socialdesc'] = 'Provide direct links to the core social networks that promote your brand.  These will appear in the header of every page.';
-$string['socialnetworks'] = 'Social Networks';
-$string['facebook'] = 'Facebook URL';
-$string['facebookdesc'] = 'Enter the URL of your Facebook page. (i.e http://www.facebook.com/)';
-$string['twitter'] = 'Twitter URL';
-$string['twitterdesc'] = 'Enter the URL of your Twitter feed. (i.e http://www.twitter.com/)';
-$string['googleplus'] = 'Google+ URL';
-$string['googleplusdesc'] = 'Enter the URL of your Google+ profile. (i.e https://google.com/)';
-$string['linkedin'] = 'LinkedIn URL';
-$string['linkedindesc'] = 'Enter the URL of your LinkedIn profile. (i.e http://www.linkedin.com/)';
-$string['youtube'] = 'YouTube URL';
-$string['youtubedesc'] = 'Enter the URL of your YouTube channel. (i.e http://www.youtube.com/)';
-$string['tumblr'] = 'Tumblr URL';
-$string['tumblrdesc'] = 'Enter the URL of your Tumblr. (i.e http://www.tumblr.com)';
-$string['vimeo'] = 'Vimeo URL';
-$string['vimeodesc'] = 'Enter the URL of your Vimeo channel. (i.e http://vimeo.com/)';
-$string['flickr'] = 'Flickr URL';
-$string['flickrdesc'] = 'Enter the URL of your Flickr page. (i.e http://www.flickr.com/)';
-$string['vk'] = 'VKontakte URL';
-$string['vkdesc'] = 'Enter the URL of your Vkontakte page. (i.e http://www.vk.com/)';
-$string['skype'] = 'Skype Account';
-$string['skypedesc'] = 'Enter the Skype username of your organisations Skype account';
-$string['pinterest'] = 'Pinterest URL';
-$string['pinterestdesc'] = 'Enter the URL of your Pinterest page. (i.e http://pinterest.com/)';
-$string['instagram'] = 'Instagram URL';
-$string['instagramdesc'] = 'Enter the URL of your Instagram page. (i.e http://instagram.com/)';
-$string['website'] = 'Website URL';
-$string['websitedesc'] = 'Enter the URL of your own website. (i.e http://dearbornschools.org)';
-$string['blog'] = 'Blog URL';
-$string['blogdesc'] = 'Enter the URL of your institution blog. (i.e http://dearbornschools.org)';
-$string['sociallink'] = 'Custom Social Link';
-$string['sociallinkdesc'] = 'Enter the URL of your your custom social media link. (i.e http://dearbornschools.org)';
-$string['sociallinkicon'] = 'Link Icon';
-$string['sociallinkicondesc'] = 'Enter the fontawesome name of the icon for your link<br />A full list of FontAwesome icons can be found at http://fontawesome.io/icons/';
 
 // Content settings.
 $string['contentsettings'] = 'Content areas';
@@ -219,20 +133,6 @@ $string['activateonhomepage'] = 'Activate on Homepage';
 $string['activateoncoursepage'] = 'Activate on Coursepage';
 $string['activateonboth'] = 'Activate on All Pages';
 
-$string['mycoursesinfo'] = 'Dynamic Enrolled Courses List';
-$string['mycoursesinfodesc'] = 'Displays a dynamic list of enrolled courses to the user in the top navigation bar.';
-$string['displaymycourses'] = 'Display enrolled courses';
-$string['displaymycoursesdesc'] = 'Display enrolled courses for users in the top navigation bar.';
-
-$string['mycoursetitle'] = 'Terminology';
-$string['mycoursetitledesc'] = 'Change the terminology for the "My Courses" link in the dropdown menu';
-$string['mycourses'] = 'My Courses';
-$string['myunits'] = 'My Units';
-$string['mymodules'] = 'My Modules';
-$string['myclasses'] = 'My Classes';
-$string['noenrolments'] = 'You have no current enrolments';
-$string['siteadminquicklink'] = 'Site Administration';
-
 //FP Icon Nav
 $string['navicon1'] = 'Homepage Icon One';
 $string['navicon2'] = 'Homepage Icon Two';
@@ -273,55 +173,11 @@ $string['naviconbuttonurldesc'] = 'URL the button will point to. You can link to
 $string['editon'] = 'Turn Edit On';
 $string['editoff'] = 'Turn Edit Off';
 
-//Marketing Tiles
-$string['marketingheading'] = 'Marketing Tiles';
-$string['marketinginfodesc'] = 'Enter the settings for your marketing spot.';
-$string['marketingheadingsub'] = 'Three locations on the front page to add information and links';
-$string['marketboxcolor'] = 'Marketing Box Background Color';
-$string['marketboxcolor_desc'] = 'The color of the background for the marketing box.';
-$string['marketboxbuttoncolor'] = 'Marketing Box Button Color';
-$string['marketboxbuttoncolor_desc'] = 'The color of the button background for the marketing box.';
-$string['marketboxcontentcolor'] = 'Marketing Box Content Background Color';
-$string['marketboxcontentcolor_desc'] = 'The color of the background for the marketing box content. This is where the text appears in the marketing spot and can be different from the box background color to draw attention to the text.';
-$string['marketingheight'] = 'Height of Marketing Images';
-$string['marketingheightdesc'] = 'If you want to display images in the Marketing boxes you can specify their hight here.';
-$string['marketingdesc'] = 'This theme provides the option of enabling three "marketing" or "ad" spots just under the slideshow.  These allow you to easily identify core information to your users and provide direct links.';
-$string['marketing1'] = 'Marketing Spot One';
-$string['marketing2'] = 'Marketing Spot Two';
-$string['marketing3'] = 'Marketing Spot Three';
-$string['marketing4'] = 'Marketing Spot Four';
-$string['marketing5'] = 'Marketing Spot Five';
-$string['marketing6'] = 'Marketing Spot six';
-$string['marketingtitle'] = 'Title';
-$string['marketingtitledesc'] = 'Title to show in this marketing spot';
-$string['marketingicon'] = 'Link Icon';
-$string['marketingicondesc'] = 'Name of the icon you wish to use in the marketing URL Button. List is <a href="http://fortawesome.github.io/Font-Awesome/cheatsheet/" target="_new">here</a>.  Just enter what is after "fa-", e.g. "star".';
-$string['marketingimage'] = 'Image';
-$string['marketingimage_desc'] = 'This provides the option of displaying an image in the marketing spot';
-$string['marketingcontent'] = 'Content';
-$string['marketingcontentdesc'] = 'Content to display in the marketing box. Keep it short and sweet.';
-$string['marketingbuttontext'] = 'Link Text';
-$string['marketingbuttontextdesc'] = 'Text to appear on the button.';
-$string['marketingbuttonurl'] = 'Link URL';
-$string['marketingbuttonurldesc'] = 'URL the button will point to.';
-$string['marketingurltarget'] = 'Link Target';
-$string['marketingurltargetdesc'] = 'Choose how the link should be opened';
-$string['marketingurltargetself'] = 'Current Page';
-$string['marketingurltargetnew'] = 'New Page';
-$string['marketingurltargetparent'] = 'Parent Frame';
-$string['togglemarketing'] = 'Marketing Tile Position';
-$string['togglemarketing_desc'] = 'Determine where the marketing tiles will be located on the homepage.';
-$string['displaytop'] = 'Display at Top of Page';
-$string['displaybottom'] = 'Display at Bottom of Page';
-$string['markettextbg'] = 'Marketing Tile Text Background';
-$string['markettextbg_desc'] = 'Background colour for the text area of the marketing tiles.';
-
 // Footer Settings.
 $string['footer_settings'] = 'Footer settings';
 $string['footer_headingsub'] = 'Text to appear in footer.';
 $string['footer_desc'] = 'Insert the text that should appear in the footer.';
 $string['footer1'] = 'Footer Spot One';
-$string['footerinfodesc'] = 'Background colour for the text area of the marketing tiles.';
 $string['footertitle'] = 'Title.';
 $string['footertitledesc'] = 'Title to show in this footer spot.';
 $string['footercontent'] = 'Content';
@@ -336,15 +192,57 @@ $string['logo_primary_desc'] = 'Insert the primary logos.';
 $string['logo_secondary'] = 'Insert the secondary logo.';
 $string['logo_secondary_desc'] = 'Insert the secondary logos.';
 
+// Header Title Settings.
+$string['header_title_settings'] = 'Header Title settings';
+$string['header_title_headingsub'] = 'Primary and Secondary Header Titles.';
+$string['header_title_desc'] = 'Insert the primary and secondary header titles.';
+$string['header_title_primary'] = 'Insert the primary header title.';
+$string['header_title_primary_desc'] = 'Insert the primary header titles.';
+$string['header_title_secondary'] = 'Insert the secondary header title.';
+$string['header_title_secondary_desc'] = 'Insert the secondary header titles.';
 
 //Alerts
 $string['alert'] = 'Homepage Alert';
 $string['alert_desc'] = 'This is a special alert message that will appear on the homepage.';
 
-// Aviv2018 specific strings
-$string['region-above-content'] = 'Middle';
+// STATISTICS
 $string['statisticstitle'] = 'The campus in Numbers';
 $string['courses'] = 'Courses';
 $string['teachers'] = 'Teachers';
 $string['students'] = 'Studentss';
+$string['thecountgoeson'] = 'The Count Goes on';
+$string['startlearning'] = 'Start Learning';
 
+
+// Footer settings
+$string['footerheading'] = 'Footer';
+$string['footerheadingsub'] = 'Customize the footer of the homepage';
+$string['footerdesc'] = 'The items below allow you provide branding to the theme footer.';
+$string['footnoteabout'] = 'Footnote About';
+$string['footnoteaboutdesc'] = 'Footnote content editor for About';
+$string['footerdetails'] = 'R&D Details';
+$string['footerdetailsdesc'] = 'Details about the R&D';
+$string['footeraddress'] = 'R&D address';
+$string['footnoteabout'] = 'Footnote About';
+$string['footnoteaboutdesc'] = 'Footnote content editor for About';
+$string['footeraddress'] = 'R&D address';
+$string['footeraddressdesc'] = 'Address of the R&D center';
+$string['footeremail'] = 'R&D email';
+$string['footeremaildesc'] = 'Email of the R&D center';
+$string['footerphone'] = 'R&D support phone number';
+$string['footerphonedesc'] = 'Phone number of the R&D center support team';
+$string['footertutorials'] = 'Moodle Tutorials';
+$string['footertutorialsdesc'] = 'Tutorials for using Moodle';
+$string['footerfacebook'] = 'ORT Israel\'s facebook';
+$string['footerfacebookdesc'] = 'ORT Israel\'s facebook';
+
+// Footer text in site
+$string['contactandsupporttitle'] = 'Contact and Support';
+$string['email'] = 'Email';
+$string['phone'] = 'Phone';
+$string['tutorials'] = 'tutorials';
+$string['footnoteabouttitle'] = 'About';
+$string['copyrighttext'] = 'Copyright © 2016';
+
+// Course page
+$string['about_course'] = 'About the Course';

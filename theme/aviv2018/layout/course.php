@@ -37,28 +37,38 @@ if ($navdraweropen) {
     $extraclasses[] = 'drawer-open-left';
 }
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
-$blockshtml = $OUTPUT->blocks('side-pre');
-$hasblocks = strpos($blockshtml, 'data-block=') !== false;
+$blockssideprehtml = $OUTPUT->blocks('side-pre');
+$hassidepreblocks = strpos($blockssideprehtml, 'data-block=') !== false;
+$blocksbelowcontenthtml = $OUTPUT->blocks('below-content');
+$hasbelowcontentblocks = strpos($blocksbelowcontenthtml, 'data-block=') !== false;
 $regionmainsettingsmenu = $OUTPUT->region_main_settings_menu();
+$coursematadatasection = $OUTPUT->course_matadata_section();
+$coursesummarysection = $OUTPUT->course_summary_section();
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
     'output' => $OUTPUT,
-    'sidepreblocks' => $blockshtml,
-    'hasblocks' => $hasblocks,
+    'sidepreblocks' => $blockssideprehtml,
+    'hasbsideprelocks' => $hassidepreblocks,
+    'belowcontentblocks' => $blocksbelowcontenthtml,
+    'hasbelowcontentblocks' => $hasbelowcontentblocks,
     'bodyattributes' => $bodyattributes,
     'navdraweropen' => $navdraweropen,
     'regionmainsettingsmenu' => $regionmainsettingsmenu,
-    'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu)
+    'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu),
+    'coursematadatasection' => $coursematadatasection,
+    'coursesummarysection' => $coursesummarysection,
+    'hascourseabout' => !empty($coursematadatasection) || !empty($coursesummarysection)
 ];
+//print_object('111'.$coursematadatasection);
 
-if ($PAGE->theme->settings->toggledrawermenu==1) {
-aviv2018_boostnavigation_extend_navigation($PAGE->navigation);
-aviv2018_local_navigation_extend_navigation($PAGE->navigation);
-} else if($PAGE->theme->settings->toggledrawermenu==3) {
-aviv2018_boostnavigation_extend_navigation($PAGE->navigation);
-aviv2018_local_navigation_extend_navigation($PAGE->navigation);
+if ($PAGE->theme->settings->toggledrawermenu == 1) {
+    aviv2018_boostnavigation_extend_navigation($PAGE->navigation);
+    aviv2018_local_navigation_extend_navigation($PAGE->navigation);
+} else if ($PAGE->theme->settings->toggledrawermenu == 3) {
+    aviv2018_boostnavigation_extend_navigation($PAGE->navigation);
+    aviv2018_local_navigation_extend_navigation($PAGE->navigation);
 }
 
 $templatecontext['flatnavigation'] = $PAGE->flatnav;
-echo $OUTPUT->render_from_template('theme_aviv2018/columns2', $templatecontext);
+echo $OUTPUT->render_from_template('theme_aviv2018/course', $templatecontext);
 

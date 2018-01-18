@@ -1,0 +1,201 @@
+/**
+* resetting
+**/
+html {
+  font-size: 62.5%; /* Corrects text resizing oddly in IE6/7 when body font-size is set using em units http://clagnut.com/blog/348/#c790 */
+}
+
+body,
+pre{
+  color: $primary-text-color;
+  font-family: $font-family;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  -webkit-font-smoothing: antialiased;
+}
+
+body a,
+body a:hover {
+  color: $link-color;
+  background-color: transparent;
+  text-decoration: underline; /*needed because for some reason - from fordson or boost it was none*/
+}
+
+h4, .h4,
+h5, .h5{
+  font-size: $font-size-base;
+}
+
+/**
+* Layout Header
+**/
+
+/**
+ * Navigation bar identity. (Rachel: the one with the logos + login)
+ */
+
+/**
+EDIT MODE */
+
+//this is the setting cog icon the header image.
+//because its part of the header and the header is in display: flex, than it no longer float. this will move it to the left:
+.context-header-settings-menu {
+  margin-left: auto;
+  /*was supposed to be right*/
+  width: 100%;
+  @include breakpoint(tablet){
+    width: auto;
+  }
+
+}
+
+//for Lea that she can stop waining about not seeing the buttons
+.pull-xs-right.block-controls {
+  position: relative;
+  z-index: 1;
+  background-color: #fff;
+}
+
+
+
+// cog button
+/*remove hover:*/
+.teacherdashbutton:hover,
+.thiscoursebutton:hover,
+.enrollcodebutton:hover,
+.editcogbutton:hover {
+  background-color: $transparent;
+}
+
+.dropdown-toggle {
+  color: $buttons-text-color;
+  .icon {
+    color: inherit;
+    &:after {
+      border-top-color: currentColor;
+    }
+  }
+}
+
+.dropdown-toggle {
+  &:hover {
+    color: $buttons-text-color;
+    .icon {
+      color: inherit;
+      &:after {
+        border-top-color: currentColor;
+      }
+    }
+  }
+}
+
+.block-region {
+  width: 100%; /*needed for ie 10+ for full width*/
+}
+
+/**
+ * For background in content areas. Lea 2017/7: No background in content areas
+ */
+#block-region-side-pre {
+  padding-left: 0;
+}
+
+/* Lea 2017/07 */
+.p-a-1 {
+  padding: 0;
+}
+
+/* DASHBOARD */
+body:not(.editing) .block_myoverview .card-title,
+.btn[href*="view_future"] {
+  display: none;
+}
+
+/* General definitions */
+
+/* just for development*/
+.notifytiny {
+  font-size: 1.75rem;
+}
+
+/* override higher difinitions*/
+.dropdown-menu,
+.form-control {
+  /* has too small font-size */
+  font-size: inherit;
+}
+
+/*page*/
+#page {
+  @include breakpoint(desktop) {
+    margin-top: $nav-bar-height-mobile;
+  }
+}
+
+/*Button design - for Lea :)*/
+.btn-secondary,
+.btn-secondary:hover,
+.btn-primary,
+.btn-primary:hover{
+  font-size: $font-size-root;
+  font-weight: 600;
+  text-decoration: underline;
+  color: $card-knowledge;
+  border: none;
+  border-radius: 0;
+  background-color: $card-title-background-color;
+  padding: 1rem 3rem;
+
+ /* &:hover{
+    background-color: inherit;
+    color: inherit;
+  }*/
+  i{
+    color: inherit;
+    &:before{
+      color: inherit;
+    }
+  }
+}
+
+.btn-secondary#id_cancel{
+  background-color: #AAAAAA;
+}
+
+/*to repair all the buttons with small font*/
+.btn{
+  font-size: $font-size-root;
+}
+
+
+/* LOGIN PAGE */
+@import "login";
+
+/*HEADER*/
+@import "header";
+/* HomePage General */
+@import "homepage";
+
+/* CATEGORY LIST */
+@import "categorylist";
+
+/* FEATURED COURSES */
+@import "featuredcourses";
+
+
+/* STATISTICS */
+@import "statistics";
+
+/* FOOTER */
+@import "footer";
+
+/* INNER PAGES */
+@import "innerpages";
+
+/* COURSE */
+@import "course";
+
+
+
+
+
