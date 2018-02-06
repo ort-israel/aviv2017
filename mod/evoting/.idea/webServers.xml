@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="e624a119-c680-43d3-94b8-09203ffcf438" name="evoting" url="http://olse.ftp.infomaniak.com">
+        <fileTransfer host="olse.ftp.infomaniak.com" port="21" rootFolder="/web/moodle/3-3/mod/evoting" password="dfd8dfd8dfdbdfdadfdadfdfdfc8dfc8" username="olse_webmaster">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
