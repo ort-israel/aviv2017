@@ -26,13 +26,21 @@ require_once("locallib.php");
 
 $id = required_param('id', PARAM_INT);
 
+/* Lea 2018 - add isembedded param */
+$isembeded = optional_param('isembedded', false, PARAM_BOOL);
+
 $url = new \moodle_url('/mod/hvp/view.php', array('id' => $id));
 $PAGE->set_url($url);
 
-if (! $cm = get_coursemodule_from_id('hvp', $id)) {
+/* Lea 2018 - add isembedded param */
+if ($isembeded) {
+    $PAGE->set_pagelayout('embedded');
+}
+
+if (!$cm = get_coursemodule_from_id('hvp', $id)) {
     print_error('invalidcoursemodule');
 }
-if (! $course = $DB->get_record('course', array('id' => $cm->course))) {
+if (!$course = $DB->get_record('course', array('id' => $cm->course))) {
     print_error('coursemisconf');
 }
 
@@ -49,10 +57,10 @@ if ($content === null) {
 
 // Log view
 new \mod_hvp\event(
-        'content', NULL,
-        $content['id'], $content['title'],
-        $content['library']['name'],
-        $content['library']['majorVersion'] . '.' . $content['library']['minorVersion']
+    'content', NULL,
+    $content['id'], $content['title'],
+    $content['library']['name'],
+    $content['library']['majorVersion'] . '.' . $content['library']['minorVersion']
 );
 
 $PAGE->set_title(format_string($content['title']));
@@ -171,16 +179,16 @@ echo '<div class="clearer"></div>';
 // Print intro.
 if (trim(strip_tags($content['intro']))) {
     echo $OUTPUT->box_start('mod_introbox', 'hvpintro');
-    echo format_module_intro('hvp', (object) array(
-      'intro' => $content['intro'],
-      'introformat' => $content['introformat'],
+    echo format_module_intro('hvp', (object)array(
+        'intro' => $content['intro'],
+        'introformat' => $content['introformat'],
     ), $cm->id);
     echo $OUTPUT->box_end();
 }
 
 // Print H5P Content
 if ($embedtype === 'div') {
-    echo '<div class="h5p-content" data-content-id="' .  $content['id'] . '"></div>';
+    echo '<div class="h5p-content" data-content-id="' . $content['id'] . '"></div>';
 } else {
     echo '<div class="h5p-iframe-wrapper"><iframe id="h5p-iframe-' . $content['id'] .
         '" class="h5p-iframe" data-content-id="' . $content['id'] .
