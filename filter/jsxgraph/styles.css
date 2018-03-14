@@ -1,0 +1,54 @@
+/**
+*/
+.jxgbox {
+    position:relative; /* for IE 7 */
+    overflow:hidden;
+    background-color:#ffffff;
+    border-style:solid;
+    border-width:1px;
+    border-color:#356AA0;
+    border-radius:10px;
+    -webkit-border-radius:10px;
+    -ms-touch-action: none;    
+    /* touch-action: none; */ /* Set with JavaScript */
+}
+
+.JXGtext {
+    font-family: Courier, monospace; 
+    /** 
+     * The default font family is now set in 
+     * JXG.Options.text.cssdefaultstyle = 'font-family: Arial, Helvetica, Geneva, sans-serif;'
+     */
+    /* 
+        font-family: Arial, Helvetica, Geneva, sans-serif; 
+    */
+    
+    /* "background-color: transparent;" may produce artefacts in IE. Solution: setting a color explicitly. */
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+}
+
+.JXGinfobox {
+    border-style:none;
+    border-width:1px;
+    border-color:black;
+}
+
+.JXGimage {
+   /* opacity:1.0; */
+}
+
+.JXGimageHighlight {
+   /* opacity:0.6;  */
+}
+
+.jxgbox svg text {
+    cursor: default;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
