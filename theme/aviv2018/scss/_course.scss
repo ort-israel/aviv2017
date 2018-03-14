@@ -2,37 +2,43 @@
 Course - category
 */
 /*category combo select*/
-.categorypicker .form-inline{
+.categorypicker .form-inline {
   background-color: $input-background;
   padding: 1rem 1rem 0;
-  .custom-select{
+  .custom-select {
     background-color: $transparent;
     border: 0;
-  }
-  label{
-    vertical-align: bottom;
+    /* override boost vertical-align */
+    vertical-align: initial;
   }
 }
+
+#page-course-index-category .generalbox.info {
+  border: none;
+  font-size: $font-size-base;
+}
+
 /*course search*/
 
-body.pagelayout-coursecategory .card-title.category-name{
+body.pagelayout-coursecategory .card-title.category-name {
   color: $brand-primary;
   font-size: 3rem;
 }
+
 #coursesearch {
   margin-bottom: 3rem;
-  label{
+  label {
     vertical-align: middle;
     vertical-align: -moz-middle-with-baseline;
     vertical-align: -webkit-baseline-middle;
   }
-  input[type="text"]{
+  input[type="text"] {
     border: 0;
     background-color: $input-background;
     padding: 0.8rem 0.8rem 0.9rem 0.8rem;
     vertical-align: top;
   }
-  input[type="submit"]{
+  input[type="submit"] {
     background-image: url([[pix:theme|search]]);
     border: none;
     text-indent: -99999px;
@@ -43,25 +49,45 @@ body.pagelayout-coursecategory .card-title.category-name{
   }
 }
 
+/*
+Course - content
+*/
+
+/*back or go up button*/
+.course-content-header {
+  margin: 2rem;
+}
+
+.format-flexsections .header.backto {
+  border: 0;
+}
+
+.dir-rtl.format-flexsections .course-content ul.flexsections li.section,
+.dir-rtl.course-content ul.flexsections li.movehere {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+div.course-content ul.gridicons li.currentselected {
+  background-color: #d8edeb;
+}
 
 /*
 Course - All course details
 */
-.course-content{
-  margin: 0 2rem;
-}
+
 .course-about {
   background-color: $course-about-bg;
   font-weight: 600;
   line-height: $line-height-big;
   padding: 1.5rem;
-  margin: 2rem;
   bottom: 2rem;
-  a {
-    //text-decoration: underline;
+  &.row {
+    margin: 0;
   }
+
   /*course-about*/
-  .card-title{
+  .card-title {
     width: 100%;
     padding-right: 1.5rem;
   }
@@ -76,7 +102,7 @@ Course - All course details
   .metadata {
     margin: 0;
     position: relative;
-    .fielddefinition{
+    .fielddefinition {
       // this is to prevent line to break into 2 in chrome
       white-space: nowrap;
     }
@@ -100,13 +126,28 @@ Course - All course details
   }
 
 }
+
 //fixing images inside course for mobile view
-.courseimagewrapper{
-  img{
+.courseimagewrapper {
+  img {
     max-width: 100%;
   }
 }
 
+/*  The edit button */
+.breadcrumb-button a.btn {
+  @include edit-button;
+  &.btn-success {
+    background-color: $input-background;
+  }
+  &.btn-danger {
+    background-color: $button-edit-bg;
+  }
+}
+
+.topics.row-fluid{
+  display: block; /* override the .row-fluid definition for flex, in this case */
+}
 
 /*course count pages - when the course is defined to be a single page one*/
 .course-content .section-summary .section-summary-activities .activity-count {
@@ -114,29 +155,53 @@ Course - All course details
   margin: 0.3rem 0.3rem 0.3rem 1rem;
 }
 
+.sectionname {
+  font-size: $font-size-sectionname;
+}
+
 /*in a one topic on page there's topic navigation. This is for the section name not to be so close to navigation*/
-.section-navigation .sectionname{
+.section-navigation .sectionname {
   margin-top: 5rem;
 }
 
-/*topics backgroun color*/
-.topics{
-  .section{
-    border: 0;
-    margin: 3rem 0;
-    background-color: $inner-bg;
-  }
+.format-flexsections .course-content ul.flexsections-level-1 > li.section.main,
+.topics .section {
+  border: 0;
+  margin: 3rem 0;
+  background-color: $inner-bg;
 }
+
 /*when pressing one of the topic above - there's no need for the background color*/
-.section-navigation ~ .topics  .section{
+.section-navigation ~ .topics .section {
   background-color: $transparent;
 }
 
+.format-topics .course-content ul.topics li.section,
+.format-weeks .course-content ul.weeks li.section,
+.format-flexsections .course-content ul.flexsections-level-1 li.section {
+  padding: 2.5rem;
+}
 
+/* The title of each section needs to have space between it and the image. We need the specicifity to override previous css  */
+.course-content ul.gridicons li .icon_content {
+  margin-bottom: 0.5rem;
+}
+
+/* background for sidebar blocks */
+[data-region="blocks-column"] .block-region .block {
+  background-color: $gray-background;
+}
 
 /*sidebar*/
-#region-main-box [data-region="blocks-column"]{
-  margin: 2rem 0 0 2rem;
+div#region-main-box {
+  &.col-xs-12 {
+    padding-right: 8rem;
+    padding-left: 8rem;
+    @include breakpoint(fordsonfall) {
+      padding-right: 2rem;
+      padding-left: 2rem;
+    }
+  }
 }
 
 

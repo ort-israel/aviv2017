@@ -58,13 +58,10 @@ $templatecontext = [
     'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu),
 ];
 
-if ($PAGE->theme->settings->toggledrawermenu == 1) {
-    aviv2018_boostnavigation_extend_navigation($PAGE->navigation);
-    aviv2018_local_navigation_extend_navigation($PAGE->navigation);
-} else if ($PAGE->theme->settings->toggledrawermenu == 2) {
-    aviv2018_boostnavigation_extend_navigation($PAGE->navigation);
-    aviv2018_local_navigation_extend_navigation($PAGE->navigation);
-}
+// Lea 2018 - we don't have a toggledrawermenu setting
+aviv2018_boostnavigation_extend_navigation($PAGE->navigation);
+aviv2018_local_navigation_extend_navigation($PAGE->navigation);
+
 
 $templatecontext['flatnavigation'] = $PAGE->flatnav;
 echo $OUTPUT->render_from_template('theme_aviv2018/frontpage', $templatecontext);

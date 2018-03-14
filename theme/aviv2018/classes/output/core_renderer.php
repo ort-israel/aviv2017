@@ -24,6 +24,8 @@ use theme_config;
 
 defined('MOODLE_INTERNAL') || die;
 
+global $CFG;
+
 require_once($CFG->dirroot . "/course/renderer.php");
 require_once($CFG->libdir . '/coursecatlib.php');
 
@@ -42,6 +44,34 @@ class core_renderer extends \theme_fordson\output\core_renderer {
         $output = parent::standard_head_html();
         $output .= "<link href=\"https://fonts.googleapis.com/css?family=Assistant:400,700,800&amp;subset=hebrew\" rel=\"stylesheet\">\n";
         return $output;
+    }
+
+
+    /**
+     * Add role to body class
+     * @return string
+     * @throws \coding_exception
+     */
+    public function header() {
+        global $COURSE;
+        $course = $this->page->course;
+        $coursecontext = context_course::instance($course->id);
+        if (is_siteadmin()) {
+            $this->page->add_body_class('courserole-admin');
+        }
+        /* code taken from: https://moodle.org/mod/forum/discuss.php?d=362674#p1462631*/
+        if ($roles = get_user_roles($coursecontext)) {
+            foreach ($roles as $role) {
+                $this->page->add_body_class('courserole-' . $role->shortname);
+            }
+        } else {
+            if (count($roles) === 0 && !is_guest($coursecontext) && !is_siteadmin() && $COURSE->category > 0) {
+                $this->page->add_body_class('courserole-none');
+            }
+
+        }
+        return parent::header();
+
     }
 
     /**
@@ -74,8 +104,9 @@ class core_renderer extends \theme_fordson\output\core_renderer {
         $pageheadingbutton = $this->page_heading_button();
         if (empty($PAGE->layout_options['nonavbar'])) {
             $html .= html_writer::start_div('clearfix w-100 pull-xs-left', array('id' => 'page-navbar'));
-            $html .= html_writer::tag('div', $this->navbar(), array('class' => 'breadcrumb-nav'));
-            //$html .= html_writer::tag('div', $this->thiscourse_menu(), array('class' => 'thiscourse'));
+            if ($this->page->navbar->has_items()) {
+                $html .= html_writer::tag('div', $this->navbar(), array('class' => 'breadcrumb-nav'));
+            }
             $html .= html_writer::div($pageheadingbutton, 'breadcrumb-button pull-xs-right');
             $html .= html_writer::end_div();
         } else if ($pageheadingbutton) {
@@ -191,19 +222,34 @@ class core_renderer extends \theme_fordson\output\core_renderer {
         $coursecontext = context_course::instance($course->id);
         $instances = enrol_get_instances($course->id, true);
         $plugins = enrol_get_plugins(true);
-        if (!isguestuser() and isloggedin() and (!is_enrolled($coursecontext))) {
-            // enrol link if possible
-            if (is_viewing($coursecontext)) {
-                // better not show any enrol link, this is intended for managers and inspectors
-            } else {
+        if (!isguestuser() && isloggedin()) {
+            if ((is_enrolled($coursecontext))) {
+                // unenrol link if possible
                 foreach ($instances as $instance) {
                     if (!isset($plugins[$instance->enrol])) {
                         continue;
                     }
                     $plugin = $plugins[$instance->enrol];
-                    if ($plugin->show_enrolme_link($instance)) {
-                        $classenrol = 'has-enrol-link';
+                    if ($unenrollink = $plugin->get_unenrolself_link($instance)) {
+                        $classenrol = 'has-unenrol-link';
                         break;
+                        //TODO. deal with multiple unenrol links - not likely case, but still...
+                    }
+                }
+            } else {
+                // enrol link if possible
+                if (is_viewing($coursecontext)) {
+                    // better not show any enrol link, this is intended for managers and inspectors
+                } else {
+                    foreach ($instances as $instance) {
+                        if (!isset($plugins[$instance->enrol])) {
+                            continue;
+                        }
+                        $plugin = $plugins[$instance->enrol];
+                        if ($plugin->show_enrolme_link($instance)) {
+                            $classenrol = 'has-enrol-link';
+                            break;
+                        }
                     }
                 }
             }

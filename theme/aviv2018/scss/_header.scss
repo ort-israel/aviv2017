@@ -75,6 +75,10 @@
 
     }
 
+    a .icon{
+      color: $navbarurl;
+    }
+
     //the wrapper of user name and all the other icons of messages, alerts and grades
     .top-menu-user{
       @include display-flex();

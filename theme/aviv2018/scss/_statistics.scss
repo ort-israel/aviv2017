@@ -1,8 +1,9 @@
 /* STATISTICS */
 .statistics {
   text-align: center;
-  .statistics-title {
-    font-weight: 800;
+  .statistics-title,
+  .statisticsterm{
+    font-weight: 400;
     font-size: $font-size-title;
   }
 
@@ -14,5 +15,8 @@
     font-size: 7.5rem;
     color: $dark-purple;
     margin: 0;
+  }
+  .btn-secondary{
+    margin-top: 5rem;
   }
 }

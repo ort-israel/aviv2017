@@ -1,13 +1,21 @@
 .pagelayout-login {
+  font-weight: bold;
   #page-wrapper {
     background-image: url([[pix:theme|headerbg]]);
     background-position: center;
     background-size: cover;
+
+    #region-main{
+      padding-left: 0;
+      padding-right: 0;
+      padding-bottom: 10rem;
+    }
   }
   // had to do it this way because of the hierarchy and the important
   #page.container-fluid {
     padding: 0 !important;
   }
+
   .row {
     margin: 0;
     .card {
@@ -17,7 +25,6 @@
         border-bottom: 0;
         h2 {
           font-size: 3rem;
-          font-weight: bold;
         }
       }
       .card-block {
@@ -74,7 +81,7 @@
   .login-wrapper {
     margin: 0;
     margin-top: 5%;
-    padding-bottom: 4rem;
+    padding-bottom: 14rem;
     background-color: rgba($login-background, .8);
   }
 

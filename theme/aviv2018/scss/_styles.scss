@@ -6,9 +6,9 @@ html {
 }
 
 body,
-pre{
-  color: $primary-text-color;
-  font-family: $font-family;
+pre {
+  color: $primary-text-color !important;
+  font-family: $font-family !important;
   font-size: $font-size-base;
   line-height: $line-height-base;
   -webkit-font-smoothing: antialiased;
@@ -21,9 +21,30 @@ body a:hover {
   text-decoration: underline; /*needed because for some reason - from fordson or boost it was none*/
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+}
+
 h4, .h4,
-h5, .h5{
+h5, .h5 {
   font-size: $font-size-base;
+}
+
+select {
+  margin-bottom: 1rem;
+}
+
+th, td {
+  border: none;
+}
+
+legend {
+  font-size: $font-size-root;
 }
 
 /**
@@ -43,7 +64,7 @@ EDIT MODE */
   margin-left: auto;
   /*was supposed to be right*/
   width: 100%;
-  @include breakpoint(tablet){
+  @include breakpoint(tablet) {
     width: auto;
   }
 
@@ -56,8 +77,6 @@ EDIT MODE */
   background-color: #fff;
 }
 
-
-
 // cog button
 /*remove hover:*/
 .teacherdashbutton:hover,
@@ -68,7 +87,6 @@ EDIT MODE */
 }
 
 .dropdown-toggle {
-  color: $buttons-text-color;
   .icon {
     color: inherit;
     &:after {
@@ -79,7 +97,6 @@ EDIT MODE */
 
 .dropdown-toggle {
   &:hover {
-    color: $buttons-text-color;
     .icon {
       color: inherit;
       &:after {
@@ -132,41 +149,36 @@ body:not(.editing) .block_myoverview .card-title,
   }
 }
 
-/*Button design - for Lea :)*/
-.btn-secondary,
-.btn-secondary:hover,
-.btn-primary,
-.btn-primary:hover{
-  font-size: $font-size-root;
-  font-weight: 600;
-  text-decoration: underline;
-  color: $card-knowledge;
-  border: none;
-  border-radius: 0;
-  background-color: $card-title-background-color;
-  padding: 1rem 3rem;
+#page-content { /* when in header, use the inherited style */
+  /*Button design */
+  .btn-secondary:not(.qnbutton),
+  .btn-secondary:not(.qnbutton):hover,
+  .btn-primary,
+  .btn-primary:hover {
+    @include submit-button;
 
- /* &:hover{
-    background-color: inherit;
-    color: inherit;
-  }*/
-  i{
-    color: inherit;
-    &:before{
+    i {
       color: inherit;
+      &:before {
+        color: inherit;
+      }
     }
   }
 }
 
-.btn-secondary#id_cancel{
+.btn-secondary#id_cancel {
   background-color: #AAAAAA;
 }
 
 /*to repair all the buttons with small font*/
-.btn{
+.btn {
   font-size: $font-size-root;
 }
 
+/*Rachel 28.1.2018 - until Lea will have time to check why it happened*/
+.row {
+  background-color: transparent;
+}
 
 /* LOGIN PAGE */
 @import "login";
@@ -182,7 +194,6 @@ body:not(.editing) .block_myoverview .card-title,
 /* FEATURED COURSES */
 @import "featuredcourses";
 
-
 /* STATISTICS */
 @import "statistics";
 
@@ -195,7 +206,6 @@ body:not(.editing) .block_myoverview .card-title,
 /* COURSE */
 @import "course";
 
-
-
-
+/* COURSE */
+@import "modules";
 

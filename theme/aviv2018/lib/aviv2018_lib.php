@@ -72,7 +72,7 @@ function theme_aviv2018_get_course_activities() {
     return $modfullnames;
 }
 
-function theme_aviv2018_strip_html_tags( $text ) {
+function theme_aviv2018_strip_html_tags($text) {
     $text = preg_replace(
         array(
             // Remove invisible content.
@@ -101,7 +101,7 @@ function theme_aviv2018_strip_html_tags( $text ) {
         ),
         $text
     );
-    return strip_tags( $text );
+    return strip_tags($text);
 }
 
 /**
@@ -124,7 +124,7 @@ function theme_aviv2018_course_trim_char($str, $n = 500, $endchar = '&#8230;') {
 
     $out = "";
     $small = substr($str, 0, $n);
-    $out = $small.$endchar;
+    $out = $small . $endchar;
     return $out;
 }
 
@@ -151,19 +151,19 @@ function aviv2018_boostnavigation_extend_navigation(global_navigation $navigatio
     // Check if admin wanted us to remove the calendar node from Boost's nav drawer.
 //    if (!empty($PAGE->theme->settings->removecalendarnode)) {
 //        // If yes, do it.
-        if ($calendarnode = $navigation->find('calendar', global_navigation::TYPE_CUSTOM)) {
-            // Hide calendar node.
-            $calendarnode->showinflatnavigation = false;
-        }
+    if ($calendarnode = $navigation->find('calendar', global_navigation::TYPE_CUSTOM)) {
+        // Hide calendar node.
+        $calendarnode->showinflatnavigation = false;
+    }
 //    }
 
     // Check if admin wanted us to remove the privatefiles node from Boost's nav drawer.
 //    if (!empty($PAGE->theme->settings->removeprivatefilesnode)) {
-        // If yes, do it.
-        if ($privatefilesnode = aviv2018_boostnavigation_find_privatefiles_node($navigation)) {
-            // Hide privatefiles node.
-            $privatefilesnode->showinflatnavigation = false;
-        }
+    // If yes, do it.
+    if ($privatefilesnode = aviv2018_boostnavigation_find_privatefiles_node($navigation)) {
+        // Hide privatefiles node.
+        $privatefilesnode->showinflatnavigation = false;
+    }
 //    }
 
     // Check if admin wanted us to remove the mycourses node from Boost's nav drawer.
@@ -257,8 +257,7 @@ function aviv2018_boostnavigation_get_all_childrenkeys(navigation_node $navigati
     // No, this node does not have children anymore.
     if (count($navigationnode->children) == 0) {
         return array();
-    }
-    // Yes, this node has children.
+    } // Yes, this node has children.
     else {
         // Get own own children keys.
         $childrennodeskeys = $navigationnode->get_children_key_list();
@@ -291,13 +290,15 @@ function aviv2018_boostnavigation_get_all_childrenkeys(navigation_node $navigati
 function aviv2018_local_navigation_extend_navigation(global_navigation $navigation) {
     global $PAGE;
 
-        $menu = new custom_menu($PAGE->theme->settings->adddrawermenu, current_language());
-        if ($menu->has_children()) {
-            foreach ($menu->get_children() as $item) {
-                aviv2018_navigation_custom_menu_item($item, 0, null);
-            }
+    // Lea 2018 - we don't have a toggledrawermenu setting
+    $menu = new custom_menu(1, current_language());
+    if ($menu->has_children()) {
+        foreach ($menu->get_children() as $item) {
+            aviv2018_navigation_custom_menu_item($item, 0, null);
         }
+    }
 }
+
 /**
  * Extend navigation to add new options.
  *
@@ -334,7 +335,7 @@ function aviv2018_navigation_custom_menu_item(custom_menu_item $menunode, $paren
         } else {
             $masternode = $PAGE->navigation->add(aviv2018_local_navigation_get_string($menunode->get_text()), $url, navigation_node::TYPE_CONTAINER);
             $masternode->title($menunode->get_title());
-                $masternode->showinflatnavigation = true;
+            $masternode->showinflatnavigation = true;
         }
         foreach ($menunode->get_children() as $menunode) {
             aviv2018_navigation_custom_menu_item($menunode, $submenucount, $masternode);
@@ -352,8 +353,8 @@ function aviv2018_navigation_custom_menu_item(custom_menu_item $menunode, $paren
         } else {
             $masternode = $PAGE->navigation->add(aviv2018_local_navigation_get_string($menunode->get_text()), $url, navigation_node::TYPE_CONTAINER);
             $masternode->title($menunode->get_title());
-                $masternode->showinflatnavigation = true;
-            }
+            $masternode->showinflatnavigation = true;
+        }
     }
 
     return true;

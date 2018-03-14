@@ -42,7 +42,6 @@ body:not(.pagelayout-frontpage) #page-header {
     @include breakpoint(laptop) {
       transform: none;
       left: auto;
-      //right: 8rem;
       right: 8vw;
     }
   }
@@ -55,10 +54,9 @@ body:not(.pagelayout-frontpage) #page-header {
 }
 
 .breadcrumb-nav {
-  margin-top: 1.5rem;
   .breadcrumb {
     border-radius: 0;
-    padding: 1rem 2rem;
+    padding: 0.5rem 2rem 0.7rem;
   }
 
 }
@@ -73,7 +71,7 @@ body:not(.pagelayout-frontpage) .card-title {
 
 /*only featuredcourses needs padding in presentage on the right*/
 body:not(.pagelayout-frontpage):not(.pagelayout-mydashboard) .block_featuredcourses .card-title,
-body.pagelayout-coursecategory .card-title {
+body.pagelayout-coursecategory .block_featuredcourses .card-title {
   padding-right: 5%;
 }
 
@@ -84,7 +82,6 @@ div#coursecontrols {
   border-top: 0;
   border-radius: 0;
   background-color: $transparent;
-  //color: $card-knowledge;
   font-weight: 600;
   font-size: 2rem;
   width: auto;
@@ -94,14 +91,11 @@ div#coursecontrols {
 .teacherdashbutton,
 .thiscoursebutton,
 .editcogbutton {
-  /* float: none; */
   /* Lea - this is part of what makes the cog button overlap the tab*/
   text-align: left;
-  //color: $card-knowledge;
   background-color: $course-upper-buttons-bg;
   border-radius: 0;
   &:hover {
-    //color: $card-knowledge;
     background-color: $course-upper-buttons-bg;
   }
   a {
@@ -119,6 +113,11 @@ div#coursecontrols {
 
 }
 
+.teacherdashboard i.dashicon {
+  float: none;
+  padding: 0 0 0 8px;
+}
+
 .editcogbutton .context-header-settings-menu .dropdown {
   padding-left: 1rem;
   padding-right: 1.5rem;
@@ -129,7 +128,14 @@ div#coursecontrols {
   margin-left: 0.5rem;
 }
 
-.has-enrol-link {
+/*editing cog in inner page should be aligned to title*/
+.path-mod #region-main-settings-menu > div {
+  left: -10px; /* leave a little space between this and the next element */
+  top: 2rem; /* that's the height of the top margin of the element next to it */
+}
+
+body.courserole-student:not(.courserole-admin) .has-enrol-link,
+body.courserole-student:not(.courserole-admin) .has-unenrol-link {
   .editcogbutton {
     width: 0;
   }
@@ -144,7 +150,6 @@ div#coursecontrols {
     display: block;
     position: absolute;
     margin-top: 0;
-    //top: 1.6rem;
     top: -0.6rem;
     left: 10.6rem;
     border-radius: 0;
@@ -161,7 +166,6 @@ div#coursecontrols {
       }
       a,
       a .icon {
-        //color: $buttons-text-color;
         color: inherit;
       }
     }
@@ -169,11 +173,20 @@ div#coursecontrols {
   }
 }
 
+/*disenrol link button - only for students*/
+body.courserole-student:not(.courserole-admin) .has-unenrol-link {
+  .dropdown-menu {
+    top: -2.7rem;
+    background-color: $gray-strong;
+    a .icon:before {
+      content: "\f235";
+    }
+  }
+}
+
 /*the part that is presented after pressing the button - in this course - teacher & student*/
 .collapse.in {
   background-color: $course-upper-buttons-bg;
-  //box-shadow: 0 -4px 0 0 $course-upper-buttons-bg;
-  //transition: 0.5s box-shadow;
 
   .row {
     margin: 2rem 0;
@@ -190,14 +203,8 @@ div#coursecontrols {
 
 }
 
-//for student 4 first items in the right nav bar:
-.pagelayout-incourse #region-main,
-#region-main.has-blocks {
-  padding: 0 3rem;
-}
-
 /*
-course that a student isn't inroll to it yet (after pressing the enroll button)
+course that a student isn't enroll to it yet (after pressing the enroll button)
 */
 .pagelayout-incourse.path-enrol {
   h2 {
@@ -207,12 +214,33 @@ course that a student isn't inroll to it yet (after pressing the enroll button)
   }
   .box {
     .coursebox {
-      @include flex-direction(row);
-      @include flex-wrap(nowrap);
+      @include breakpoint(tablet) {
+        @include flex-direction(row);
+        @include flex-wrap(wrap);
+      }
+
       border: 0;
-      .courseimagewrapper {
+      @include breakpoint(tablet) {
+        .courseimagewrapper {
+          width: 30%;
+        }
+        .courseinfowrapper {
+          width: 70%;
+          padding-top: 0;
+        }
+        .tagswrapper {
+          width: 100%;
+        }
       }
     }
+  }
+
+  /*text before button to continue or enroll*/
+  .form-control-static {
+    font-weight: 600;
+  }
+  .form-group {
+    text-align: center;
   }
 }
 
@@ -241,11 +269,6 @@ course that a student isn't inroll to it yet (after pressing the enroll button)
 }
 
 body:not(.pagelayout-coursecategory):not(pagelayout-pagelayout-frontpage) {
-  /*Rachel - 7.1.18 - dont know if it's right and its not infecting other designes.*/
-  #region-main {
-    padding: 1rem 3rem 5rem;
-  }
-
   h2,
   h3 {
     font-weight: 600;
@@ -258,6 +281,16 @@ body:not(.pagelayout-coursecategory):not(pagelayout-pagelayout-frontpage) {
 .table th, table.collection th, table.flexible th, .generaltable th, .table td, table.collection td, table.flexible td, .generaltable td {
   border-color: #ddd;
 }
+
+/* for table headers */
+.generaltable thead {
+  background-color: $brand-primary;
+  th.header {
+    background-color: transparent;
+    color: $white;
+  }
+}
+
 /*
 ******  MY PAGE******
 */
@@ -282,8 +315,8 @@ body:not(.pagelayout-coursecategory):not(pagelayout-pagelayout-frontpage) {
       }
     }
   }
-  .tab-content{
-    .row.text-xs-center{
+  .tab-content {
+    .row.text-xs-center {
       @include justify-content(center);
     }
   }
@@ -292,7 +325,6 @@ body:not(.pagelayout-coursecategory):not(pagelayout-pagelayout-frontpage) {
   .courses-view-course-item {
     background-color: $light-gray;
   }
-
 
   /*for features courses to trach to max 100%*/
   .card-block {
@@ -314,4 +346,79 @@ body:not(.pagelayout-coursecategory):not(pagelayout-pagelayout-frontpage) {
       }
     }
   }
+}
+
+/* override height definition for select on .form-control */
+select.form-control {
+  &:not([size]):not([multiple]) {
+    height: auto;
+  }
+}
+
+a .text-info, .highlight { /* this is the question mark inside a circle */
+  color: $brand-primary !important;
+  background-color: $white;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  line-height: 1.1; /* for horizontal alignment */
+}
+
+body:not(.format-site) .no-overflow { /*for popups form question marks*/
+  font-size: $font-size-root;
+}
+
+/*
+User Profile
+*/
+.path-user {
+  .header-button-group {
+    a {
+      .icon, .header-button-title {
+        color: $white;
+      }
+    }
+  }
+
+  .lead, .userprofile .profile_tree section h3 {
+    font-size: inherit;
+    font-weight: bold;
+    margin-bottom: 0.5rem; /* same margin as fordson */
+  }
+
+  .profile_tree dl {
+    margin-right: 0;
+  }
+}
+
+/*
+Messages
+*/
+/* the messaging area has a fixed height and is positioned absolutely in boost.
+We have to adjust the height because our fon-size is larger */
+.messaging-area-container {
+  .messaging-area {
+    @media (max-width: 979px) {
+      height: 61rem;
+      @media (max-height: 670px) {
+        height: 51rem;
+      }
+    }
+    .contacts-area {
+      height: 61rem;
+      @media (max-height: 670px) {
+        height: 51rem;
+      }
+      .tabs {
+        height: 6rem;
+      }
+    }
+  }
+}
+
+/* message/edit.php */
+.preferences-container .preference-table .preference-row .preference-state .preference-state-status-container {
+  font-size: $font-size-root;
+  padding: 0 $spacer;
+  width: auto;
 }
