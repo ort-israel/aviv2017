@@ -848,7 +848,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
         'coursemanagedesc' => $coursemanagedesc,
         'coursemanagementmessage' =>$coursemanagementmessage,
         'progresschart' => $progresschart,
-        'gradeslink' => $gradeslink,
         'gradeslinkstudent' => $gradeslinkstudent,
         'hascourseinfogroup' => $hascourseinfogroup,
         'courseinfo' => $courseinfo,
@@ -867,7 +866,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
         'studentcoursemanage' => $studentcoursemanage,
 
         'dashlinks' => array(
-                array('hasuserlinks' => $gradestitle, 'title' => $gradestitle, 'url' => $gradeslink),
                 array('hasuserlinks' => $enroltitle, 'title' => $enroltitle, 'url' => $enrollink),
                 array('hasuserlinks' => $participantstitle, 'title' => $participantstitle, 'url' => $participantslink),
                 array('hasuserlinks' => $activitycompletiontitle, 'title' => $activitycompletiontitle, 'url' => $activitycompletionlink),
