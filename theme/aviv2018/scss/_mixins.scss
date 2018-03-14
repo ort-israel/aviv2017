@@ -14,6 +14,10 @@
     @media (min-width: 960px) {
       @content;
     }
+  } @else if $point == fordsonfall {
+    @media (max-width: 991px) {
+      @content;
+    }
   } @else if $point == tablet {
     @media (min-width: 768px) {
       @content;
@@ -22,34 +26,36 @@
     @media (max-width: 767px) {
       @content;
     }
-  }
-  @else if $point == mobile-tablet {
+  } @else if $point == mobile-tablet {
     @media (min-width: 550px) {
       @content;
     }
   }
 }
 
-
 //FLEX MIXINS
-@mixin display-flex(){
+@mixin display-flex() {
   display: -webkit-flex;
   display: flex;
 }
+
 //the display flex should have been like all the other mixins using 'value' but was added in the QA and created
 //too much work so for now i'm leaving it like this. Not nice but it works.
-@mixin display-inline-flex(){
+@mixin display-inline-flex() {
   display: -webkit-inline-flex;
   display: inline-flex;
 }
-@mixin flex-wrap ($value) {
+
+@mixin flex-wrap($value) {
   -webkit-flex-wrap: $value;
   flex-wrap: $value;
 }
-@mixin flex-direction($value){
+
+@mixin flex-direction($value) {
   -webkit-flex-direction: $value;
   flex-direction: $value;
 }
+
 @mixin justify-content($value) {
   justify-content: $value;
   -webkit-justify-content: $value;
@@ -68,4 +74,25 @@
 @mixin order($value) {
   -webkit-order: $value;
   order: $value;
+}
+
+@mixin submit-button() {
+  font-size: $font-size-root;
+  font-weight: 600;
+  text-decoration: underline;
+  color: $card-knowledge;
+  border: none;
+  border-radius: 0;
+  background-color: $card-title-background-color;
+  padding: 1rem 3rem;
+}
+
+@mixin edit-button() {
+  border: none;
+  color: $button-all;
+  font-weight: bold;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  padding: 1rem 3rem;
 }

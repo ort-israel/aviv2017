@@ -82,12 +82,11 @@ class block_featuredcourses extends block_base {
                             html_writer::empty_tag('img', array('src' => $url, 'class' => 'courseimage')),
                             array('class' => 'courseimagewrapper'));
                     } else {
-                        $image = $this->output->pix_icon(file_file_icon($file, 24), $file->get_filename(), 'moodle');
-                        $filename = html_writer::tag('span', $image, array('class' => 'fp-icon')) .
-                            html_writer::tag('span', $file->get_filename(), array('class' => 'fp-filename'));
-                        $contentfiles .= html_writer::tag('span',
-                            html_writer::link($url, $filename),
-                            array('class' => 'coursefile fp-filename-icon'));
+                        // if no image file, show default image
+                        $url = new moodle_url('/blocks/featuredcourses/img/default.jpg');
+                        $contentimages .= html_writer::tag('div',
+                            html_writer::empty_tag('img', array('src' => $url)),
+                            array('class' => 'courseimagewrapper'));
                     }
                 }
                 // if no image file, use default.

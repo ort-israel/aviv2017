@@ -113,7 +113,8 @@ class block_category_list extends block_list {
             $categories = array_values($categories);
             // Lea 2017 - Use the renderer that creates the sub categories on category screen
             $courserenderer = $PAGE->get_renderer('core', 'course');
-            for ($i = 0; $i < MAXNUMCATEGORIES; $i++) {
+            $countcategories = count($categories);
+            for ($i = 0; $i < MAXNUMCATEGORIES && $i < $countcategories; $i++) {
                 $category = $categories[$i];
                 if (method_exists($courserenderer, 'course_category_wrapper_content')) {
                     $this->content->items[] = $courserenderer->course_category_wrapper_content($chelper, $category, 1);
@@ -179,12 +180,9 @@ class block_category_list extends block_list {
 
     public function course_category_wrapper_content($coursecat, $depth = 1) {
         global $CFG;
-        $content = '';
         // category name
-        $categoryname = $coursecat->get_formatted_name();
-        $categoryname = html_writer::link(new moodle_url('/course/index.php',
-            array('categoryid' => $coursecat->id)),
-            $categoryname);
+        $categoryname = html_writer::tag('span', $coursecat->get_formatted_name(), array('class' => 'categoryname'));
+
         $coursescount = $coursecat->get_courses_count();
 
         $categoryname .= html_writer::tag('span', ' [' . $coursescount . ']',
@@ -201,7 +199,8 @@ class block_category_list extends block_list {
             $headerbg = new moodle_url($CFG->wwwroot . '/theme/aviv2018/pix/category_default.jpg');
             $featuredimage = html_writer::img($headerbg, '', array('class' => 'metadata metadatacateimage'));
         }
-        $content = "<a href=\"$CFG->wwwroot/course/index.php?categoryid=$coursecat->id\">" . $featuredimage . $categoryname . "</a>";
+        $content = html_writer::link(new moodle_url('/course/index.php',
+            array('categoryid' => $coursecat->id)), $featuredimage . $categoryname);
 
         return $content;
     }

@@ -1,0 +1,43 @@
+.h5peditor .ui-dialog .h5p-joubelui-button,
+.h5peditor .h5p-joubelui-button {
+    background-color: #5e3da1;
+}
+
+.h5p-joubelui-button,
+.h5p-joubelui-button:focus,
+.h5p-joubelui-button:hover,
+.joubel-simple-rounded-button,
+.joubel-simple-rounded-button:focus,
+.joubel-simple-rounded-button:hover {
+    background-color: #5e3da1;
+}
+
+/* RTL support */
+.dir-rtl.h5p-content {
+    direction: rtl;
+}
+
+.dir-rtl.h5p-content .h5p-question-next,
+.dir-rtl.h5p-content .h5p-question .h5p-question-prev{
+    float: left;
+}
+
+.dir-rtl.h5p-content .h5p-question .h5p-question-next::before {
+    content: "\f053";
+}
+
+.dir-rtl.h5p-content .h5p-question .h5p-question-prev::before {
+    content: "\f054";
+}
+
+.dir-rtl.h5p-content .h5p-question .h5p-question-next::before,
+.dir-rtl.h5p-content .h5p-question .h5p-question-prev::before {
+    left: auto;
+    right: 5px;
+}
+
+/* the check mark on the check button */
+.dir-rtl.h5p-content .h5p-joubelui-button::before {
+    padding-right: 0;
+    padding-left: 0.5em;
+}

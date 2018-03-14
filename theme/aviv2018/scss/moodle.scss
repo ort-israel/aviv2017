@@ -3,9 +3,10 @@
 $breadcrumb-divider: "/" !default;
 $breadcrumb-divider-rtl: "/" !default;
 $enable-flex: true;
-/* $gray-base has to be defined before call to fordon's moodle because it's user there: border: 1px solid $gray-base;
+/* $gray-base has to be defined before call to fordon's moodle because it's used there: border: 1px solid $gray-base;
 It would be better of we could import fordson's theme/fordson/scss/preset/default.scss but for some reason that doesn't work */
 $gray-base: #464646;
+
 @import "../../fordson/scss/moodle";
 
 

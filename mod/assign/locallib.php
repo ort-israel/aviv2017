@@ -168,6 +168,12 @@ class assign {
     private $sharedgroupmembers = array();
 
     /**
+     * @var stdClass The most recent team submission. Used to determine additional attempt numbers and whether
+     * to update the gradebook.
+     */
+    private $mostrecentteamsubmission = null;
+
+    /**
      * Constructor for the base assign class.
      *
      * Note: For $coursemodule you can supply a stdclass if you like, but it
@@ -600,6 +606,8 @@ class assign {
             $o .= $this->view_batch_markingallocation($mform);
         } else if ($action == 'viewsubmitforgradingerror') {
             $o .= $this->view_error_page(get_string('submitforgrading', 'assign'), $notices);
+        } else if ($action == 'fixrescalednullgrades') {
+            $o .= $this->view_fix_rescaled_null_grades();
         } else {
             $o .= $this->view_submission_page();
         }
@@ -2471,13 +2479,16 @@ class assign {
 
         $submission = null;
         if ($this->get_instance()->teamsubmission) {
-            $submission = $this->get_group_submission($grade->userid, 0, false);
+            if (isset($this->mostrecentteamsubmission)) {
+                $submission = $this->mostrecentteamsubmission;
+            } else {
+                $submission = $this->get_group_submission($grade->userid, 0, false);
+            }
         } else {
             $submission = $this->get_user_submission($grade->userid, false);
         }
 
-        // Only push to gradebook if the update is for the latest attempt.
-        // Not the latest attempt.
+        // Only push to gradebook if the update is for the most recent attempt.
         if ($submission && $submission->attemptnumber != $grade->attemptnumber) {
             return true;
         }
@@ -2887,7 +2898,12 @@ class assign {
             $item = $this->get_submission($submissionid);
 
             // Check permissions.
-            $this->require_view_submission($item->userid);
+            if (empty($item->userid)) {
+                // Group submission.
+                $this->require_view_group_submission($item->groupid);
+            } else {
+                $this->require_view_submission($item->userid);
+            }
             $o .= $this->get_renderer()->render(new assign_header($this->get_instance(),
                                                               $this->get_context(),
                                                               $this->show_intro(),
@@ -2942,11 +2958,17 @@ class assign {
      * @param assign_plugin $plugin - The assignment plugin
      */
     public function download_rewrite_pluginfile_urls($text, $user, $plugin) {
-        $groupmode = groups_get_activity_groupmode($this->get_course_module());
+        // The groupname prefix for the urls doesn't depend on the group mode of the assignment instance.
+        // Rather, it should be determined by checking the group submission settings of the instance,
+        // which is what download_submission() does when generating the file name prefixes.
         $groupname = '';
-        if ($groupmode) {
-            $groupid = groups_get_activity_group($this->get_course_module(), true);
-            $groupname = groups_get_group_name($groupid).'-';
+        if ($this->get_instance()->teamsubmission) {
+            $submissiongroup = $this->get_submission_group($user->id);
+            if ($submissiongroup) {
+                $groupname = $submissiongroup->name . '-';
+            } else {
+                $groupname = get_string('defaultteam', 'assign') . '-';
+            }
         }
 
         if ($this->is_blind_marking()) {
@@ -2959,10 +2981,14 @@ class assign {
             $prefix = clean_filename($prefix . '_' . $this->get_uniqueid_for_user($user->id) . '_');
         }
 
-        $subtype = $plugin->get_subtype();
-        $type = $plugin->get_type();
-        $prefix = $prefix . $subtype . '_' . $type . '_';
-
+        // Only prefix files if downloadasfolders user preference is NOT set.
+        if (!get_user_preferences('assign_downloadasfolders', 1)) {
+            $subtype = $plugin->get_subtype();
+            $type = $plugin->get_type();
+            $prefix = $prefix . $subtype . '_' . $type . '_';
+        } else {
+            $prefix = "";
+        }
         $result = str_replace('@@PLUGINFILE@@/', $prefix, $text);
 
         return $result;
@@ -3019,7 +3045,7 @@ class assign {
             } else {
                 $button->set_formats(PORTFOLIO_FORMAT_PLAINHTML);
             }
-            $result .= $button->to_html();
+            $result .= $button->to_html(PORTFOLIO_ADD_TEXT_LINK);
         }
         return $result;
     }
@@ -3080,6 +3106,18 @@ class assign {
         }
 
         return '';
+    }
+
+    /**
+     * Throw an error if the permissions to view this users' group submission are missing.
+     *
+     * @param int $groupid Group id.
+     * @throws required_capability_exception
+     */
+    public function require_view_group_submission($groupid) {
+        if (!$this->can_view_group_submission($groupid)) {
+            throw new required_capability_exception($this->context, 'mod/assign:viewgrades', 'nopermission', '');
+        }
     }
 
     /**
@@ -3170,7 +3208,9 @@ class assign {
         $groupname = '';
         if ($groupmode) {
             $groupid = groups_get_activity_group($this->get_course_module(), true);
-            $groupname = groups_get_group_name($groupid).'-';
+            if (!empty($groupid)) {
+                $groupname = groups_get_group_name($groupid) . '-';
+            }
         }
 
         // Construct the zip file name.
@@ -3598,7 +3638,7 @@ class assign {
         $grade = $this->get_user_grade($userid, false, $attemptnumber);
         $flags = $this->get_user_flags($userid, false);
         if ($this->can_view_submission($userid)) {
-            $gradelocked = ($flags && $flags->locked) || $this->grading_disabled($userid);
+            $submissionlocked = ($flags && $flags->locked);
             $extensionduedate = null;
             if ($flags) {
                 $extensionduedate = $flags->extensionduedate;
@@ -3615,7 +3655,7 @@ class assign {
                                                                      $submissiongroup,
                                                                      $notsubmitted,
                                                                      $this->is_any_submission_plugin_enabled(),
-                                                                     $gradelocked,
+                                                                     $submissionlocked,
                                                                      $this->is_graded($userid),
                                                                      $instance->duedate,
                                                                      $instance->cutoffdate,
@@ -3796,7 +3836,7 @@ class assign {
         $grade = $this->get_user_grade($userid, false, $attemptnumber);
         $flags = $this->get_user_flags($userid, false);
         if ($this->can_view_submission($userid)) {
-            $gradelocked = ($flags && $flags->locked) || $this->grading_disabled($userid);
+            $submissionlocked = ($flags && $flags->locked);
             $extensionduedate = null;
             if ($flags) {
                 $extensionduedate = $flags->extensionduedate;
@@ -3813,7 +3853,7 @@ class assign {
                                                              $submissiongroup,
                                                              $notsubmitted,
                                                              $this->is_any_submission_plugin_enabled(),
-                                                             $gradelocked,
+                                                             $submissionlocked,
                                                              $this->is_graded($userid),
                                                              $instance->duedate,
                                                              $instance->cutoffdate,
@@ -4202,6 +4242,8 @@ class assign {
         // Need submit permission to submit an assignment.
         $this->require_view_grades();
         require_once($CFG->dirroot . '/mod/assign/gradeform.php');
+
+        $this->add_grade_notices();
 
         // Only load this if it is.
         $o .= $this->view_grading_table();
@@ -4768,7 +4810,7 @@ class assign {
                     ($this->is_any_submission_plugin_enabled()) &&
                     $this->can_edit_submission($user->id);
 
-        $gradelocked = ($flags && $flags->locked) || $this->grading_disabled($user->id, false);
+        $submissionlocked = ($flags && $flags->locked);
 
         // Grading criteria preview.
         $gradingmanager = get_grading_manager($this->context, 'mod_assign', 'submissions');
@@ -4799,7 +4841,7 @@ class assign {
                                                           $submissiongroup,
                                                           $notsubmitted,
                                                           $this->is_any_submission_plugin_enabled(),
-                                                          $gradelocked,
+                                                          $submissionlocked,
                                                           $this->is_graded($user->id),
                                                           $instance->duedate,
                                                           $instance->cutoffdate,
@@ -5145,7 +5187,8 @@ class assign {
                                                   $this->get_course_module()->id,
                                                   $this->count_submissions_need_grading(),
                                                   $instance->teamsubmission,
-                                                  $warnofungroupedusers);
+                                                  $warnofungroupedusers,
+                                                  $this->can_grade());
         } else {
             // The active group has already been updated in groups_print_activity_menu().
             $countparticipants = $this->count_participants($activitygroup);
@@ -5159,7 +5202,8 @@ class assign {
                                                   $this->get_course_module()->id,
                                                   $this->count_submissions_need_grading(),
                                                   $instance->teamsubmission,
-                                                  false);
+                                                  false,
+                                                  $this->can_grade());
 
         }
 
@@ -5175,6 +5219,8 @@ class assign {
         global $CFG, $DB, $USER, $PAGE;
 
         $instance = $this->get_instance();
+
+        $this->add_grade_notices();
 
         $o = '';
 
@@ -7096,9 +7142,6 @@ class assign {
                     $mform->addHelpButton('grade', 'gradeoutofhelp', 'assign');
                     $mform->setType('grade', PARAM_RAW);
                 } else {
-                    $mform->addElement('hidden', 'grade', $name);
-                    $mform->hardFreeze('grade');
-                    $mform->setType('grade', PARAM_RAW);
                     $strgradelocked = get_string('gradelocked', 'assign');
                     $mform->addElement('static', 'gradedisabled', $name, $strgradelocked);
                     $mform->addHelpButton('gradedisabled', 'gradeoutofhelp', 'assign');
@@ -7449,7 +7492,7 @@ class assign {
             return false;
         }
         $submission->status = ASSIGN_SUBMISSION_STATUS_DRAFT;
-        $this->update_submission($submission, $userid, true, $this->get_instance()->teamsubmission);
+        $this->update_submission($submission, $userid, false, $this->get_instance()->teamsubmission);
 
         // Give each submission plugin a chance to process the reverting to draft.
         $plugins = $this->get_submission_plugins();
@@ -7895,6 +7938,12 @@ class assign {
         $instance = $this->get_instance();
         $submission = null;
         if ($instance->teamsubmission) {
+            // We need to know what the most recent group submission is.
+            // Specifically when determining if we are adding another attempt (we only want to add one attempt per team),
+            // and when deciding if we need to update the gradebook with an edited grade.
+            $mostrecentsubmission = $this->get_group_submission($userid, 0, false, -1);
+            $this->set_most_recent_team_submission($mostrecentsubmission);
+            // Get the submission that we are saving grades for. The data attempt number determines which submission attempt.
             $submission = $this->get_group_submission($userid, 0, false, $data->attemptnumber);
         } else {
             $submission = $this->get_user_submission($userid, false, $data->attemptnumber);
@@ -7909,8 +7958,10 @@ class assign {
             }
             $members = $this->get_submission_group_members($groupid, true, $this->show_only_active_users());
             foreach ($members as $member) {
-                // User may exist in multple groups (which should put them in the default group).
-                $this->apply_grade_to_user($data, $member->id, $data->attemptnumber);
+                // We only want to update the grade for this group submission attempt. The data attempt number could be
+                // -1 which may end up in additional attempts being created for each group member instead of just one
+                // additional attempt for the group.
+                $this->apply_grade_to_user($data, $member->id, $submission->attemptnumber);
                 $this->process_outcomes($member->id, $data, $userid);
             }
         } else {
@@ -8081,6 +8132,11 @@ class assign {
             }
 
             if (empty($groupsprocessed[$groupid])) {
+                // We need to know what the most recent group submission is.
+                // Specifically when determining if we are adding another attempt (we only want to add one attempt per team),
+                // and when deciding if we need to update the gradebook with an edited grade.
+                $currentsubmission = $this->get_group_submission($userid, 0, false, -1);
+                $this->set_most_recent_team_submission($currentsubmission);
                 $result = $this->process_add_attempt($userid) && $result;
                 $groupsprocessed[$groupid] = true;
             }
@@ -8131,7 +8187,18 @@ class assign {
 
         // Create the new submission record for the group/user.
         if ($this->get_instance()->teamsubmission) {
-            $newsubmission = $this->get_group_submission($userid, 0, true, $oldsubmission->attemptnumber + 1);
+            if (isset($this->mostrecentteamsubmission)) {
+                // Team submissions can end up in this function for each user (via save_grade). We don't want to create
+                // more than one attempt for the whole team.
+                if ($this->mostrecentteamsubmission->attemptnumber == $oldsubmission->attemptnumber) {
+                    $newsubmission = $this->get_group_submission($userid, 0, true, $oldsubmission->attemptnumber + 1);
+                } else {
+                    $newsubmission = $this->get_group_submission($userid, 0, false, $oldsubmission->attemptnumber);
+                }
+            } else {
+                debugging('Please use set_most_recent_team_submission() before calling add_attempt', DEBUG_DEVELOPER);
+                $newsubmission = $this->get_group_submission($userid, 0, true, $oldsubmission->attemptnumber + 1);
+            }
         } else {
             $newsubmission = $this->get_user_submission($userid, true, $oldsubmission->attemptnumber + 1);
         }
@@ -8508,6 +8575,104 @@ class assign {
     public function set_module_viewed() {
         $completion = new completion_info($this->get_course());
         $completion->set_module_viewed($this->get_course_module());
+    }
+
+    /**
+     * Checks for any grade notices, and adds notifications. Will display on assignment main page and grading table.
+     *
+     * @return void The notifications API will render the notifications at the appropriate part of the page.
+     */
+    protected function add_grade_notices() {
+        if (has_capability('mod/assign:grade', $this->get_context()) && get_config('assign', 'has_rescaled_null_grades_' . $this->get_instance()->id)) {
+            $link = new \moodle_url('/mod/assign/view.php', array('id' => $this->get_course_module()->id, 'action' => 'fixrescalednullgrades'));
+            \core\notification::warning(get_string('fixrescalednullgrades', 'mod_assign', ['link' => $link->out()]));
+        }
+    }
+
+    /**
+     * View fix rescaled null grades.
+     *
+     * @return bool True if null all grades are now fixed.
+     */
+    protected function fix_null_grades() {
+        global $DB;
+        $result = $DB->set_field_select(
+            'assign_grades',
+            'grade',
+            -1,
+            'grade <> ? AND grade < 0',
+            [-1]
+        );
+        $assign = clone $this->get_instance();
+        $assign->cmidnumber = $this->get_course_module()->idnumber;
+        assign_update_grades($assign);
+        return $result;
+    }
+
+    /**
+     * View fix rescaled null grades.
+     *
+     * @return void The notifications API will render the notifications at the appropriate part of the page.
+     */
+    protected function view_fix_rescaled_null_grades() {
+        global $OUTPUT;
+
+        $o = '';
+
+        require_capability('mod/assign:grade', $this->get_context());
+
+        $instance = $this->get_instance();
+
+        $o .= $this->get_renderer()->render(
+            new assign_header(
+                $instance,
+                $this->get_context(),
+                $this->show_intro(),
+                $this->get_course_module()->id
+            )
+        );
+
+        $confirm = optional_param('confirm', 0, PARAM_BOOL);
+
+        if ($confirm) {
+            confirm_sesskey();
+
+            // Fix the grades.
+            $this->fix_null_grades();
+            unset_config('has_rescaled_null_grades_' . $instance->id, 'assign');
+
+            // Display the notice.
+            $o .= $this->get_renderer()->notification(get_string('fixrescalednullgradesdone', 'assign'), 'notifysuccess');
+            $url = new moodle_url(
+                '/mod/assign/view.php',
+                array(
+                    'id' => $this->get_course_module()->id,
+                    'action' => 'grading'
+                )
+            );
+            $o .= $this->get_renderer()->continue_button($url);
+        } else {
+            // Ask for confirmation.
+            $continue = new \moodle_url('/mod/assign/view.php', array('id' => $this->get_course_module()->id, 'action' => 'fixrescalednullgrades', 'confirm' => true, 'sesskey' => sesskey()));
+            $cancel = new \moodle_url('/mod/assign/view.php', array('id' => $this->get_course_module()->id));
+            $o .= $OUTPUT->confirm(get_string('fixrescalednullgradesconfirm', 'mod_assign'), $continue, $cancel);
+        }
+
+        $o .= $this->view_footer();
+
+        return $o;
+    }
+
+    /**
+     * Set the most recent submission for the team.
+     * The most recent team submission is used to determine if another attempt should be created when allowing another
+     * attempt on a group assignment, and whether the gradebook should be updated.
+     *
+     * @since Moodle 3.3.3
+     * @param stdClass $submission The most recent submission of the group.
+     */
+    public function set_most_recent_team_submission($submission) {
+        $this->mostrecentteamsubmission = $submission;
     }
 }
 

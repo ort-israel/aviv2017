@@ -672,12 +672,9 @@ class course_renderer extends \core_course_renderer {
 
     public function course_category_wrapper_content($chelper, $coursecat, $depth) {
         global $CFG, $PAGE;
-        $content = '';
         // category name
-        $categoryname = $coursecat->get_formatted_name();
-        $categoryname = html_writer::link(new moodle_url('/course/index.php',
-            array('categoryid' => $coursecat->id)),
-            $categoryname);
+        $categoryname = html_writer::tag('span', $coursecat->get_formatted_name(), array('class' => 'categoryname'));
+
         if ($chelper->get_show_courses() == self::COURSECAT_SHOW_COURSES_COUNT
             && ($coursescount = $coursecat->get_courses_count())) {
             $categoryname .= html_writer::tag('span', ' [' . $coursescount . ']',
@@ -710,11 +707,8 @@ class course_renderer extends \core_course_renderer {
             }
             $featuredimage = html_writer::img($headerbg, '', array('class' => 'metadata metadatacateimage'));
         }
-        $content = "<a href=\"$CFG->wwwroot/course/index.php?categoryid=$coursecat->id\">" . $featuredimage . $categoryname . "</a>";
-        //print_object($coursecat);
-
-//        $content .= html_writer::tag(($depth > 1) ? 'h4' : 'h3', $categoryname, array('class' => 'categoryname'));
-//        $content .= html_writer::end_tag('div'); // .info
+        $content = html_writer::link(new moodle_url('/course/index.php',
+            array('categoryid' => $coursecat->id)), $featuredimage . $categoryname);
 
         return $content;
     }
@@ -744,6 +738,7 @@ class course_renderer extends \core_course_renderer {
             $displayoptions['paginationurl'] = new moodle_url('/course/search.php', $searchcriteria);
             $displayoptions['paginationallowall'] = true; // allow adding link 'View all'
 
+            $searchform = '';
             // Lea 2017 - move search form to top
             if (!empty($searchcriteria['search'])) {
                 // print search form only if there was a search by search string, otherwise it is confusing

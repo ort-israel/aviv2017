@@ -45,7 +45,7 @@ class api {
      *
      * @param int $cmid The course module id
      * @param string $modulename The name of the module (eg. assign, quiz)
-     * @param stdClass|int $instanceorid The instance object or ID.
+     * @param \stdClass|int $instanceorid The instance object or ID.
      * @param int|null $completionexpectedtime The time completion is expected, null if not set
      * @return bool
      */
@@ -59,7 +59,10 @@ class api {
         if (is_object($instanceorid)) {
             $instance = $instanceorid;
         } else {
-            $instance = $DB->get_record($modulename, array('id' => $instanceorid), '*', MUST_EXIST);
+            $instance = $DB->get_record($modulename, array('id' => $instanceorid), '*', IGNORE_MISSING);
+        }
+        if (!$instance) {
+            return false;
         }
         $course = get_course($instance->course);
 
