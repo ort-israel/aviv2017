@@ -46,20 +46,7 @@ echo $OUTPUT->doctype() ?>
     <![endif]-->
     <nav role="navigation" class="navbar-inner">
         <div class="container-fluid">
-            <!-- Tsofiya 30/12/14: remove default nav and add required logos
-            <a class="brand" href="<?php echo $CFG->wwwroot;?>"><?php echo $SITE->shortname; ?></a>
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
-            <div class="nav-collapse collapse">
-                <?php echo $OUTPUT->custom_menu(); ?>
-                <ul class="nav pull-right">
-                    <li><?php echo $OUTPUT->page_heading_menu(); ?></li>
-                    <li class="navbar-text"><?php echo $OUTPUT->login_info() ?></li>
-                </ul>
-            </div>-->
+            <!-- Tsofiya 30/12/14: remove default nav and add required logos -->
             <div class="logo-catch-cash-wrapper">
                 <a class="logo-catch-cash" target="_blank" href="http://www.catch-cash.ort.org.il">catch cash</a>
                 <a class="under-logo" target="_blank" href="http://www.catch-cash.ort.org.il"> <?php echo get_string('back-to-catch-cash',"theme_clean_finance"); ?> </a>
@@ -75,9 +62,7 @@ echo $OUTPUT->doctype() ?>
     <header id="page-header" class="clearfix">
         <!-- Tsofiya 7/1/14: if user can't use the editing button hide it -->
         <div id="page-navbar" class="clearfix <?php echo strlen($PAGE->button)==0?'hide':''; ?> ">
-            <!-- Tsofiya 7/1/14: remove breadcrumbs
-            <nav class="breadcrumb-nav"><?php echo $OUTPUT->navbar(); ?></nav>
-            -->
+            <!-- Tsofiya 7/1/14: remove breadcrumbs   -->
             <div class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); ?></div>
         </div>
         <div id="course-header">

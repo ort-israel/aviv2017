@@ -58,27 +58,7 @@ echo $OUTPUT->doctype() ?>
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
 
 <header role="banner" class="top-header navbar <?php echo $html->navbarclass ?> moodle-has-zindex">
-    <!-- Tsofiya 05/11/15: remove default header and dispay ours
-    <nav role="navigation" class="navbar-inner">
-        <div class="container-fluid">
-            <a class="brand" href="<?php echo $CFG->wwwroot;?>"><?php echo
-                format_string($SITE->shortname, true, array('context' => context_course::instance(SITEID)));
-                ?></a>
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
-            <?php echo $OUTPUT->user_menu(); ?>
-            <div class="nav-collapse collapse">
-                <?php echo $OUTPUT->custom_menu(); ?>
-                <ul class="nav pull-right">
-                    <li><?php echo $OUTPUT->page_heading_menu(); ?></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    -->
+    <!-- Tsofiya 05/11/15: remove default header and dispay ours -->
     <div class="logos">
         <a class="biosense-logo" href="https://www.biosensewebster.com/">Biosense Webster</a>
         <a class="ort-logo" href="http://www.ort.org.il">אתר אורט</a>
@@ -116,15 +96,7 @@ echo $OUTPUT->doctype() ?>
     </div>
 
     <footer id="page-footer">
-        <!-- Tsofiya 05/11/15: remove default header and dispay ours
-        <div id="course-footer"><?php echo $OUTPUT->course_footer(); ?></div>
-        <p class="helplink"><?php echo $OUTPUT->page_doc_link(); ?></p>
-        <?php
-        echo $html->footnote;
-        echo $OUTPUT->login_info();
-        echo $OUTPUT->home_link();
-        echo $OUTPUT->standard_footer_html();
-        ?>-->
+        <!-- Tsofiya 05/11/15: remove default footer and dispay ours -->
         האתר פותח ע"י המרכז למו"פ <a href="http://www.ort.org.il">אורט ישראל</a> |
         <a class="link" href="">אודות</a> |
         <a class="link" href="">קרדיטים</a>

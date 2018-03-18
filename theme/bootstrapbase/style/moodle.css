@@ -10600,7 +10600,10 @@ a:focus {
 [class*="span"] {
   float: left;
   min-height: 1px;
+  /* Lea 2018 */
+  /*rtl:begin:ignore*/
   margin-left: 20px;
+  /*rtl:end:ignore*/
 }
 .container,
 .navbar-static-top .container,
@@ -10700,15 +10703,21 @@ a:focus {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  /* Lea 2018 - rtl ignore */
+  /*rtl:begin:ignore*/
   float: left;
-  margin-left: 2.12765957%;
+    margin-left: 2.12765957%;
   *margin-left: 2.07446809%;
+  /*rtl:end:ignore*/
 }
 .row-fluid [class*="span"]:first-child {
   margin-left: 0;
 }
 .row-fluid .controls-row [class*="span"] + [class*="span"] {
+  /* Lea 2018 - rtl ignore */
+  /*rtl:end:ignore*/
   margin-left: 2.12765957%;
+  /*rtl:end:ignore*/
 }
 .row-fluid .span12 {
   width: 100%;
@@ -16576,10 +16585,16 @@ form {
 }
 .form-item .form-label,
 .mform .fitem div.fitemtitle {
+  /* Lea 2018 - rtl ignore */
+  /*rtl:begin:ignore*/
   float: left;
+  /*rtl:end:ignore*/
   width: 180px;
   padding-top: 5px;
+  /* Lea 2018 - rtl ignore */
+  /*rtl:begin:ignore*/
   text-align: right;
+  /*rtl:end:ignore*/
 }
 .form-defaultinfo,
 .form-label .form-shortname {
@@ -19715,15 +19730,24 @@ span[data-flexitour="container"][x-placement="right-start"] div[data-role="arrow
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    /* Lea 2018 - rtl ignore float */
+    /*rtl:begin:ignore*/
     float: left;
     margin-left: 2.56410256%;
     *margin-left: 2.51091107%;
+    /*rtl:end:ignore*/
   }
   .row-fluid [class*="span"]:first-child {
+    /* Lea 2018 - rtl ignore */
+    /*rtl:end:ignore*/
     margin-left: 0;
+    /*rtl:end:ignore*/
   }
   .row-fluid .controls-row [class*="span"] + [class*="span"] {
+    /* Lea 2018 - rtl ignore */
+    /*rtl:begin:ignore*/
     margin-left: 2.56410256%;
+    /*rtl:end:ignore*/
   }
   .row-fluid .span12 {
     width: 100%;
@@ -20064,9 +20088,12 @@ span[data-flexitour="container"][x-placement="right-start"] div[data-role="arrow
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    /* Lea 2018 - rtl ignore */
+    /*rtl:begin:ignore*/
     float: left;
     margin-left: 2.76243094%;
     *margin-left: 2.70923945%;
+    /*rtl:end:ignore*/
   }
   .row-fluid [class*="span"]:first-child {
     margin-left: 0;

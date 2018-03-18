@@ -31,7 +31,9 @@
 
 html,
 body {
+    /*rtl:raw
     direction: rtl;
+    */
     unicode-bidi: embed;
 }
 
@@ -71,7 +73,9 @@ h1,h2,h3,h4,h5,h6{
         width: inherit;
     }
 	#region-main{
+        /*rtl:begin:ignore*/
         float: right;
+        /*rtl:end:ignore*/
     }
 }
 .container-fluid{
@@ -110,15 +114,21 @@ header.top-header{
 }
 a.ort-logo{
     background-image: url([[pix:theme|sprite_mobile]]);
+    /*rtl:begin:ignore*/
     background-position: 0 -209px;
+    /*rtl:end:ignore*/
     background-repeat: no-repeat;
     width: 105px;
     height: 57px;
+    /*rtl:begin:ignore*/
     margin-right: 10px;
+    /*rtl:end:ignore*/
 }
 a.biosense-logo{
     background-image: url([[pix:theme|sprite_mobile]]);
+    /*rtl:begin:ignore*/
     background-position: 0 -159px;
+    /*rtl:end:ignore*/
     background-repeat: no-repeat;
     width: 172px;
     height: 42px;
@@ -150,7 +160,9 @@ a.biosense-logo{
 }
 .site-sub-title{
     margin-top: 5px;
+    /*rtl:begin:ignore*/
     padding-right: 5px;
+    /*rtl:end:ignore*/
 }
 
 /* #page header */
@@ -279,18 +291,24 @@ span.skip-block-to{
         padding: 26px 0 0 40px;
     }
     .logos{
+        /*rtl:begin:ignore*/
         left: calc(50% - 335px);
+        /*rtl:end:ignore*/
         position: absolute;
     }
     a.ort-logo{
         background-image: url([[pix:theme|sprite_web]]);
+        /*rtl:begin:ignore*/
         background-position: 0 -269px;
+        /*rtl:end:ignore*/
         width: 133px;
         height: 72px;
     }
     a.biosense-logo{
         background-image: url([[pix:theme|sprite_web]]);
+        /*rtl:begin:ignore*/
         background-position: 0 -198px;
+        /*rtl:end:ignore*/
         width: 255px;
         height: 62px;
     }
@@ -298,15 +316,20 @@ span.skip-block-to{
         background: none;
     }
     .site-title{
+        /*rtl:begin:ignore*/
         float: right;
+        /*rtl:end:ignore*/
         width: 322px;
         height: 188px;
         background-image: url([[pix:theme|sprite_web]]);
+        /*rtl:begin:ignore*/
         background-position: 0 0;
+        /*rtl:end:ignore*/
         margin-right: 16px;
         padding-top: 0;
     }
     .site-sub-title{
+        /*rtl:ignore*/
         float: right;
         margin: 155px 0 0;
         padding-right: 0;
@@ -324,7 +347,9 @@ span.skip-block-to{
         padding: 0 calc(50% - 542px);
     }
     .logos{
+        /*rtl:begin:ignore*/
         left: calc(50% - 542px);
+        /*rtl:end:ignore*/
     }
 
 }

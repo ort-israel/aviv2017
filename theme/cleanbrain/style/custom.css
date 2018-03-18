@@ -66,6 +66,10 @@ h2,h3{
     font-family:'fbmodulary_bold' ;
     letter-spacing: 1px;
 }
+.dir-rtl ul {
+    margin-left: 0;
+    margin-right: 25px;
+}
 #region-bs-main-and-post{
     width: 760px;
 }
@@ -150,10 +154,14 @@ body{
     padding: 0 !important;
 }
 .course-content{
+    /*rtl:begin:ignore*/
     float: right;
+    /*rtl:end:ignore*/
 }
 .row-fluid .span9{
+    /*rtl:begin:ignore*/
    float:right;
+    /*rtl:end:ignore*/
 }
 .row-fluid [class*="span"]{
     min-height:0;
@@ -199,7 +207,7 @@ body{
 .course-content ul.gridicons img.new_activity{
     display: none;
 }
-.course-content ul.gridicons li p.icon_content{
+.course-content ul.gridicons li div.icon_content{
     font-size:28px;
     font-weight: bold;
     overflow: visible;
@@ -319,7 +327,9 @@ body{
 #block-region-side-pre{
   width: 200px;
   background:url([[pix:theme|petternSide]]) repeat ;
+    /*rtl:begin:ignore*/
   margin-left:-3px;
+    /*rtl:end:ignore*/
 }
 .block{
     background-color: transparent;
