@@ -1,13 +1,13 @@
 @import "../../boost/scss/moodle/modules";
 
-/* All text in modules - poc. return if Nili approves */
-//.generalbox [style] {
-//  color: $primary-text-color !important;
-//  font-family: $font-family !important;
-//  font-size: $font-size-base !important;
-//  line-height: $line-height-base !important;
-//  -webkit-font-smoothing: antialiased !important;
-//}
+/* All text in modules should get this theme's font definitions */
+.generalbox [style] {
+  color: $primary-text-color !important;
+  font-family: $font-family !important;
+  font-size: $font-size-base !important;
+  line-height: $line-height-base !important;
+  -webkit-font-smoothing: antialiased !important;
+}
 
 /*for 'Meyumanuyot > Agron' remove border from td*/
 .glossarycategoryheader th,
@@ -55,6 +55,7 @@ Grades
 [dir="ltr"] .path-mod .generaltable td {
   text-align: left !important;
 }
+
 [dir="rtl"] .path-mod .generaltable td {
   text-align: right !important;
 }

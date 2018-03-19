@@ -364,7 +364,7 @@ a .text-info, .highlight { /* this is the question mark inside a circle */
   line-height: 1.1; /* for horizontal alignment */
 }
 
-body:not(.format-site) .no-overflow { /*for popups form question marks*/
+body.pagelayout-admin .no-overflow { /*for popups form question marks*/
   font-size: $font-size-root;
 }
 
