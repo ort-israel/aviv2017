@@ -87,7 +87,7 @@ h2,h3{
     padding: 0 calc(50% - 35em) 1rem;
     height:192px;
 }
-.layout-option-langmenu-courseid-144 .navbar-fixed-top{
+.course-144 .navbar-fixed-top{
     background:url([[pix:theme|b-header]]) repeat scroll center bottom;
     color: #fff;
     border-bottom: 10px solid #0093b3;
@@ -110,7 +110,7 @@ h2,h3{
     float: right;
     margin: 26px 9px 0 0;
 }
-.layout-option-langmenu-courseid-144 .logo-site{
+.course-144 .logo-site{
     width: 242px;
     height: 153px;
     background:url([[pix:theme|sprite-b]]) no-repeat;
@@ -225,7 +225,7 @@ body{
     top: 50px;
     width: 200px;
 }
-.layout-option-langmenu-courseid-144 .course-content ul.gridicons li #gridsection-1:before{
+.course-144 .course-content ul.gridicons li #gridsection-1:before{
     background:url([[pix:theme|b-SpriteBrain]]) no-repeat scroll 39% 0 rgba(0, 0, 0, 0);
     content: "";
     height: 172px;
@@ -243,7 +243,7 @@ body{
     top: 50px;
     width: 200px;
 }
-.layout-option-langmenu-courseid-144 .course-content ul.gridicons li #gridsection-2:before{
+.course-144 .course-content ul.gridicons li #gridsection-2:before{
     background:url([[pix:theme|b-SpriteBrain]]) no-repeat scroll 39% 25% rgba(0, 0, 0, 0);
     content: "";
     height: 172px;
@@ -261,7 +261,7 @@ body{
     top: 50px;
     width: 200px;
 }
-.layout-option-langmenu-courseid-144 .course-content ul.gridicons li #gridsection-3:before{
+.course-144 .course-content ul.gridicons li #gridsection-3:before{
     background:url([[pix:theme|b-SpriteBrain]]) no-repeat scroll 39% 50% rgba(0, 0, 0, 0);
     content: "";
     height: 172px;
@@ -279,7 +279,7 @@ body{
     top: -66px;
     width: 200px;
 }
-.layout-option-langmenu-courseid-144 .course-content ul.gridicons li #gridsection-4:before{
+.course-144 .course-content ul.gridicons li #gridsection-4:before{
     background:url([[pix:theme|b-SpriteBrain]]) no-repeat scroll 39% 75% rgba(0, 0, 0, 0);
     content: "";
     height: 172px;
@@ -297,7 +297,7 @@ body{
     top: -64px;
     width: 200px;
 }
-.layout-option-langmenu-courseid-144 .course-content ul.gridicons li #gridsection-5:before{
+.course-144 .course-content ul.gridicons li #gridsection-5:before{
     background:url([[pix:theme|b-SpriteBrain]]) no-repeat scroll 39% 100% rgba(0, 0, 0, 0);
     content: "";
     height: 172px;
@@ -416,7 +416,7 @@ padding-right:0;
     text-align: center;
     height: 38px;
 }
-.layout-option-langmenu-courseid-144 #page-footer{
+.course-144 #page-footer{
     background:url([[pix:theme|footer]]) repeat center;
     background-repeat:repeat-x;
     border-top:10px solid #0093b3;
