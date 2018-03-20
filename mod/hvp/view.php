@@ -32,11 +32,6 @@ $isembeded = optional_param('isembedded', false, PARAM_BOOL);
 $url = new \moodle_url('/mod/hvp/view.php', array('id' => $id));
 $PAGE->set_url($url);
 
-/* Lea 2018 - add isembedded param */
-if ($isembeded) {
-    $PAGE->set_pagelayout('embedded');
-}
-
 if (!$cm = get_coursemodule_from_id('hvp', $id)) {
     print_error('invalidcoursemodule');
 }
@@ -46,6 +41,10 @@ if (!$course = $DB->get_record('course', array('id' => $cm->course))) {
 
 require_course_login($course, false, $cm);
 
+/* Lea 2018 - add isembedded param after call to require_course_login to override the layout defined there */
+if ($isembeded) {
+    $PAGE->set_pagelayout('embedded');
+}
 // Load H5P Core.
 $core = \mod_hvp\framework::instance();
 
