@@ -3,20 +3,20 @@
   background-image: url([[pix:theme|headerbg]]);
   background-position: center;
   background-size: cover;
-  height: $headerimagepadding;
+  /*height: $headerimagepadding;*/
   margin-top: $nav-bar-height-mobile;
-  @include display-flex();
-  @include flex-wrap(wrap);
 
   @include breakpoint(mobile-tablet) {
     margin-top: calc(#{$nav-bar-height} - 3.5rem);
+    @include display-flex();
+    @include flex-wrap(wrap);
   }
   @include breakpoint(desktop) {
     margin-top: $nav-bar-height;
   }
   .pull-xs-left {
     text-align: center;
-    /*to overid the float right important*/
+    /*to override the float right important*/
     float: none !important;
     width: 90%;
     margin: 2rem auto 0;
@@ -34,7 +34,6 @@
     }
     @include breakpoint(laptop) {
       margin: 2rem 0 0 0;
-
     }
   }
   & h1, h2 {
@@ -77,9 +76,9 @@
 
       .card-title,
       #my_courses_container {
-        // hidding the title and the 'my courses'
-        //display: none;
-        visibility: hidden;
+        // hiding the title and the 'my courses'
+        display: none;
+        //visibility: hidden;
       }
 
     }

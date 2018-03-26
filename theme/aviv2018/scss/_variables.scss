@@ -1,6 +1,5 @@
 $bootstrap-sass-asset-helper: false !default;
 
-
 // Colors
 $black: #000;
 $dark-purple: #5e3da1;
@@ -9,21 +8,20 @@ $gray-strong: #9a9a9a;
 $gray-middle: #d8d8d8;
 $gray-middle-plus: #aeaeae;
 $light-gray: #f5f5f5;
-$gray-transparent: rgba(249, 249, 249, 0.4);
+$gray-transparent: rgba(249, 249, 249, 0.7);
 $white: #fff;
 $orange: #e09a17;
 $transparent: transparent;
 
-$state-danger-text:              #a94442 !default;
-$state-danger-bg:                #f2dede !default;
+$state-danger-text: #a94442 !default;
+$state-danger-bg: #f2dede !default;
 
-$state-success-text:             #3c763d !default;
-$state-success-bg:               #dff0d8 !default;
+$state-success-text: #3c763d !default;
+$state-success-bg: #dff0d8 !default;
 
 $gray-background: #d8d8d8;
 $gray-very-dark: #181818;
 $brand-inverse: #464646;
-
 
 //Colors use:
 $primary-text-color: $gray-base;
@@ -37,6 +35,10 @@ $navbarurl: $brand-primary;
 $navbar-light-color: $white;
 
 $login-background: $white;
+$pagination-active-bg: $brand-primary;
+$pagination-active-border: $brand-primary;
+$pagination-color: $brand-primary;
+
 /*Cards - Home page*/
 $card-title-background-color: $brand-primary;
 $card-courses: $light-gray;
@@ -69,7 +71,6 @@ $border-width: 1px !default;
 $nav-bar-height-mobile: 11rem;
 $nav-bar-height: 9.5rem;
 
-
 // Typography
 $font-family: 'Assistant', Arial, sans-serif !default;
 $font-size-root: 1.6rem;
@@ -93,17 +94,11 @@ $font-size-button-homepage-small: 1.8rem;
 // FontAwesome
 $fa-folder-open: "\f07c";
 
-
 // Alert
-$alert-info-text:             $primary-text-color !default;
-
-
-
-
+$alert-info-text: $primary-text-color !default;
 
 // Breadcrumbs
 $breadcrumb-active-color: $dark-purple; /* Lea 2017/7. TODO: doesn't work */
-
 
 // Footer
 $footer-bg: $brand-inverse; // override $brand-inverse which is declared in _variables.scss in the boost theme

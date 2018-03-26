@@ -3,8 +3,10 @@
   text-align: center;
   .statistics-title,
   .statisticsterm{
-    font-weight: 400;
     font-size: $font-size-title;
+  }
+  .statisticsterm{
+    font-weight: 400;
   }
 
   [class*="num"] {

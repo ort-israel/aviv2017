@@ -1,7 +1,12 @@
 @import "../../boost/scss/moodle/modules";
 
-/* All text in modules should get this theme's font definitions */
-.generalbox [style] {
+/* All text in modules should get this theme's font definitions.
+ */
+.generalbox span[style],
+.generalbox p[style],
+.generalbox div[style],
+.generalbox ul[style],
+.generalbox li[style] {
   color: $primary-text-color !important;
   font-family: $font-family !important;
   font-size: $font-size-base !important;
@@ -30,6 +35,17 @@ Grades
   .dropdown-toggle,
   .dropdown-toggle:hover {
     color: $link-color;
+  }
+}
+
+/* override Boosts color. This is the same definition as Boost, but before we get here, the colors are redefined by Aviv2018 */
+.initialbar {
+  .letter {
+    color: $pagination-color;
+  }
+  .letter.active {
+    border-color: $pagination-active-border;
+    background-color: $pagination-active-bg;
   }
 }
 

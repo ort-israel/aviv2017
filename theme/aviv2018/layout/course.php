@@ -64,6 +64,8 @@ $templatecontext = [
 aviv2018_boostnavigation_extend_navigation($PAGE->navigation);
 aviv2018_local_navigation_extend_navigation($PAGE->navigation);
 
+$PAGE->requires->jquery();
+$PAGE->requires->js('/theme/aviv2018/javascript/toggleabout.js');
 
 $templatecontext['flatnavigation'] = $PAGE->flatnav;
 echo $OUTPUT->render_from_template('theme_aviv2018/course', $templatecontext);

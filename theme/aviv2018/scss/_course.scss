@@ -87,9 +87,31 @@ Course - All course details
   }
 
   /*course-about*/
-  .card-title {
+  .about-title {
     width: 100%;
     padding-right: 1.5rem;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .about-title::after {
+    content: "-";
+    border: 1px solid;
+    display: block;
+    width: 1.1rem;
+    height: 1.1rem;
+    font-weight: normal;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 0.2;
+    position: absolute;
+    top: 1rem;
+    right: 99%;
+  }
+  .about-title.hiddencontent::after {
+    content: '+';
+    font-size: 1.4rem;
+    line-height: 0.4;
   }
 
   .card {
@@ -114,14 +136,16 @@ Course - All course details
   }
 
   .metadatacontact {
-    padding: 0 3rem;
+    padding: 0 2.5rem 0 0;
+    border-bottom: 1px solid;
+    text-decoration: none;
     &:before {
       display: block;
-      content: "";
+      content: "";
       font-family: FontAwesome;
       position: absolute;
       right: 0;
-      top: 0;
+      top: -0.3rem;
     }
   }
 
@@ -145,7 +169,7 @@ Course - All course details
   }
 }
 
-.topics.row-fluid{
+.topics.row-fluid {
   display: block; /* override the .row-fluid definition for flex, in this case */
 }
 
