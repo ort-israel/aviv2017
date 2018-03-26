@@ -103,7 +103,7 @@ class block_category_list extends block_list {
         $this->content->footer = '';
 
         $maincatid = (!empty($CFG->block_category_list_catid)) ? $CFG->block_category_list_catid : MAINCATID;
-        $categories = \coursecat::get($maincatid)->get_children(array('sort' => array('sortorder' => 1)));  // Parent = 0   ie top-level categories only
+        $categories = \coursecat::get($maincatid)->get_children(array('sort' => array('idnumber' => 1)));  // idnumber is defined in the editing screen of category
         $chelper = new coursecat_helper();
         // Prepare parameters for courses and categories lists in the tree
         $chelper->set_show_courses(\core_course_renderer::COURSECAT_SHOW_COURSES_COUNT)
