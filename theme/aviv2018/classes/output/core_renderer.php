@@ -112,10 +112,7 @@ class core_renderer extends \theme_fordson\output\core_renderer {
         } else if ($pageheadingbutton) {
             $html .= html_writer::div($pageheadingbutton, 'breadcrumb-button nonavbar pull-xs-right');
         }
-        $html .= html_writer::tag('div', $this->course_header(), array('id' => 'course-header'));
-        //$html .= html_writer::end_div();
-        //$html .= html_writer::end_div();
-        //$html .= html_writer::end_div();
+
         $html .= html_writer::end_tag('header');
         return $html;
     }

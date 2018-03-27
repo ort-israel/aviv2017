@@ -14,6 +14,9 @@
   @include breakpoint(desktop) {
     margin-top: $nav-bar-height;
   }
+  @include breakpoint(tablet) {
+    height: 62rem;
+  }
   .pull-xs-left {
     text-align: center;
     /*to override the float right important*/
@@ -25,7 +28,7 @@
       width: 100%;
       /*rtl:begin:ignore*/
       text-align: right;
-      margin: 2rem 2rem 0 0;
+      margin: 2rem 24rem 0 0; /*the 24rem bottom is in order to separate it from the search. For some reason, margin top for search doesn't work */
       /*rtl:end:ignore*/
       @include display-flex();
       @include flex-direction(column);
@@ -70,7 +73,7 @@
   //search box
 
   #region-in-header-blocks {
-    margin: auto 0 3rem;
+    margin: auto 0 3rem; /*the margin top: suto should align it to the bottom of the box because of flex, but that doesn't work */
     .block_searchcourses {
       background-color: $transparent;
 
@@ -98,7 +101,7 @@
   & label {
     position: absolute;
     right: 3rem;
-    top: 4rem;
+    top: 3rem;
     margin: 0;
     @include breakpoint(mobileonly) {
       top: 2rem;
@@ -107,14 +110,15 @@
   & input {
     border: none;
     border-radius: 10px;
-    padding: 4rem;
-    width: 98%;
+    padding: 3rem;
+    width: 100%;
     &:focus {
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
     }
     @include breakpoint(mobileonly) {
       padding: 2rem;
+      width: 98%;
     }
   }
 
