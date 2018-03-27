@@ -10,6 +10,7 @@
     margin-top: calc(#{$nav-bar-height} - 3.5rem);
     @include display-flex();
     @include flex-wrap(wrap);
+    @include align-content(flex-start);
   }
   @include breakpoint(desktop) {
     margin-top: $nav-bar-height;
@@ -28,7 +29,7 @@
       width: 100%;
       /*rtl:begin:ignore*/
       text-align: right;
-      margin: 2rem 24rem 0 0; /*the 24rem bottom is in order to separate it from the search. For some reason, margin top for search doesn't work */
+      margin: 2rem 2rem 24rem 0; /*the 24rem bottom is in order to separate it from the search. For some reason, margin top for search doesn't work */
       /*rtl:end:ignore*/
       @include display-flex();
       @include flex-direction(column);
@@ -36,7 +37,7 @@
       @include align-items(flex-start);
     }
     @include breakpoint(laptop) {
-      margin: 2rem 0 0 0;
+      margin: 2rem 0 24rem 0;
     }
   }
   & h1, h2 {

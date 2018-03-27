@@ -61,6 +61,11 @@
   -webkit-justify-content: $value;
 }
 
+@mixin align-content($value) {
+  align-content: $value;
+  -webkit-align-content: $value;
+}
+
 @mixin align-items($value) {
   -webkit-align-items: $value;
   align-items: $value;
