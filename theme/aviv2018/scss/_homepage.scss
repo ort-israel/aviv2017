@@ -97,7 +97,7 @@
   font-size: $font-size-button-homepage; /* needed both for label and input */
   @include breakpoint(mobileonly) {
     max-width: 30rem;
-    font-size: $font-size-button-homepage-small; /* needed both for label and input */
+    font-size: $font-size-middle; /* needed both for label and input */
   }
   & label {
     position: absolute;
@@ -192,11 +192,11 @@
       font-size: $font-size-button-homepage;
     }
     @include breakpoint(mobileonly) {
-      font-size: $font-size-button-homepage-small;
+      font-size: $font-size-middle;
       padding-right: 2.2rem;
       padding-left: 2.2rem;
       &:hover {
-        font-size: $font-size-button-homepage-small;
+        font-size: $font-size-middle;
       }
     }
   }

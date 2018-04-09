@@ -211,6 +211,12 @@ Course - All course details
   margin-bottom: 0.5rem;
 }
 
+/* Make title font size smaller in grid format, so more words fit it*/
+div [id*="gridsectionname"]{
+  font-size: $font-size-middle;
+}
+
+
 /* background for sidebar blocks */
 [data-region="blocks-column"] .block-region .block {
   background-color: $gray-background;
