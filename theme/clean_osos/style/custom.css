@@ -321,6 +321,12 @@ span.skip-block-to {
     outline: none;
 }
 
+/*overcome the problem of no orphaned sections - hide sections 11 and 12 via css, and they are reached via buttons */
+#gridsection-11,
+#gridsection-12 {
+    display: none;
+}
+
 /*-----------------------------*/
 /**------ Media Queries ------**/
 /*-----------------------------*/
