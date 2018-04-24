@@ -372,10 +372,12 @@ body.pagelayout-admin .no-overflow { /*for popups form question marks*/
 User Profile
 */
 .path-user {
-  .header-button-group {
-    a {
-      .icon, .header-button-title {
-        color: $white;
+  #page-header {
+    .header-button-group {
+      a {
+        .icon, .header-button-title {
+           color: $white;
+        }
       }
     }
   }
