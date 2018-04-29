@@ -1962,9 +1962,13 @@ function quiz_question_tostring($question, $showicon = false, $showquestiontext 
     $result .= html_writer::span($name, 'questionname');
 
     if ($showquestiontext) {
+        /*  Lea 2017/05 - Don't run filter in edit page on $questiontext. Therefore:
+         * 1. Add 'filter' => false to options passed to to_plain_text
+         * 2. Run strip_tags on $questiontext.
+         * BTW, reduced number of characters shown from $questiontext        */
         $questiontext = question_utils::to_plain_text($question->questiontext,
-                $question->questiontextformat, array('noclean' => true, 'para' => false));
-        $questiontext = shorten_text($questiontext, 200);
+                $question->questiontextformat, array('noclean' => true, 'para' => false, 'filter' => false));
+        $questiontext = shorten_text(strip_tags($questiontext), 100);
         if ($questiontext) {
             $result .= ' ' . html_writer::span(s($questiontext), 'questiontext');
         }
