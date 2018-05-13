@@ -149,6 +149,12 @@ a:link, a:visited {
     padding-top: 10px;
 }
 
+/* Lea 2018 - can't hide sections in Moodle 3.3 in course definitions because then links to the sections don't work,
+    so hide them with CSS. But show when editing */
+body:not(.editing) #gridiconcontainer ul.gridicons{
+    display: none;
+}
+
 /* ---------------------------------------------------------------------------- */
 /*                                  Decorating the Quiz                         */
 /* ---------------------------------------------------------------------------- */
