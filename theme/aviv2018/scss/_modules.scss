@@ -1,5 +1,3 @@
-@import "../../boost/scss/moodle/modules";
-
 /* All text in modules should get this theme's font definitions.
  */
 .generalbox span[style],
@@ -64,8 +62,8 @@ Grades
         background-color: $state-success-bg;
       }
     }
-   .qtext{
-      img{
+    .qtext {
+      img {
         max-width: 100%;
       }
     }
@@ -89,6 +87,24 @@ Grades
   }
   .btn {
     white-space: normal;
+  }
+}
+
+/* quiz editing:*/
+#id_reviewoptionshdr {
+  .fcontainer > .fitem {
+    font-size: 1.4rem; /* id_reviewoptionshdr needs small fonts otherwiase text overlpas each other*/
+    line-height: 1.5;
+    /* the width is given in rems in boost, but rems are defined differently in aviv2018 so have to adjust width*/
+    #page-mod-quiz-mod & {
+      width: 28rem;
+    }
+  }
+  .col-md-2,
+  .col-md-3,
+  .col-md-9,
+  .col-md-10 {
+    max-width: inherit; /* the width limitation in't good here  */
   }
 }
 
