@@ -27,6 +27,9 @@ global $PAGE, $DB, $CFG, $OUTPUT;
 
 $id = required_param('id', PARAM_INT);
 
+// Lea 2018 - add isembeded functionality
+$isembeded = optional_param('isembedded', false, PARAM_BOOL);
+
 // Verify course context.
 $cm = get_coursemodule_from_id('hvp', $id);
 if (!$cm) {
@@ -39,6 +42,11 @@ if (!$course) {
 require_course_login($course, true, $cm);
 $context = context_module::instance($cm->id);
 require_capability('mod/hvp:view', $context);
+
+// Lea 2018 - add isembeded functionality
+if ($isembeded) {
+    $PAGE->set_pagelayout('embedded');
+}
 
 // Set up view assets.
 $view    = new \mod_hvp\view_assets($cm, $course);

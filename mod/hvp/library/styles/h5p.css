@@ -30,6 +30,10 @@ html.h5p-iframe, html.h5p-iframe > body {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
 }
+/* Lea 2018 - add RTL functionality */
+.dir-rtl.h5p-content{
+  text-align: right;
+}
 .h5p-noselect
 {
   -khtml-user-select: none;
