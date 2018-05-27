@@ -125,6 +125,18 @@ Grades
   padding-left: 3.5rem;
 }
 
+/* Question tyoe ddwtos - control the gap width*/
+.que.ddwtos {
+  font-size: $font-size-root;
+  span {
+    &.drop,
+    &.drag {
+      font-size: $font-size-root;
+      max-width: 21.5rem;
+    }
+  }
+}
+
 /* moodle-dialogue */
 .moodle-dialogue .btn-primary {
   max-width: 100%;
