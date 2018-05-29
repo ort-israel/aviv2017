@@ -109,8 +109,13 @@ Grades
 }
 
 /* we would like submit button to get class btn-secondary but it can't so applying the style as is */
-.que .formulation .btn.submit {
-  @include submit-button;
+.que .formulation {
+  th, td{
+    border: 1px solid $primary-text-color;
+  }
+  .btn.submit {
+    @include submit-button;
+  }
 }
 
 .que.ordering ul.sortablelist {
