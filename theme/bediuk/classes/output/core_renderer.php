@@ -128,20 +128,11 @@ class core_renderer extends \theme_fordson\output\core_renderer {
         global $CFG, $PAGE, $COURSE;
 
         // Tsofiya 2018: In course page and inside a course we should display course logo instead course name
-        //var_dump($PAGE->pagelayout);
         $logo = new moodle_url($CFG->wwwroot . '/theme/bediuk/pix/logo.png');//$this->get_logo_url();//(null, 150)
         $sitename = format_string($COURSE->fullname, true);
         $ret = html_writer::img($logo, $sitename, array('class' => 'logo'));
 
         return $ret;
-
-
-        /* Tsofiya: if QA tests pass, delete these lines
-        if ($PAGE->pagelayout == 'course' || $PAGE->pagelayout == 'incourse') {
-
-        }
-        return parent::context_header($headerinfo, $headinglevel);
-        */
     }
 
     /**
@@ -259,8 +250,8 @@ class core_renderer extends \theme_fordson\output\core_renderer {
         }
 
         $editcog = html_writer::div($this->context_header_settings_menu(), 'pull-xs-right context-header-settings-menu ');
-        /* Tsofiya: add this if to remove editcog div if it is empty */
-        if($this->context_header_settings_menu() == ''){
+        /* Add this if to remove editcog div if it is empty */
+        if(empty($this->context_header_settings_menu())){
             $haseditcog = false;
         };
 		$thiscourse = $this->thiscourse_menu();
