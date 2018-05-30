@@ -1,0 +1,449 @@
+/*Tsofiya: changes has been done*/
+body:not(.pagelayout-frontpage),
+  /*not sure why body doesnt strach to the bottom. Adding the wrapper fixed it for now*/
+body:not(.pagelayout-frontpage) #page-wrapper {
+  background-color: $page-background;
+  padding-bottom: 0;
+  margin-bottom: -8.7rem;
+}
+
+//for a strange reason when logged out the header would fall - this fix it
+.pagelayout-frontpage.notloggedin #page-wrapper {
+  min-height: auto;
+}
+
+/*background wide image:*/
+.headerbkg {
+  @include breakpoint(desktop) {
+    //margin-top: $nav-bar-height;
+  }
+  height: 50rem;
+  box-shadow: none;
+}
+
+div#learningcontent {
+  margin-top: 34rem;
+  background-color: $transparent;
+}
+
+/* purple headline*/
+body:not(.pagelayout-frontpage) #page-header {
+  padding: 2rem 5rem;
+  background-color: $gray-transparent-2;
+}
+
+.page-header-headings {
+  & h1 {
+    font-size: $font-size-h1;
+  }
+}
+
+.breadcrumb-nav {
+  .breadcrumb {
+    border-radius: 0;
+    padding: 1.5rem;
+    background-color: $breadcrumb-bg;
+  }
+}
+
+#page-content{
+  background-color: $course-content-bg;
+}
+
+/*Headlines*/
+//in inner pages
+body:not(.pagelayout-frontpage) .card-title {
+  font-size: $font-size-course-title;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+/*only featuredcourses needs padding in presentage on the right*/
+body:not(.pagelayout-frontpage):not(.pagelayout-mydashboard) .block_featuredcourses .card-title,
+body.pagelayout-coursecategory .block_featuredcourses .card-title {
+  padding-right: 5%;
+}
+
+/*COURSE CONTROL:*/
+div#coursecontrols {
+  top: -48px;
+  left: 0;
+  border-top: 0;
+  border-radius: 0;
+  background-color: $transparent;
+  font-weight: 600;
+  font-size: 2rem;
+  width: auto;
+  padding: 0;
+}
+
+.teacherdashbutton,
+.thiscoursebutton,
+.editcogbutton {
+  /* Lea - this is part of what makes the cog button overlap the tab*/
+  text-align: left;
+  background-color: $course-upper-buttons-bg;
+  border-radius: 0;
+  &:hover {
+    background-color: $course-upper-buttons-bg;
+  }
+  //Tsofiya: delete two defenition
+  a {
+    // color: inherit;
+    &:hover {
+      //color: inherit;
+    }
+  }
+
+}
+
+.teacherdashbutton,
+.thiscoursebutton {
+  padding: 1.1rem 2rem;
+
+}
+
+.teacherdashboard,
+.studentdashboard{ 
+	i.dashicon {
+	  float: none;
+	  padding: 0 0 0 0.5rem;
+	}
+}
+.editcogbutton .context-header-settings-menu .dropdown {
+  padding-left: 1rem;
+  padding-right: 1.5rem;
+  margin-right: 0.4rem;
+}
+
+.editcogbutton ~ .teacherdashbutton,
+.editcogbutton ~ .thiscoursebutton{
+  margin-left: 0.5rem;
+}
+
+.path-mod,
+.courserole-student{
+  .editcogbutton ~ .thiscoursebutton,
+  .editcogbutton ~ .teacherdashbutton{
+    margin-left: 0;
+  }
+
+}
+
+/*Tsofiya 2018: content of course front page*/
+.section .col-md-6{
+/*TODO: make first element 35% and second element 65%*/
+}
+
+/*editing cog in inner page should be aligned to title*/
+.path-mod #region-main-settings-menu > div {
+  left: -10px; /* leave a little space between this and the next element */
+  top: 2rem; /* that's the height of the top margin of the element next to it */
+}
+
+body.courserole-student:not(.courserole-admin) .has-enrol-link,
+body.courserole-student:not(.courserole-admin) .has-unenrol-link {
+  .editcogbutton {
+    width: 0;
+  }
+  /*enrol link button - only for students*/
+  .editcogbutton .context-header-settings-menu .dropdown {
+    padding: 0;
+  }
+  .dropdown-toggle {
+    display: none;
+  }
+  .dropdown-menu {
+    display: block;
+    position: absolute;
+    margin-top: 0;
+    top: -0.6rem;
+    left: 10.6rem;
+    border-radius: 0;
+    background-color: $brand-primary;
+    .dropdown-item {
+      color: $buttons-text-color;
+      font-size: $font-size-root;
+      font-weight: 600;
+      padding: 0.6rem 2rem;
+      border: 0;
+      &:hover,
+      &:focus {
+        background-color: $transparent;
+      }
+      a,
+      a .icon {
+        color: inherit;
+      }
+    }
+
+  }
+}
+
+/*disenrol link button - only for students*/
+body.courserole-student:not(.courserole-admin) .has-unenrol-link {
+  .dropdown-menu {
+    top: -2.7rem;
+    background-color: $gray-strong;
+    a .icon:before {
+      content: "\f235";
+    }
+  }
+}
+
+/*Tsofiya 2018: change selector from ".collapse .in" to  ".teacherdashboard, .studentdashboard" */
+/*the part that is presented after pressing the button - in this course - teacher & student*/
+.teacherdashboard,
+.studentdashboard {
+  background-color: $course-upper-buttons-bg;
+
+  .row {
+    margin: 2rem 0;
+    .dashtitle {
+      background-color: $manage-course-headlines;
+      padding: 1rem 2rem;
+      h3,
+      .card-title {
+        font-weight: 600;
+        font-size: inherit;
+      }
+    }
+  }
+}
+
+/* Tsofiya 2018: top background image and logo */
+@media screen and (max-width: 880px) {
+  .headerbkg .withimage {
+    background-position: 69% 0% !important; // !important - to override inline style
+  }
+}
+
+@media screen and (max-width: 450px) {
+  div#learningcontent {
+      margin-top: 16rem;
+    }
+
+  #page-header .logo {
+    width: 100%;
+  }
+}
+
+/*
+course that a student isn't enroll to it yet (after pressing the enroll button)
+*/
+.pagelayout-incourse.path-enrol {
+  h2 {
+    color: $brand-primary;
+    font-size: $font-size-h2-bigger;
+    font-weight: bold;
+  }
+  .box {
+    .coursebox {
+      @include breakpoint(tablet) {
+        @include flex-direction(row);
+        @include flex-wrap(wrap);
+      }
+
+      border: 0;
+      @include breakpoint(tablet) {
+        .courseimagewrapper {
+          width: 30%;
+        }
+        .courseinfowrapper {
+          width: 70%;
+          padding-top: 0;
+        }
+        .tagswrapper {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  /*text before button to continue or enroll*/
+  .form-control-static {
+    font-weight: 600;
+  }
+  .form-group {
+    text-align: center;
+  }
+}
+
+/*Student - Updates in my course - in archive or my courses - round icon and course name*/
+.course-info-container {
+  .media {
+    .media-body {
+      @include display-inline-flex();
+      @include flex-direction(column);
+      @include justify-content(center);
+    }
+  }
+}
+
+/*Student and Teacher - headed in grades*/
+#page-header .pull-xs-left .page-context-header {
+  @include display-flex();
+  @include align-items(center);
+}
+
+.grade-navigation {
+  .nav {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+
+/* Tsofiya: remove
+body:not(.pagelayout-coursecategory):not(pagelayout-pagelayout-frontpage) {
+  h2,
+  h3 {
+    font-weight: 600;
+    margin-bottom: 3rem;
+  }
+}*/
+
+/*for table borders*/
+.table th, table.collection th, table.flexible th, .generaltable th, .table td, table.collection td, table.flexible td, .generaltable td {
+  border-color: #ddd;
+}
+
+/* for table headers */
+.generaltable thead {
+  background-color: $brand-primary;
+  th.header {
+    background-color: transparent;
+    color: $white;
+  }
+}
+
+/*
+******  MY PAGE  ******
+*/
+/*for my page - teacher-student-admin*/
+.pagelayout-mydashboard {
+
+  /*top navigation - timeline & courses*/
+  .nav-tabs {
+    border-bottom: 0.8rem solid $brand-primary;
+    @include breakpoint(tablet) {
+      margin-bottom: 3rem;
+    }
+
+    .nav-item {
+      .nav-link,
+      &:hover {
+        border-bottom-color: $transparent;
+      }
+      .active {
+        color: $navbar-light-color;
+        background-color: $brand-primary;
+      }
+    }
+  }
+  .tab-content {
+    .row.text-xs-center {
+      @include justify-content(center);
+    }
+  }
+
+  /*courses view*/
+  .courses-view-course-item {
+    background-color: $light-gray;
+  }
+
+  /*for features courses to trach to max 100%*/
+  .card-block {
+    .card-group {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+}
+
+/*for Student -> Files*/
+/*may effect other pages.... (09.1.2018)*/
+.pagelayout-standard {
+  .generalbox {
+    .row.form-group {
+      @include flex-direction(column);
+      .col-form-label {
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+/* override height definition for select on .form-control */
+select.form-control {
+  &:not([size]):not([multiple]) {
+    height: auto;
+  }
+}
+
+a .text-info, .highlight { /* this is the question mark inside a circle */
+  color: $brand-primary !important;
+  background-color: $white;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  line-height: 1.1; /* for horizontal alignment */
+}
+
+body.pagelayout-admin .no-overflow { /*for popups form question marks*/
+  font-size: $font-size-root;
+}
+
+/*
+User Profile
+*/
+.path-user {
+  .header-button-group {
+    a {
+      .icon, .header-button-title {
+        color: $white;
+      }
+    }
+  }
+
+  .lead, .userprofile .profile_tree section h3 {
+    font-size: inherit;
+    font-weight: bold;
+    margin-bottom: 0.5rem; /* same margin as fordson */
+  }
+
+  .profile_tree dl {
+    margin-right: 0;
+  }
+}
+
+/*
+Messages
+*/
+/* the messaging area has a fixed height and is positioned absolutely in boost.
+We have to adjust the height because our fon-size is larger */
+.messaging-area-container {
+  .messaging-area {
+    @media (max-width: 979px) {
+      height: 61rem;
+      @media (max-height: 670px) {
+        height: 51rem;
+      }
+    }
+    .contacts-area {
+      height: 61rem;
+      @media (max-height: 670px) {
+        height: 51rem;
+      }
+      .tabs {
+        height: 6rem;
+      }
+    }
+  }
+}
+
+/* message/edit.php */
+.preferences-container .preference-table .preference-row .preference-state .preference-state-status-container {
+  font-size: $font-size-root;
+  padding: 0 $spacer;
+  width: auto;
+}

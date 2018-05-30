@@ -1,0 +1,72 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    Page header.
+}}
+<header role="banner"
+        class="pos-f-t navbar navbar-full navbar-light bg-faded navbar-static-top moodle-has-zindex header">
+
+    <div class="navbar-nav "><!-- had also container-fluid - removed by Rachel 26.12.17 -->
+
+            {{#output.is_logged_in}}
+
+                <div data-region="drawer-toggle">
+                    <button aria-expanded="{{#navdraweropen}}true{{/navdraweropen}}{{^navdraweropen}}false{{/navdraweropen}}"
+                            aria-controls="nav-drawer" type="button" class="btn pull-xs-left m-r-1 btn-secondary"
+                            data-action="toggle-drawer" data-side="left" data-preference="drawer-open-nav"><span
+                            aria-hidden="true">&#9776;</span><span class="sr-only">{{#str}}expand, core{{/str}}</span>
+                    </button>
+                </div>
+
+            {{/output.is_logged_in}}
+
+            <a href="{{{ config.wwwroot }}}" class="navbar-brand ">
+                {{sitename}}
+            </a>
+
+            <!-- user_menu -->
+            {{{ output.user_menu }}}
+
+            <!-- navbar_plugin_output-->
+            {{{ output.navbar_plugin_output }}}
+
+            <!-- Show grades link
+            {{#output.is_logged_in_and_not_guest}}
+                <a href="{{{output.grades_url}}}" class="popover-region" data-title="grades,grades">
+                    <i class="icon fa fa-table fa-fw " aria-hidden="true" title="{{#str}}grades, grades{{/str}}"
+                       aria-label="{{#str}}grades, grades{{/str}}"></i>
+                    <span class="menu-action-text">{{#str}}grades, grades{{/str}}</span>
+                </a>
+            {{/output.is_logged_in_and_not_guest}}-->
+
+            <!-- The design is that everything other than the logos should be on the left -->
+            <nav class="nav navbar-nav hidden-md-down popover-region">
+                <!-- custom_menu -->
+                {{{ output.custom_menu }}}
+                <!-- page_heading_menu -->
+                {{{ output.page_heading_menu }}}
+            </nav>
+
+            <!-- search_box -->
+            <span class="hidden-md-down">
+                {{{ output.search_box }}}
+            </span>
+
+
+    </div>
+</header>
+

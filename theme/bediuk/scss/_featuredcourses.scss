@@ -1,0 +1,131 @@
+/* FEATURED COURSES */
+
+.block_featuredcourses,
+.pagelayout-coursecategory .course_category_tree:not(.category-browse),
+#page-course-search {
+  .card-group {
+    width: 100%; /*needed for ie 10+ for full width*/
+    max-width: 90%;
+    margin: 0 auto;
+    @include justify-content(space-between);
+
+    .card.coursebox {
+      width: 100%;
+      min-width: 100%;
+      padding: 0 0 1.5rem 0;
+      margin-bottom: 3rem;
+      /*margin: 0 1% 4rem;*/
+      border: none;
+      border-radius: 0 0 2rem 2rem !important;
+      //need important to overid the :not in bootstrap card design.
+      background-color: $card-courses;
+
+      @include breakpoint(tablet) {
+        flex: 1 0 50%;
+        min-width: 48%;
+        max-width: 48%;
+      }
+      @include breakpoint(laptop) {
+        //margin-bottom: 0;
+        flex: 1 0 30%;
+        min-width: auto;
+        max-width: 30%;
+
+      }
+      &:nth-child(2):last-child{
+        @include breakpoint(laptop) {
+        margin-left: auto;
+        margin-right: 4%;
+        }
+      }
+
+
+      //course image
+      .courseimagewrapper {
+        //max-height: 30rem;
+      max-height: 22rem;
+        overflow: hidden;
+        img {
+          width: 100%;
+        }
+      }
+      //course details
+      .courseinfowrapper {
+        padding: 2rem 3rem 3rem;
+        //category
+        .coursecategory {
+          font-weight: 600;
+          display: block;
+          padding: 0 3rem;
+          margin-bottom: 0.6rem;
+          position: relative;
+          &:before {
+            display: block;
+            content: $fa-folder-open;
+            font-family: FontAwesome;
+            position: absolute;
+            /*rtl:begin:ignore*/
+            right: 0;
+            /*rtl:end:ignore*/
+          }
+        }
+        //name
+        .coursename {
+          font-size: $font-size-course-title;
+          font-weight: 800;
+          line-height: $line-height-small;
+          display: block;
+          margin-bottom: 0.6rem;
+        }
+        //course target & section  (thum limud & kehal yaad)
+        .metadata {
+          margin: 0;
+          .fielddefinition{
+            // this is to prevent line to break into 2 in chrome
+            white-space: nowrap;
+          }
+        }
+        .fielddefinition, .fieldvalue {
+          display: inline-block;
+          margin: 0;
+        }
+
+      }
+      //tags
+      .tagswrapper {
+        padding: 0 3rem;
+        line-height: $line-height-big;
+        border-top: none;
+        background-color: $transparent;
+
+        a {
+          text-decoration: none;
+          background-color: $card-tag;
+          margin-left: 0.4rem;
+          padding: 0 0.6rem;
+        }
+      }
+      // lock or unlock icon - apears in courses list in category page
+      .enrolmenticons{
+        text-align: left;
+        padding: 0 1rem;
+      }
+    }
+
+  }
+}
+
+body:not(.pagelayout-frontpage) .course_category_tree{
+  margin-top: 4rem;
+  padding-top: 5rem;
+}
+
+body#page-course-search{
+  .card-group {
+    @include justify-content(flex-start);
+  }
+
+  .card.coursebox {
+    margin: 0 1% 4rem;
+  }
+}

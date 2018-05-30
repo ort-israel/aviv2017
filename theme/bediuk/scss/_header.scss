@@ -1,0 +1,120 @@
+/*Tsofiya: changes has been done*/
+.header[role="banner"] {
+  max-height: $nav-bar-height-mobile;
+  background-color: $navbar-dark-color;
+  padding: 1rem 0.5rem;
+  @include breakpoint(mobile-tablet) {
+    padding: 1rem 4rem;
+    max-height: $nav-bar-height;
+    height: auto;
+  }
+
+  .navbar-nav {
+
+    .navbar-brand {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      border-radius: $border-radius;
+      margin-right: $spacer * 2;
+      color: $navbarurl;
+      font-size: $font-size-base;
+      font-weight: $font-weight-light;
+      //text-decoration: none;
+      background-color: $brand-primary;
+      //@include hover-focuse-underline();
+    }
+
+    //this is the part of the user icon
+    .usermenu .menubar .dropdown-toggle {
+      color: $navbarurl;
+      //@include hover-focuse-underline();
+    }
+    .usermenu {
+      color: $white;
+      margin-top: 0.4rem;
+      /*rtl:begin:ignore*/
+      float: left;
+      .dropdown-item a{
+        //Tsofiya: fix, for some reason the links don't get the correct color
+        color: $link-color;
+        //text-decoration: none;
+        //@include hover-focuse-underline();
+      }
+    }
+    .usermenu .login a{
+      color: $white;
+    }
+
+    .nav.popover-region{
+      font-weight: $font-weight-light;
+      /*rtl:begin:ignore*/
+      float: right;
+      a{
+        //@include hover-focuse-underline();
+      }
+    }
+    .nav-link, .open .nav-link {
+      color: $navbarurl;
+      @include hover-focus {
+        color: $navbarurl;
+      }
+    }
+
+    .nav-link{
+      margin-top: 0.1rem;
+    }
+
+    .search-input-wrapper>form>input{
+      margin-top: 0.5rem;
+    }
+
+    a .icon{
+      color: $link-color;
+    }
+
+  }
+
+}
+
+
+/*pop ups*/
+.navbar .popover-region-container,
+.navbar .popover-region .popover-region-container{
+  top: 9rem;
+  @include breakpoint(mobile-tablet){
+    top: 3.7rem;
+  }
+}
+
+
+/* User */
+img.userpicture {
+  border-radius: 50%;
+}
+
+/**
+side drawer
+ */
+
+[data-region="drawer"] {
+  top: $nav-bar-height-mobile;
+  height: calc(100% - #{$nav-bar-height-mobile});
+  background-color: rgba($gray-background, .8);
+  @include breakpoint(mobile-tablet) {
+    @include calc(top, #{" #{$nav-bar-height - 3.5} "});
+    @include calc(height, #{" 100% - #{$nav-bar-height - 3.5} "});
+  }
+  @include breakpoint(desktop) {
+    top: $nav-bar-height;
+    height: calc(100% - #{$nav-bar-height});
+  }
+  a {
+    //text-decoration: none;
+  }
+}
+
+.pagelayout-frontpage [data-region="drawer"] {
+  @include breakpoint(tablet) {
+    background-color: $gray-background;
+  }
+}
