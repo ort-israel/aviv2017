@@ -113,10 +113,14 @@ div#coursecontrols {
 
 }
 
-.teacherdashboard i.dashicon {
-  float: none;
-  padding: 0 0 0 8px;
+.teacherdashboard,
+.studentdashboard{
+  i.dashicon {
+    float: none;
+    padding: 0 0 0 0.5rem;
+  }
 }
+
 
 .editcogbutton .context-header-settings-menu .dropdown {
   padding-left: 1rem;
