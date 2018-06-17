@@ -246,5 +246,5 @@ $string['copyrighttext'] = 'Copyright © 2018';
 
 // Course page
 $string['about_course'] = 'About the Course';
-
 $string['backtotop'] = 'Scroll to top';
+$string['site_rules'] = 'site rules';

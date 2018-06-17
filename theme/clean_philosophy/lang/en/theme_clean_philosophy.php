@@ -65,3 +65,4 @@ $string['pluginname'] = 'clean_philosophy';
 $string['region-side-post'] = 'Right';
 $string['region-side-pre'] = 'Left';
 
+$string['site_rules'] = 'site rules';

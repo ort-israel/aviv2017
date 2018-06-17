@@ -30,6 +30,7 @@ body {
     font-family: 'almoni-dl', sans-serif;
     font-weight: 400;
     font-size: 16px;
+
 }
 
 /* Make all the link's color black*/
@@ -154,6 +155,26 @@ a:link, a:visited {
 body:not(.editing) #gridiconcontainer ul.gridicons{
     display: none;
 }
+
+/* Tsofiya 2018: add link 'site-rules' to footer with some css */
+/*----------------*/
+/*     Footer     */
+/*----------------*/
+.homelink{
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.site-rules{
+    position: relative;
+    margin-right: 5px;
+}
+.site-rules:before{
+    position: absolute;
+    content: "|";
+    right: -10px;
+}
+
 
 /* ---------------------------------------------------------------------------- */
 /*                                  Decorating the Quiz                         */

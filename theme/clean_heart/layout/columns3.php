@@ -61,15 +61,15 @@ echo $OUTPUT->doctype() ?>
     <!-- Tsofiya 05/11/15: remove default header and dispay ours -->
     <div class="logos">
         <a class="biosense-logo" href="https://www.biosensewebster.com/">Biosense Webster</a>
-        <a class="ort-logo" href="http://www.ort.org.il">אתר אורט</a>
+        <a class="ort-logo" href="http://www.ort.org.il"><?php echo get_string('ort-site','theme_clean_heart') ?></a>
     </div>
     <div class="titles cf">
         <h1 class="site-title">
             <a href="http://www.lev.ort.org.il/">
-                לב העניין
+                <?php echo get_string('site-title','theme_clean_heart') ?>
             </a>
         </h1>
-        <h2 class="site-sub-title">סביבת לימוד וחקר ברפואת לב</h2>
+        <h2 class="site-sub-title"> <?php echo get_string('site-sub-title','theme_clean_heart') ?> </h2>
     </div>
 </header>
 
@@ -97,10 +97,11 @@ echo $OUTPUT->doctype() ?>
 
     <footer id="page-footer">
         <!-- Tsofiya 05/11/15: remove default footer and dispay ours -->
-        האתר פותח ע"י המרכז למו"פ <a href="http://www.ort.org.il">אורט ישראל</a> |
-        <a class="link" href="">אודות</a> |
-        <a class="link" href="">קרדיטים</a>
-
+        <?php echo get_string('copyright','theme_clean_heart') ?>
+        <a href="http://www.ort.org.il"> <?php echo get_string('ort-israel','theme_clean_heart') ?> </a> |
+        <a class="link" href="http://www.lev.ort.org.il/about.html"> <?php echo get_string('about','theme_clean_heart') ?> </a> |
+        <a class="link" href="http://www.lev.ort.org.il/credits.html"> <?php echo get_string('credits','theme_clean_heart') ?> </a> |
+        <a class="link" href="https://www.ort.org.il/right/rights/"> <?php echo get_string('site-rules','theme_clean_heart') ?> </a>
     </footer>
 
     <?php echo $OUTPUT->standard_end_of_body_html() ?>

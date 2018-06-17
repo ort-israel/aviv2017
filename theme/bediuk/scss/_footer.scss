@@ -71,11 +71,25 @@
     }
   }*/
 
-  .copyright {
+  .footer-text-wrapper {
     color: $footer-text-color;
     font-size: $font-size-root;
     text-align: center;
     background-color: $footer-copyrights-background;
     padding: 2rem;
+  }
+
+  .copyright{
+    margin-left: 0.5rem;
+  }
+
+  .site-rules{
+    position: relative;
+    margin-right: 0.5rem;
+  }
+  .site-rules:before{
+    position: absolute;
+    content: "|";
+    right: -1rem;
   }
 }

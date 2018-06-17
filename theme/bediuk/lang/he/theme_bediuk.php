@@ -246,5 +246,5 @@ $string['copyrighttext'] =  'Copyright © 2018 - האתר פותח על ידי �
 
 // Course page
 $string['about_course'] = 'על הקורס';
-
 $string['backtotop'] = 'חזרה לראש הדף';
+$string['site_rules'] = 'תקנון אתר';

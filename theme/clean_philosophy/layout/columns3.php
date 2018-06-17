@@ -110,6 +110,9 @@ echo $OUTPUT->doctype() ?>
         echo $html->footnote;
         echo $OUTPUT->login_info();
         echo $OUTPUT->home_link();
+        ?>
+        <a class="site-rules" href="https://www.ort.org.il/right/rights/"> <?php echo get_string('site_rules','theme_clean_philosophy') ?> </a>
+        <?php
         echo $OUTPUT->standard_footer_html();
         ?>
     </footer>
