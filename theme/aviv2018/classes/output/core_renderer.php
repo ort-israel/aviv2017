@@ -642,6 +642,11 @@ class core_renderer extends \theme_fordson\output\core_renderer {
         $setting = $theme->settings->facebook;
         return $setting != '' ? $setting : '';
     }
+    public function footer_siteregulation_url() {
+        $theme = theme_config::load('aviv2018');
+        $setting = $theme->settings->siteregulation;
+        return $setting != '' ? $setting : '';
+    }
 
     /**
      * Render the contents of a block_list.

@@ -235,12 +235,15 @@ $string['footertutorials'] = 'Moodle Tutorials';
 $string['footertutorialsdesc'] = 'Tutorials for using Moodle';
 $string['footerfacebook'] = 'ORT Israel\'s facebook';
 $string['footerfacebookdesc'] = 'ORT Israel\'s facebook';
+$string['footersiteregulation'] = 'תקנון אתר';
+$string['footersiteregulationdesc'] = 'כתובת תקנון האתר';
 
 // Footer text in site
 $string['contactandsupporttitle'] = 'יצירת קשר ותמיכה';
 $string['email'] = 'דוא"ל';
 $string['phone'] = 'טלפון';
 $string['tutorials'] = 'מדריכים לשימוש ב-moodle';
+$string['siteregulation'] = 'תקנון אתר';
 $string['footnoteabouttitle'] = 'אודות';
 $string['copyrighttext'] =  'Copyright © 2016 - האתר פותח על ידי היחידה לטכנולוגיות אינטרנט, המרכז למו״פ, <a href="http://ort.org.il">אורט ישראל</a> ומבוסס moodle';;
 

@@ -54,7 +54,7 @@ $default = '';
 $setting = new admin_setting_configtext($name, $heading, $information, $default);
 $page->add($setting);
 
-// Website url setting.
+// R&D support email.
 $name = 'theme_aviv2018/email';
 $title = get_string('footeremail', 'theme_aviv2018');
 $description = get_string('footeremaildesc', 'theme_aviv2018');
@@ -63,7 +63,7 @@ $setting = new admin_setting_configtext($name, $title, $description, $default);
 $setting->set_updatedcallback('theme_reset_all_caches');
 $page->add($setting);
 
-// Blog url setting.
+// R&D support phone number.
 $name = 'theme_aviv2018/phone';
 $title = get_string('footerphone', 'theme_aviv2018');
 $description = get_string('footerphonedesc', 'theme_aviv2018');
@@ -72,7 +72,7 @@ $setting = new admin_setting_configtext($name, $title, $description, $default);
 $setting->set_updatedcallback('theme_reset_all_caches');
 $page->add($setting);
 
-// Facebook url setting.
+//  Tutorials url setting.
 $name = 'theme_aviv2018/tutorials';
 $title = get_string('footertutorials', 'theme_aviv2018');
 $description = get_string('footertutorialsdesc', 'theme_aviv2018');
@@ -81,10 +81,19 @@ $setting = new admin_setting_configtext($name, $title, $description, $default);
 $setting->set_updatedcallback('theme_reset_all_caches');
 $page->add($setting);
 
-// Flickr url setting.
+// Facebook url setting.
 $name = 'theme_aviv2018/facebook';
 $title = get_string('footerfacebook', 'theme_aviv2018');
 $description = get_string('footerfacebookdesc', 'theme_aviv2018');
+$default = '';
+$setting = new admin_setting_configtext($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$page->add($setting);
+
+// Site rgulation url setting.
+$name = 'theme_aviv2018/siteregulation';
+$title = get_string('footersiteregulation', 'theme_aviv2018');
+$description = get_string('footersiteregulationdesc', 'theme_aviv2018');
 $default = '';
 $setting = new admin_setting_configtext($name, $title, $description, $default);
 $setting->set_updatedcallback('theme_reset_all_caches');

@@ -235,12 +235,15 @@ $string['footertutorials'] = 'Moodle Tutorials';
 $string['footertutorialsdesc'] = 'Tutorials for using Moodle';
 $string['footerfacebook'] = 'ORT Israel\'s facebook';
 $string['footerfacebookdesc'] = 'ORT Israel\'s facebook';
+$string['footersiteregulation'] = 'Site Regulation';
+$string['footersiteregulationdesc'] = 'Site Regulation url';
 
 // Footer text in site
 $string['contactandsupporttitle'] = 'Contact and Support';
 $string['email'] = 'Email';
 $string['phone'] = 'Phone';
 $string['tutorials'] = 'tutorials';
+$string['siteregulation'] = 'Site Regulation';
 $string['footnoteabouttitle'] = 'About';
 $string['copyrighttext'] = 'Copyright © 2016';
 
