@@ -794,14 +794,17 @@ class course_renderer extends \core_course_renderer {
      * @return array
      */
     private function get_metadata_category($categoryid) {
-        global $DB;
-        $allcategoryfields = $DB->get_records('local_metadata_field', array('contextlevel' => CONTEXT_COURSECAT));
+        global $DB, $CFG;
         $ret = array();
-        foreach ($allcategoryfields as $coursefield) {
-            $fieldvalue = $DB->get_record('local_metadata', array('instanceid' => $categoryid, 'fieldid' => $coursefield->id));
-            if ($fieldvalue) {
-                $metaobj = new \metadatafieldtype_fileupload\metadata($coursefield->id, $categoryid);
-                $ret[$coursefield->shortname] = $metaobj->display_data();
+        require_once($CFG->dirroot . '/ort/ort_util.php');
+        if (\ort_util::table_exists('local_metadata_field')) {
+            $allcategoryfields = $DB->get_records('local_metadata_field', array('contextlevel' => CONTEXT_COURSECAT));
+            foreach ($allcategoryfields as $coursefield) {
+                $fieldvalue = $DB->get_record('local_metadata', array('instanceid' => $categoryid, 'fieldid' => $coursefield->id));
+                if ($fieldvalue) {
+                    $metaobj = new \metadatafieldtype_fileupload\metadata($coursefield->id, $categoryid);
+                    $ret[$coursefield->shortname] = $metaobj->display_data();
+                }
             }
         }
         return $ret;
