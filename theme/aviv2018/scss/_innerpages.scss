@@ -188,8 +188,10 @@ body.courserole-student:not(.courserole-admin) .has-unenrol-link {
   }
 }
 
-/*the part that is presented after pressing the button - in this course - teacher & student*/
-.collapse.in {
+/* Change selector from ".collapse .in" to  ".teacherdashboard, .studentdashboard" */
+/* the part that is presented after pressing the button - in this course - teacher & student*/
+.teacherdashboard,
+.studentdashboard{
   background-color: $course-upper-buttons-bg;
 
   .row {
