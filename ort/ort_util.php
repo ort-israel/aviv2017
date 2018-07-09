@@ -15,44 +15,18 @@ class ort_util {
      */
     public static function get_metadata_course($courseid) {
         global $DB;
-        $allcoursefields = $DB->get_records('local_metadata_field', array('contextlevel' => CONTEXT_COURSE));
         $ret = array();
-        foreach ($allcoursefields as $coursefield) {
-            $fieldvalue = $DB->get_record('local_metadata', array('instanceid' => $courseid, 'fieldid' => $coursefield->id));
-            if ($fieldvalue) {
-                $ret[$coursefield->shortname] = $fieldvalue;
-                //add the name of field:
-                $ret[$coursefield->shortname]->fieldname = $coursefield->name;
+        if (\ort_util::table_exists('local_metadata_field')) {
+            $allcoursefields = $DB->get_records('local_metadata_field', array('contextlevel' => CONTEXT_COURSE));
+            foreach ($allcoursefields as $coursefield) {
+                $fieldvalue = $DB->get_record('local_metadata', array('instanceid' => $courseid, 'fieldid' => $coursefield->id));
+                if ($fieldvalue) {
+                    $ret[$coursefield->shortname] = $fieldvalue;
+                    //add the name of field:
+                    $ret[$coursefield->shortname]->fieldname = $coursefield->name;
+                }
             }
         }
-//        if (count($allcoursefields) > 0) {
-//
-//            // select all the id's of this course's meta fields
-//            $allcoursefieldsids = array_column($allcoursefields, 'id');
-//
-//            // create query that gets all the values of all the meta fields in this course
-//            $select = "instanceid = " . $courseid . " AND fieldid in (" . implode(',', $allcoursefieldsids) . ")";
-//            $allcoursefieldsvalues = $DB->get_records_select('local_metadata', $select);
-//
-//            /* Make the indices of the returned array be the shortnames of the field.
-//             * That way, whomever uses this function doesn't need to know the id of the filed, and can just use its shortname*/
-//            if (count($allcoursefieldsvalues) > 0) {
-//                foreach ($allcoursefieldsvalues as $coursefieldvalue) {
-//
-//                    // get the currect field object according to the fieldid of the current
-//                    if (isset($allcoursefields[$coursefieldvalue->fieldid])) {
-//                        $currfield = $allcoursefields[$coursefieldvalue->fieldid];
-//
-//                        // insert this item in the shortname index of the new array
-//                        if (isset($currfield->shortname)) {
-//                            $ret[$currfield->shortname] = $coursefieldvalue;
-//                            // add the name of field:
-//                            $ret[$currfield->shortname]->fieldname = $currfield->name;
-//                        }
-//                    }
-//                }
-//            }
-//        }
         return $ret;
     }
 
@@ -90,5 +64,16 @@ class ort_util {
             }
         }
         return $ret;
+    }
+
+    /**
+     * @param $tablename
+     * @return bool
+     */
+    public static function table_exists($tablename) {
+        global $DB, $CFG;
+        $result = $DB->record_exists_sql('select table_name from information_schema.tables where table_name="'.$DB->get_prefix().$tablename.'" and table_schema="'.$CFG->dbname.'"');
+
+        return $result;
     }
 }
