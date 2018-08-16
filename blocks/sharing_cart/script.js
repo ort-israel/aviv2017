@@ -20,42 +20,37 @@
  *  @copyright  2017 (C) VERSION2, INC.
  *  @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-require(['jquery'], function ($)
-{
-    $(document).ready(function()
-    {
+require(['jquery'], function ($) {
+    $(document).ready(function () {
         /** @var {Object}  The icon configurations */
         var icon = {
             // actions
-            'backup'  : { css: 'editing_backup' , pix: 'i/backup'  },
-            'movedir' : { css: 'editing_right'  , pix: 't/right'   },
-            'move'    : { css: 'editing_move_'  , pix: 't/move'    },
-            'edit'    : { css: 'editing_update' , pix: 't/edit'    },
-            'cancel'  : { css: 'editing_cancel' , pix: 't/delete'  },
-            'delete'  : { css: 'editing_update' , pix: 't/delete'  },
-            'restore' : { css: 'editing_restore', pix: 'i/restore' },
+            'backup': {css: 'editing_backup', pix: 'i/backup'},
+            'movedir': {css: 'editing_right', pix: 't/right'},
+            'move': {css: 'editing_move_', pix: 't/move'},
+            'edit': {css: 'editing_update', pix: 't/edit'},
+            'cancel': {css: 'editing_cancel', pix: 't/delete'},
+            'delete': {css: 'editing_update', pix: 't/delete'},
+            'restore': {css: 'editing_restore', pix: 'i/restore'},
             // directories
-            'dir-open'   : { pix: 'f/folder-open'   },
-            'dir-closed' : { pix: 'f/folder' }
+            'dir-open': {pix: 'f/folder-open'},
+            'dir-closed': {pix: 'f/folder'}
         };
 
         /** @var {Node}  The Sharing Cart block container node */
         var $block = $('.block_sharing_cart');
 
         var $spinner_modal = {
-            show: function()
-            {
+            show: function () {
                 $('#sharing-cart-spinner-modal').show();
             },
-            hide: function()
-            {
+            hide: function () {
                 $('#sharing-cart-spinner-modal').hide();
             }
         };
 
         /** @var {Object}  The current course */
-        var course = new function ()
-        {
+        var course = new function () {
             var body = $('body');
             this.id = body.attr('class').match(/course-(\d+)/)[1];
             this.is_frontpage = body.hasClass('pagelayout-frontpage');
@@ -67,8 +62,7 @@ require(['jquery'], function ($)
          *  @param {String} identifier
          *  @return {String}
          */
-        function str(identifier)
-        {
+        function str(identifier) {
             return M.str.block_sharing_cart[identifier] || M.str.moodle[identifier];
         }
 
@@ -77,18 +71,15 @@ require(['jquery'], function ($)
          *
          *  @param {Object} response  The Ajax response
          */
-        function show_error(response)
-        {
-            try
-            {
+        function show_error(response) {
+            try {
                 var ex = JSON.parse(response.responseText);
                 new M.core.exception({
                     name: str('pluginname') + ' - ' + str('error'),
                     message: ex.message
                 });
             }
-            catch (e)
-            {
+            catch (e) {
                 new M.core.exception({
                     name: str('pluginname') + ' - ' + str('error'),
                     message: response.responseText
@@ -103,14 +94,11 @@ require(['jquery'], function ($)
          *  @param {Object} [args] The action parameters
          *  @return {String}
          */
-        function get_action_url(name, args)
-        {
+        function get_action_url(name, args) {
             var url = M.cfg.wwwroot + '/blocks/sharing_cart/' + name + '.php';
-            if (args)
-            {
+            if (args) {
                 var q = [];
-                for (var k in args)
-                {
+                for (var k in args) {
                     q.push(k + '=' + encodeURIComponent(args[k]));
                 }
                 url += '?' + q.join('&');
@@ -123,8 +111,7 @@ require(['jquery'], function ($)
          *
          *  @return {Boolean}
          */
-        function verify_layout()
-        {
+        function verify_layout() {
             var menuelement = $block.find('.menubar .dropdown .dropdown-menu');
             return (menuelement.length);
         }
@@ -135,8 +122,7 @@ require(['jquery'], function ($)
          * @param value
          * @param expireTimeInMillisecond
          */
-        function setCookie(name, value, expireTimeInMillisecond)
-        {
+        function setCookie(name, value, expireTimeInMillisecond) {
             var d = new Date();
             d.setTime(d.getTime() + expireTimeInMillisecond);
             var expires = 'expires=' + d.toUTCString();
@@ -148,8 +134,7 @@ require(['jquery'], function ($)
          * @param param
          * @returns {*}
          */
-        function getCookieValue(param)
-        {
+        function getCookieValue(param) {
             var readCookie = document.cookie.match('(^|;)\\s*' + param + '\\s*=\\s*([^;]+)');
             return readCookie ? readCookie.pop() : '';
         }
@@ -160,13 +145,11 @@ require(['jquery'], function ($)
          *  @param {String} name  The command name, predefined in icon
          *  @param {String} [pix] The icon pix name to override
          */
-        function create_command(name, pix)
-        {
+        function create_command(name, pix) {
             var imageelement = $('<img class="iconsmall "/>')
                 .attr('alt', str(name))
                 .attr('src', M.util.image_url(pix || icon[name].pix));
-            if (verify_layout())
-            {
+            if (verify_layout()) {
                 imageelement.addClass('iconcustom');
             }
 
@@ -182,8 +165,7 @@ require(['jquery'], function ($)
          *  @param {String} name  The command name, predefined in icon
          *  @param {String} [pix] The icon pix name to override
          */
-        function create_special_activity_command(name, pix)
-        {
+        function create_special_activity_command(name, pix) {
             return $('<a href="javascript:void(0)"/>')
                 .addClass(icon[name].css)
                 .addClass('dropdown-item menu-action cm-edit-action')
@@ -200,12 +182,10 @@ require(['jquery'], function ($)
          * @param $node
          * @returns {*|jQuery}
          */
-        function add_spinner($node)
-        {
-            var WAITICON = {'pix':"i/loading_small",'component':'moodle'};
+        function add_spinner($node) {
+            var WAITICON = {'pix': "i/loading_small", 'component': 'moodle'};
 
-            if($node.find(".spinner").length)
-            {
+            if ($node.find(".spinner").length) {
                 return $node.find(".spinner");
             }
 
@@ -220,8 +200,7 @@ require(['jquery'], function ($)
         /**
          *  Reload the Sharing Cart item tree
          */
-        function reload_tree()
-        {
+        function reload_tree() {
             var $spinner = add_spinner($block.find('.commands'));
 
             $spinner.show();
@@ -230,17 +209,14 @@ require(['jquery'], function ($)
                 {
                     "action": "render_tree"
                 },
-            function(response)
-            {
-                $block.find(".tree").replaceWith($(response));
-                $.init_item_tree();
-            }, "text")
-                .fail(function(response)
-                {
+                function (response) {
+                    $block.find(".tree").replaceWith($(response));
+                    $.init_item_tree();
+                }, "text")
+                .fail(function (response) {
                     show_error(response);
                 })
-                .always(function(response)
-                {
+                .always(function (response) {
                     $spinner.hide();
                 });
         }
@@ -251,11 +227,9 @@ require(['jquery'], function ($)
          *  @param {int} cmid
          *  @param {Boolean} userdata
          */
-        function backup(cmid, userdata)
-        {
+        function backup(cmid, userdata) {
             var $commands = $('#module-' + cmid + ' .commands');
-            if(!$commands.length)
-            {
+            if (!$commands.length) {
                 $commands = $('[data-owner="#module-' + cmid + '"]');
             }
 
@@ -269,16 +243,13 @@ require(['jquery'], function ($)
                     "sesskey": M.cfg.sesskey,
                     "course": course.id
                 },
-            function()
-            {
-                reload_tree();
-            })
-                .fail(function(response)
-                {
+                function () {
+                    reload_tree();
+                })
+                .fail(function (response) {
                     show_error(response);
                 })
-                .always(function(response)
-                {
+                .always(function (response) {
                     $spinner_modal.hide();
                 });
         }
@@ -289,8 +260,7 @@ require(['jquery'], function ($)
          *  @param {int} sectionID
          *  @param {Boolean} userdata
          */
-        function backup_section(sectionID, userdata)
-        {
+        function backup_section(sectionID, userdata) {
             var $commands = $('span.inplaceeditable[data-itemtype=sectionname][data-itemid=' + sectionID + ']');
             var sectionName = $commands.closest("li.section.main").attr('aria-label');
 
@@ -307,16 +277,13 @@ require(['jquery'], function ($)
                     "sesskey": M.cfg.sesskey,
                     "course": course.id
                 },
-                function()
-                {
+                function () {
                     reload_tree();
                 })
-                .fail(function(response)
-                {
+                .fail(function (response) {
                     show_error(response);
                 })
-                .always(function(response)
-                {
+                .always(function (response) {
                     $spinner_modal.hide();
                 });
         }
@@ -327,26 +294,26 @@ require(['jquery'], function ($)
         /**
          *  @class Directory states manager
          */
-        var directories = new function ()
-        {
+        var directories = new function () {
             var KEY = 'block_sharing_cart-dirs';
 
-            var opens = getCookieValue(KEY).split(',').map(function (v) { return parseInt(v); });
+            var opens = getCookieValue(KEY).split(',').map(function (v) {
+                return parseInt(v);
+            });
 
-            function save()
-            {
+            function save() {
                 var expires = new Date();
                 expires.setDate(expires.getDate() + 30);
                 setCookie(KEY, opens.join(','), expires);
             }
-            function open($dir, visible)
-            {
+
+            function open($dir, visible) {
                 var pix = icon[visible ? 'dir-open' : 'dir-closed'].pix;
                 $dir.find('> div img').first().attr('src', M.util.image_url(pix));
                 $dir.find('> ul.list')[visible ? 'show' : 'hide']();
             }
-            function toggle(e)
-            {
+
+            function toggle(e) {
                 var $dir = $(e.target).closest('li.directory');
                 var i = $dir.attr('id').match(/(\d+)$/)[1];
                 var v = $dir.find('> ul.list').css('display') === 'none';
@@ -359,23 +326,18 @@ require(['jquery'], function ($)
             /**
              *  Initialize directory states
              */
-            this.init = function ()
-            {
+            this.init = function () {
                 var i = 0;
-                $block.find('li.directory').each(function (index, dir)
-                {
+                $block.find('li.directory').each(function (index, dir) {
                     var $dir = $(dir);
                     $dir.attr('id', 'block_sharing_cart-dir-' + i);
-                    if (i >= opens.length)
-                    {
+                    if (i >= opens.length) {
                         opens.push(0);
                     }
-                    else if (opens[i])
-                    {
+                    else if (opens[i]) {
                         open($dir, true);
                     }
-                    $dir.find('> div').css('cursor', 'pointer').click(function(e)
-                    {
+                    $dir.find('> div').css('cursor', 'pointer').click(function (e) {
                         toggle(e);
                     });
                     i++;
@@ -384,8 +346,7 @@ require(['jquery'], function ($)
             /**
              *  Reset directory states
              */
-            this.reset = function ()
-            {
+            this.reset = function () {
                 opens = [];
                 this.init();
                 save();
@@ -395,23 +356,24 @@ require(['jquery'], function ($)
         /**
          *  @class Targets for moving an item directory
          */
-        var move_targets = new function ()
-        {
+        var move_targets = new function () {
             var $cancel = null, targets = [];
 
             /**
              *  Hide move targets
              */
-            this.hide = function ()
-            {
-                if ($cancel !== null)
-                {
+            this.hide = function () {
+                if ($cancel !== null) {
                     var $commands = $cancel.closest('.commands');
                     $cancel.remove();
                     $cancel = null;
                     $commands.closest('li.activity').css('opacity', 1.0);
-                    $commands.find('a').each(function () { $(this).show(); });
-                    $.each(targets, function (index, $target) { $target.remove(); });
+                    $commands.find('a').each(function () {
+                        $(this).show();
+                    });
+                    $.each(targets, function (index, $target) {
+                        $target.remove();
+                    });
                     targets = [];
                 }
             };
@@ -421,12 +383,10 @@ require(['jquery'], function ($)
              *
              *  @param {int} id  The item ID
              */
-            this.show = function (id)
-            {
+            this.show = function (id) {
                 this.hide();
 
-                function move(e)
-                {
+                function move(e) {
                     var m = $(e.target).closest('a').attr('class').match(/move-(\d+)-to-(\d+)/);
                     var id = m[1], to = m[2];
 
@@ -437,12 +397,10 @@ require(['jquery'], function ($)
                             "to": to,
                             "sesskey": M.cfg.sesskey
                         },
-                    function()
-                    {
-                        reload_tree();
-                    })
-                        .fail(function(response)
-                        {
+                        function () {
+                            reload_tree();
+                        })
+                        .fail(function (response) {
                             show_error(response);
                         });
                 }
@@ -453,13 +411,11 @@ require(['jquery'], function ($)
                 var $list = $current.closest('ul');
 
                 var next_id = 0;
-                if($next.length)
-                {
+                if ($next.length) {
                     next_id = $next.attr('id').match(/item-(\d+)$/)[1];
                 }
 
-                function create_target(id, to)
-                {
+                function create_target(id, to) {
                     var $anchor = $('<a href="javascript:void(0)"/>')
                         .addClass('move-' + id + '-to-' + to)
                         .attr('title', str('movehere'))
@@ -471,37 +427,36 @@ require(['jquery'], function ($)
 
                     var $target = $('<li class="activity"/>')
                         .append($($indent[0].cloneNode(false)).append($anchor));
-                    $anchor.click(function(e) { move(e) });
+                    $anchor.click(function (e) {
+                        move(e)
+                    });
 
                     return $target;
                 }
 
-                $list.find('> li.activity').each(function (index, item)
-                {
+                $list.find('> li.activity').each(function (index, item) {
                     var $item = $(item);
                     var to = $item.attr('id').match(/item-(\d+)$/)[1];
-                    if (to === id)
-                    {
+                    if (to === id) {
                         $cancel = create_command('cancel', 't/left');
-                        $cancel.click(function()
-                        {
+                        $cancel.click(function () {
                             move_targets.hide();
                         });
                         var $commands = $item.find('.commands');
-                        $commands.find('a').each(function () { $(this).hide(); });
+                        $commands.find('a').each(function () {
+                            $(this).hide();
+                        });
                         $commands.append($cancel);
                         $item.css('opacity', 0.5);
                     }
-                    else if (to !== next_id)
-                    {
+                    else if (to !== next_id) {
                         var $target = create_target(id, to);
                         $item.before($target);
                         targets.push($target);
                     }
                 }, this);
 
-                if ($next)
-                {
+                if ($next) {
                     var $target = create_target(id, 0);
                     $list.append($target);
                     targets.push($target);
@@ -512,16 +467,13 @@ require(['jquery'], function ($)
         /**
          *  @class Targets for restoring an item
          */
-        var restore_targets = new function ()
-        {
+        var restore_targets = new function () {
             this.is_directory = null;
             var $clipboard = null, targets = [];
 
-            function create_target(id, section)
-            {
+            function create_target(id, section) {
                 var href = '';
-                if(restore_targets.is_directory)
-                {
+                if (restore_targets.is_directory) {
                     href = get_action_url('restore', {
                         'directory': true,
                         'path': id,
@@ -530,8 +482,7 @@ require(['jquery'], function ($)
                         'sesskey': M.cfg.sesskey
                     });
                 }
-                else
-                {
+                else {
                     href = get_action_url('restore', {
                         'directory': false,
                         'id': id,
@@ -557,13 +508,13 @@ require(['jquery'], function ($)
             /**
              *  Hide restore targets
              */
-            this.hide = function ()
-            {
-                if ($clipboard !== null)
-                {
+            this.hide = function () {
+                if ($clipboard !== null) {
                     $clipboard.remove();
                     $clipboard = null;
-                    $.each(targets, function (index, $target) { $target.remove(); });
+                    $.each(targets, function (index, $target) {
+                        $target.remove();
+                    });
                     targets = [];
                 }
             };
@@ -573,14 +524,12 @@ require(['jquery'], function ($)
              *
              *  @param {int} id  The item ID
              */
-            this.show = function (id)
-            {
+            this.show = function (id) {
                 this.hide();
 
                 var $view = $("<span/>");
 
-                if(this.is_directory)
-                {
+                if (this.is_directory) {
                     $view.html(id).css('display', 'inline');
                     $view.prepend(
                         $("<img/>").addClass("icon")
@@ -588,8 +537,7 @@ require(['jquery'], function ($)
                             .attr("src", M.util.image_url(icon['dir-closed'].pix, null))
                     );
                 }
-                else
-                {
+                else {
                     var $item = $block.find('#block_sharing_cart-item-' + id);
                     $view = $($item.find('div')[0].cloneNode(true)).css('display', 'inline');
                     $view.attr('class', $view.attr('class').replace(/mod-indent-\d+/, ''));
@@ -602,35 +550,28 @@ require(['jquery'], function ($)
                 $clipboard = $('<div class="clipboard"/>');
                 $clipboard.append(str('clipboard') + ": ").append($view).append($cancel);
 
-                if (course.is_frontpage)
-                {
+                if (course.is_frontpage) {
                     var $sitetopic = $('.sitetopic');
                     var $mainmenu = $('.block_site_main_menu');
-                    if ($sitetopic)
-                    {
+                    if ($sitetopic) {
                         $sitetopic.find('*').before($clipboard);
                     }
-                    else if ($mainmenu)
-                    {
+                    else if ($mainmenu) {
                         $mainmenu.find('.content').before($clipboard);
                     }
 
                     // mainmenu = section #0, sitetopic = section #1
-                    if ($mainmenu)
-                    {
+                    if ($mainmenu) {
                         $mainmenu.find('.footer').before(create_target(id, 0));
                     }
-                    if ($sitetopic)
-                    {
+                    if ($sitetopic) {
                         $sitetopic.find('ul.section').append(create_target(id, 1));
                     }
                 }
-                else
-                {
+                else {
                     var $container = $('.course-content');
                     $container.one('*').before($clipboard);
-                    $container.find(M.course.format.get_section_wrapper(null)).each(function (index, sectionDOM)
-                    {
+                    $container.find(M.course.format.get_section_wrapper(null)).each(function (index, sectionDOM) {
                         var $section = $(sectionDOM);
                         var section = $section.attr('id').match(/(\d+)$/)[1];
                         $section.find('ul.section').append(create_target(id, section));
@@ -641,94 +582,73 @@ require(['jquery'], function ($)
 
         ///////// INITIALIZATION /////////
 
-        $.get_plugin_name = function()
-        {
+        $.get_plugin_name = function () {
             var $blockheader = $block.find("h2");
 
-            if(!$blockheader.length)
-            {
+            if (!$blockheader.length) {
                 $blockheader = $block.find("h3");
 
-                if($blockheader.length)
-                {
+                if ($blockheader.length) {
                     return $blockheader.html();
                 }
             }
-            else
-            {
+            else {
                 return $blockheader.html();
             }
 
             return "";
         };
 
-        $.on_backup = function (e)
-        {
-            var cmid = (function ($backup)
-            {
+        $.on_backup = function (e) {
+            var cmid = (function ($backup) {
                 var $activity = $backup.closest('li.activity');
-                if ($activity.length)
-                {
+                if ($activity.length) {
                     return $activity.attr('id').match(/(\d+)$/)[1];
                 }
                 var $commands = $backup.closest('.commands');
                 var dataowner = $commands.attr('data-owner');
-                if (dataowner.length)
-                {
+                if (dataowner.length) {
                     return dataowner.match(/(\d+)$/)[1];
                 }
                 return $commands.find('a.editing_delete').attr('href').match(/delete=(\d+)/)[1];
             })($(e.target));
 
-            (function (on_success)
-            {
+            (function (on_success) {
                 $.post(get_action_url('rest'),
                     {
                         "action": "is_userdata_copyable",
                         "cmid": cmid
                     },
-                function(response)
-                {
-                    on_success(response);
-                }, "text")
-                    .fail(function(response)
-                    {
-                       show_error(response);
+                    function (response) {
+                        on_success(response);
+                    }, "text")
+                    .fail(function (response) {
+                        show_error(response);
                     });
-            })(function (response)
-            {
-                function embed_cmid(cmid)
-                {
+            })(function (response) {
+                function embed_cmid(cmid) {
                     return '<!-- #cmid=' + cmid + ' -->';
                 }
 
-                function parse_cmid(question)
-                {
+                function parse_cmid(question) {
                     return /#cmid=(\d+)/.exec(question)[1];
                 }
 
                 var copyable = response === '1';
-                if (copyable)
-                {
-                    if(confirm(str('confirm_userdata')))
-                    {
-                        if(confirm(str('confirm_backup')))
-                        {
+                if (copyable) {
+                    if (confirm(str('confirm_userdata'))) {
+                        if (confirm(str('confirm_backup'))) {
                             backup(cmid, true);
                         }
                     }
-                    else
-                    {
-                        if(confirm(str('confirm_backup')))
-                        {
+                    else {
+                        if (confirm(str('confirm_backup'))) {
                             backup(cmid, false);
                         }
                     }
                 }
-                else
-                {
-                    if(confirm(str('confirm_backup')))
-                    {
+                else {
+                    if (confirm(str('confirm_backup'))) {
                         backup(cmid, false);
                     }
                 }
@@ -740,8 +660,7 @@ require(['jquery'], function ($)
          *
          *  @param {DOMEventFacade} e
          */
-        $.on_movedir = function (e)
-        {
+        $.on_movedir = function (e) {
             var $commands = $(e.target).closest('.commands');
 
             var $current_dir = $commands.closest('li.directory');
@@ -750,16 +669,14 @@ require(['jquery'], function ($)
             var id = $(e.target).closest('li.activity').attr('id').match(/(\d+)$/)[1];
 
             var dirs = [];
-            $block.find('li.directory').each(function ()
-            {
+            $block.find('li.directory').each(function () {
                 dirs.push($(this).attr('directory-path'));
             });
 
             var $form = $('<form/>').css('display', 'inline');
             $form.attr('action', 'javascript:void(0)');
 
-            function submit()
-            {
+            function submit() {
                 var to = $form.find('[name="to"]').val();
                 $.post(get_action_url('rest'),
                     {
@@ -768,30 +685,25 @@ require(['jquery'], function ($)
                         "to": to,
                         "sesskey": M.cfg.sesskey
                     },
-                function()
-                {
-                    reload_tree();
-                    directories.reset();
-                })
-                    .fail(function(response)
-                    {
+                    function () {
+                        reload_tree();
+                        directories.reset();
+                    })
+                    .fail(function (response) {
                         show_error(response);
                     });
             }
 
             $form.submit(submit);
 
-            if (dirs.length === 0)
-            {
+            if (dirs.length === 0) {
                 $form.append($('<input type="text" name="to"/>').val(current_path));
             }
-            else
-            {
+            else {
                 dirs.unshift('/');
 
                 var $select = $('<select name="to"/>');
-                for (var i = 0; i < dirs.length; i++)
-                {
+                for (var i = 0; i < dirs.length; i++) {
                     $select.append($('<option/>').val(dirs[i]).append(dirs[i]));
                 }
                 $select.val(current_path);
@@ -800,8 +712,7 @@ require(['jquery'], function ($)
 
                 var $edit = create_command('edit');
 
-                $edit.click(function (e)
-                {
+                $edit.click(function (e) {
                     var $input = $('<input type="text" name="to"/>').val(current_path);
                     $select.remove();
                     $edit.replaceWith($input);
@@ -812,14 +723,15 @@ require(['jquery'], function ($)
             }
 
             var $cancel = create_command('cancel');
-            $cancel.click(function ()
-            {
+            $cancel.click(function () {
                 $form.remove();
                 $commands.find('a').show();
             });
             $form.append($cancel);
 
-            $commands.find('a').each(function () { $(this).hide(); });
+            $commands.find('a').each(function () {
+                $(this).hide();
+            });
             $commands.append($form);
         };
 
@@ -828,8 +740,7 @@ require(['jquery'], function ($)
          *
          *  @param {DOMEventFacade} e
          */
-        $.on_move = function (e)
-        {
+        $.on_move = function (e) {
             var $item = $(e.target).closest('li.activity');
             var id = $item.attr('id').match(/(\d+)$/)[1];
 
@@ -841,26 +752,22 @@ require(['jquery'], function ($)
          *
          *  @param {DOMEventFacade} e
          */
-        $.on_delete = function (e)
-        {
-            if (!confirm(str('confirm_delete')))
-            {
+        $.on_delete = function (e) {
+            if (!confirm(str('confirm_delete'))) {
                 return;
             }
 
             var $item = $(e.target).closest('li');
             var data = {};
 
-            if($item.hasClass("directory"))
-            {
+            if ($item.hasClass("directory")) {
                 data = {
                     "action": "delete_directory",
                     "path": $item.attr("directory-path"),
                     "sesskey": M.cfg.sesskey
                 };
             }
-            else if($item.hasClass("activity"))
-            {
+            else if ($item.hasClass("activity")) {
                 data = {
                     "action": "delete",
                     "id": $item.attr('id').match(/(\d+)$/)[1],
@@ -873,16 +780,13 @@ require(['jquery'], function ($)
             $spinner.show();
 
             $.post(get_action_url("rest"), data,
-            function()
-            {
-                reload_tree();
-            })
-                .fail(function(response)
-                {
+                function () {
+                    reload_tree();
+                })
+                .fail(function (response) {
                     show_error(response);
                 })
-                .always(function()
-                {
+                .always(function () {
                     $spinner.hide();
                 });
 
@@ -894,18 +798,15 @@ require(['jquery'], function ($)
          *
          *  @param {DOMEventFacade} e
          */
-        $.on_restore = function (e)
-        {
+        $.on_restore = function (e) {
             var $item = $(e.target).closest('li');
             var id = null;
 
-            if($item.hasClass("directory"))
-            {
+            if ($item.hasClass("directory")) {
                 id = $item.attr("directory-path");
                 restore_targets.is_directory = true;
             }
-            else if($item.hasClass("activity"))
-            {
+            else if ($item.hasClass("activity")) {
                 id = $item.attr('id').match(/(\d+)$/)[1];
                 restore_targets.is_directory = false;
             }
@@ -917,47 +818,35 @@ require(['jquery'], function ($)
          * On backup the whole section as a folder
          * @param {int} sectionID
          */
-        $.on_section_backup = function (sectionID)
-        {
-            (function (on_success)
-            {
+        $.on_section_backup = function (sectionID) {
+            (function (on_success) {
                 $.post(get_action_url('rest'),
                     {
                         "action": "is_userdata_copyable_section",
                         "sectionid": sectionID
                     },
-                    function(response)
-                    {
+                    function (response) {
                         on_success(response);
                     }, "text")
-                    .fail(function(response)
-                    {
+                    .fail(function (response) {
                         show_error(response);
                     });
-            })(function (response)
-            {
+            })(function (response) {
                 var copyable = response === '1';
-                if (copyable)
-                {
-                    if(confirm(str('confirm_userdata_section')))
-                    {
-                        if(confirm(str('confirm_backup_section')))
-                        {
+                if (copyable) {
+                    if (confirm(str('confirm_userdata_section'))) {
+                        if (confirm(str('confirm_backup_section'))) {
                             backup_section(sectionID, true);
                         }
                     }
-                    else
-                    {
-                        if(confirm(str('confirm_backup_section')))
-                        {
+                    else {
+                        if (confirm(str('confirm_backup_section'))) {
                             backup_section(sectionID, false);
                         }
                     }
                 }
-                else
-                {
-                    if(confirm(str('confirm_backup_section')))
-                    {
+                else {
+                    if (confirm(str('confirm_backup_section'))) {
                         backup_section(sectionID, false);
                     }
                 }
@@ -967,14 +856,11 @@ require(['jquery'], function ($)
         /**
          *  Initialize the delete bulk
          */
-        $.init_bulk_delete = function (isspeciallayout)
-        {
+        $.init_bulk_delete = function (isspeciallayout) {
             var bulkdelete = $block.find('.header-commands .editing_bulkdelete');
 
-            if (bulkdelete.length)
-            {
-                if (isspeciallayout)
-                {
+            if (bulkdelete.length) {
+                if (isspeciallayout) {
                     bulkdelete.attr('role', 'menuitem').addClass('dropdown-item menu-action');
                     bulkdelete.find('img').addClass('icon');
 
@@ -982,8 +868,7 @@ require(['jquery'], function ($)
 
                     $block.find('.menubar .dropdown .dropdown-menu').append(bulkdelete);
                 }
-                else
-                {
+                else {
                     $block.find('.header .commands').append(bulkdelete);
                 }
             }
@@ -992,18 +877,15 @@ require(['jquery'], function ($)
         /**
          *  Initialize the help icon
          */
-        $.init_help_icon = function (isspeciallayout)
-        {
+        $.init_help_icon = function (isspeciallayout) {
             var helpicon = $block.find('.header-commands > .help-icon');
 
-            if (isspeciallayout)
-            {
+            if (isspeciallayout) {
                 helpicon.attr('data-placement', 'left').find('.help-icon')
                     .prepend($('<span/>').append(M.str.block_sharing_cart['pluginname']).addClass('sc-space-5'));
                 $block.find('.header-commands').parent().css('display', 'block');
             }
-            else
-            {
+            else {
                 $block.find('.header .commands').append(helpicon);
             }
         };
@@ -1011,8 +893,7 @@ require(['jquery'], function ($)
         /**
          *  Initialize the Sharing Cart block header
          */
-        $.init_block_header = function()
-        {
+        $.init_block_header = function () {
             var isspeciallayout = verify_layout();
             $.init_bulk_delete(isspeciallayout);
             $.init_help_icon(isspeciallayout);
@@ -1021,18 +902,14 @@ require(['jquery'], function ($)
         /**
          *  Initialize the Sharing Cart item tree
          */
-        $.init_item_tree = function()
-        {
-            function add_actions(item, actions)
-            {
+        $.init_item_tree = function () {
+            function add_actions(item, actions) {
                 var $item = $(item);
                 var $commands = $item.find('.commands').first();
 
-                $.each(actions, function (index, action)
-                {
+                $.each(actions, function (index, action) {
                     var $command = create_command(action);
-                    $command.click(function(e)
-                    {
+                    $command.click(function (e) {
                         $['on_' + action](e);
                     });
                     $commands.append($command);
@@ -1040,22 +917,19 @@ require(['jquery'], function ($)
             }
 
             var activity_actions = ['movedir', 'move', 'delete'];
-            if(course)
-            {
+            if (course) {
                 activity_actions.push('restore');
             }
 
             var directory_actions = ['delete', 'restore'];
 
             // Initialize items
-            $block.find('li.activity').each(function(index, item)
-            {
+            $block.find('li.activity').each(function (index, item) {
                 add_actions(item, activity_actions);
             });
 
             // Initialize directory items
-            $block.find('li.directory').each(function(index, item)
-            {
+            $block.find('li.directory').each(function (index, item) {
                 add_actions(item, directory_actions);
             });
 
@@ -1063,14 +937,11 @@ require(['jquery'], function ($)
             directories.init();
         };
 
-        $.init_activity_commands = function()
-        {
-            function add_backup_comand($activity)
-            {
+        $.init_activity_commands = function () {
+            function add_backup_comand($activity) {
                 var $menu = $activity.find("ul[role='menu']");
 
-                if($menu.length)
-                {
+                if ($menu.length) {
                     var li = $menu.find('li').first().clone();
                     var $backup = li.find('a').attr('title', str('backup')).attr('href', 'javascript:void(0)');
                     var img = li.find('img');
@@ -1088,16 +959,13 @@ require(['jquery'], function ($)
                     //     $backup.find("img").replaceWith($("<i class='fa fa-cloud-download icon'>"));
                     // }
                 }
-                else
-                {
+                else {
                     var $backup = create_command("backup");
                     $menu = $activity.find('div[role="menu"]');
-                    if($menu.length)
-                    {
+                    if ($menu.length) {
                         $backup = create_special_activity_command("backup");
                         $menu.append($backup.attr("role", "menuitem"));
-                        if($menu.css("display") === "none")
-                        {
+                        if ($menu.css("display") === "none") {
                             $backup.append($("<span class='menu-action-text'/>").append($backup.attr('title')));
                         }
                         // if($menu.find("i.fa"))
@@ -1105,45 +973,36 @@ require(['jquery'], function ($)
                         //     $backup.find("img").replaceWith($("<i class='fa fa-cloud-download icon'/>"));
                         // }
                     }
-                    else
-                    {
+                    else {
                         $activity.find(".commands").append($backup);
                     }
                 }
 
-                $backup.click(function(e)
-                {
+                $backup.click(function (e) {
                     $.on_backup(e);
                 });
             }
 
-            if(course.is_frontpage)
-            {
-                $(".sitetopic li.activity").each(function()
-                {
+            if (course.is_frontpage) {
+                $(".sitetopic li.activity").each(function () {
                     add_backup_comand($(this));
                 });
-                $(".block_site_main_menu .content > ul > li").each(function()
-                {
+                $(".block_site_main_menu .content > ul > li").each(function () {
                     add_backup_comand($(this));
                 });
             }
-            else
-            {
-                $(".course-content li.activity").each(function()
-                {
+            else {
+                $(".course-content li.activity").each(function () {
                     add_backup_comand($(this));
                 });
             }
 
-            $("li.section").each(function()
-            {
+            $("li.section").each(function () {
                 var sectionID = $(this).find("div.content h3.sectionname span.inplaceeditable").attr("data-itemid");
 
                 var $menu = $(this).find("ul[role='menu']").first();
 
-                if($menu.length)
-                {
+                if ($menu.length) {
                     var li = $menu.find('li').first().clone();
                     var img = li.find('img');
 
@@ -1158,40 +1017,32 @@ require(['jquery'], function ($)
 
                     $menu.append(li);
 
-                    li.find('a').click(function()
-                    {
+                    li.find('a').click(function () {
                         $.on_section_backup(sectionID);
                     });
                 }
-                else
-                {
+                else {
                     $menu = $(this).find("div[role='menu']").first();
 
                     var $backup = null;
 
-                    if($menu.length)
-                    {
+                    if ($menu.length) {
                         $backup = create_special_activity_command("backup");
 
-                        $menu.append($backup.attr("role", "menuitem"));
+                        /* Lea 2018 - comment out because it was unnecessarily adding another menu item for backup, and that menu item wans't functioning correctly  */
+                        /*$menu.append($backup.attr("role", "menuitem"));*/
 
-                        if($menu.css("display") === "none")
-                        {
+                        if ($menu.css("display") === "none") {
                             $backup.append($("<span class='menu-action-text'/>").append($backup.attr('title')));
                         }
-                        // if($menu.find("i.fa"))
-                        // {
-                            // $backup.find("img").replaceWith($("<i class='fa fa-cloud-download icon'/>"));
-                        // }
-                    }
-                    else
-                    {
+
+                    } else {
                         $backup = create_command("backup");
-                        $activity.find(".commands").append($backup);
+                        /* Lea 2018 - comment out because $activity is not defined */
+                        // $activity.find(".commands").append($backup);
                     }
 
-                    $backup.click(function ()
-                    {
+                    $backup.click(function () {
                         $.on_section_backup(sectionID);
                     });
                 }
@@ -1201,8 +1052,7 @@ require(['jquery'], function ($)
         /**
          * Initialize the Sharing Cart block
          */
-        $.init = function()
-        {
+        $.init = function () {
             M.str.block_sharing_cart['pluginname'] = this.get_plugin_name();
 
             // arrange header icons (bulkdelete, help)
