@@ -114,13 +114,12 @@ div#coursecontrols {
 }
 
 .teacherdashboard,
-.studentdashboard{
+.studentdashboard {
   i.dashicon {
     float: none;
     padding: 0 0 0 0.5rem;
   }
 }
-
 
 .editcogbutton .context-header-settings-menu .dropdown {
   padding-left: 1rem;
@@ -191,7 +190,7 @@ body.courserole-student:not(.courserole-admin) .has-unenrol-link {
 /* Change selector from ".collapse .in" to  ".teacherdashboard, .studentdashboard" */
 /* the part that is presented after pressing the button - in this course - teacher & student*/
 .teacherdashboard,
-.studentdashboard{
+.studentdashboard {
   background-color: $course-upper-buttons-bg;
 
   .row {
@@ -382,7 +381,7 @@ User Profile
     .header-button-group {
       a {
         .icon, .header-button-title {
-           color: $white;
+          color: $white;
         }
       }
     }
@@ -429,4 +428,13 @@ We have to adjust the height because our fon-size is larger */
   font-size: $font-size-root;
   padding: 0 $spacer;
   width: auto;
+}
+
+/* Hide editing and deleting controls from the sharing_cart_teacher role*/
+.courserole-sharing_cart_teacher .controls {
+  display: none;
+}
+
+.courserole-sharing_cart_teacher .commands .dropdown-item:not(.editing_backup) {
+  display: none;
 }
