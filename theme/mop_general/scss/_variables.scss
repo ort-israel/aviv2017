@@ -1,0 +1,107 @@
+/*Tsofiya: changes has been done*/
+$bootstrap-sass-asset-helper: false !default;
+
+// Colors
+$black: #000;
+$primary-text-color: #4b4a4a;
+$gray-strong: #9a9a9a;
+$gray-middle: #d8d8d8;
+$light-gray: #f5f5f5;
+$light-gray-2: #f0f0f0;
+$gray-transparent: rgba(231,231,229,.9);
+$white: #fff;
+$transparent: transparent;
+$brand-red-bright: #e14e3a;
+$brand-red: #ca3132;
+$brand-red-dark: #9E1A20;
+$dark-purple: #5e3da1;
+$light-blue: #61c2dc;
+$yellow: #f2e013;
+
+$state-danger-text: #a94442 !default;
+$state-danger-bg: #f2dede !default;
+
+$state-success-text: #3c763d !default;
+$state-success-bg: #dff0d8 !default;
+
+$gray-background: #d8d8d8;
+$gray-dark: #3a3a3a;
+$gray-dark-2: #59595a;
+$brand-inverse: #464646;
+
+
+
+
+//Colors use:
+$brand-campus: $dark-purple;
+$primary-text-color: $gray-base;
+$brand-primary: $brand-red;
+$brand-secondary: $brand-red-dark;
+
+$headings-color: $brand-primary;
+$link-color: $brand-secondary;
+$inner-bg: $light-gray;
+$page-background: $light-gray-2;
+
+$navbarurl: $white;
+$navbar-dark-color: $gray-dark;
+
+$pagination-active-bg: $brand-primary;
+$pagination-active-border: $brand-primary;
+$pagination-color: $brand-primary;
+
+/* Cards */
+$card-title-background-color: $brand-primary;
+$card-knowledge: $white;
+
+/* course */
+$course-content-bg: $white;
+$course-upper-buttons-bg: $light-gray;
+$manage-course-headlines: $gray-middle;
+
+/*footer*/
+$footer-background: $gray-base;
+$footer-copyrights-background: $gray-strong;
+$footer-text-color: $black;
+
+/*buttons*/
+$buttons-text-color: $white;
+$button-all: $brand-red-dark;
+
+$input-background: $light-gray;
+
+// Spacing
+$spacer: 1rem !default;
+$gutterwidth-course: 11rem !default;
+
+//heights to place the content aria vs background image
+$headerbkg-margin-top: 4.6rem;
+$headerbkg-height: 55rem;
+$learningcontent-margin-top: 43.3rem;
+
+
+// the height of the header influence the margin-top of the drawer
+$nav-bar-height-mobile: 10rem;
+$nav-bar-height: 5.7rem;
+
+// Typography
+$font-family: 'Heebo', Arial, sans-serif !default;
+$font-weight-light: 200;
+$font-size-root: 1.6rem;
+$font-size-base: 2rem;
+$font-size-middle: 1.8rem;
+$line-height-base: 1.4;
+$font-size-h1: 3rem;
+$font-size-h1-large: 4rem;
+$font-size-h1-x-large: 8rem;
+$font-size-h2: 2rem;
+$font-size-h2-bigger: 3rem;
+$font-size-h3: 2rem;
+$font-size-course-title: 2.5rem;
+
+// FontAwesome
+$fa-folder-open: "\f07c";
+
+// Breadcrumbs
+$breadcrumb-bg: $light-gray ;
+$breadcrumb-divider-color: $brand-inverse;

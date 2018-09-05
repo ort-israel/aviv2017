@@ -1,0 +1,224 @@
+@import "../../boost/scss/moodle/modules";
+
+/* All text in modules should get this theme's font definitions.
+ */
+.generalbox span[style],
+.generalbox p[style],
+.generalbox div[style],
+.generalbox ul[style],
+.generalbox li[style] {
+  color: $primary-text-color !important;
+  font-family: $font-family !important;
+  font-size: $font-size-base !important;
+  line-height: $line-height-base !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+/*for 'Meyumanuyot > Agron' remove border from td*/
+.glossarycategoryheader th,
+.glossarypost.dictionary td {
+  border: none;
+}
+
+/*
+Grades
+*/
+/* The grades table is too wide and makes horizontal scroll on page. Make the scroll on table */
+/*.path-grade-report-grader #region-main {
+  max-width: 100%;
+  .gradeparent {
+    overflow-x: scroll;
+  }
+}
+
+.generaltable.setup-grades {
+  .dropdown-toggle,
+  .dropdown-toggle:hover {
+    color: $link-color;
+  }
+}*/
+
+/* override Boosts color. This is the same definition as Boost, but before we get here, the colors are redefined by Aviv2018 */
+.initialbar {
+  .letter {
+    color: $pagination-color;
+  }
+  .letter.active {
+    border-color: $pagination-active-border;
+    background-color: $pagination-active-bg;
+  }
+}
+
+/* quiz correct and incorrect */
+.que {
+  .formulation {
+    color: $primary-text-color;
+    select, input {
+      &.incorrect {
+        color: $state-danger-text;
+        background-color: $state-danger-bg;
+      }
+
+      &.correct {
+        color: $state-success-text;
+        background-color: $state-success-bg;
+      }
+    }
+  }
+}
+
+/* important needed because the td gets inline style, in mod/quiz/index.php line 99 */
+[dir="ltr"] .path-mod .generaltable td {
+  text-align: left !important;
+}
+
+[dir="rtl"] .path-mod .generaltable td {
+  text-align: right !important;
+}
+
+/* button התחלת צפיה־מקדימה חדשה in quiz should break white-space so it doesn't exceed its width*/
+#mod_quiz_navblock {
+  a.btn-secondary /*this calss is given to the questions navigation */
+  {
+    color: $link-color;
+  }
+  .btn {
+    white-space: normal;
+  }
+}
+
+/* we would like submit button to get class btn-secondary but it can't so applying the style as is */
+.que .formulation .btn.submit {
+  @include submit-button;
+}
+
+.que.ordering ul.sortablelist {
+  font-family: $font-family;
+  font-size: $font-size-root;
+}
+
+/* question editing screen. tags*/
+#id_tagsheader [id*="form_autocomplete_input"],
+#id_tagshdr [id*="form_autocomplete_input"] {
+  font-size: $font-size-root;
+  padding-left: 3.5rem;
+}
+
+/* moodle-dialogue */
+.moodle-dialogue .btn-primary {
+  max-width: 100%;
+}
+
+.moodle-dialogue {
+  .confirmation-buttons {
+    text-align: center;
+  }
+  /* the X */
+  .yui3-widget-buttons {
+    background-color: $brand-primary;
+    color: $buttons-text-color;
+    .closebutton {
+      opacity: 1;
+      text-shadow: none;
+      color: $buttons-text-color;
+    }
+  }
+}
+
+/*
+Book
+*/
+
+.path-mod-book .atto_bsgrid .row {
+  background-color: $light-gray;
+}
+
+/*
+Questionare
+*/
+/* questionare submit button doesn't have the btn-secodary class but it should get its style */
+.mod_questionnaire_completepage input[type="submit"],
+.mod_questionnaire_reportpage input[type="submit"] {
+  @include submit-button;
+}
+
+/*
+Assignment
+*/
+
+/* form elements in the grade-panel are taken care of in Boost, but they apply to col-3 and col-9.
+We changed the classes to col-2 and col-10, so we have to  take care of them */
+// This section removes the responsiveness from the form in the grading panel
+
+.path-mod-assign [data-region="grade-panel"] .fitem > .col-md-2,
+.path-mod-assign [data-region="grade-panel"] .fitem > .col-md-10 {
+  width: 100%;
+  padding: 0;
+  /*Lea - override width definitions of col-2*/
+  max-width: 100%;
+  flex-basis: 100%;
+}
+
+.path-mod-assign [data-region="grade-panel"] .fitem > .col-md-2 > .pull-xs-right {
+  float: none !important; /* stylelint-disable-line declaration-no-important */
+}
+
+.path-mod-assign [data-region="grade-panel"] .has-popout .col-md-2 {
+  border-bottom: $hr-border-width solid $hr-border-color;
+  margin-bottom: $spacer;
+}
+
+.path-mod-assign [data-region="grade-panel"] .popout > .col-md-2 {
+  @extend .modal-header;
+  font-size: $popout-header-font-size;
+}
+
+/*
+Forum
+*/
+
+#searchforums {
+  @include edit-button;
+}
+
+// The class gradetreebox matches the pages displaying the gradebook
+// "Gradebook setup" > "Simple view" and "Full view".
+.gradetreebox {
+  h4 {
+    // Force back the base font-size to override Boost's definition of .
+    font-size: $font-size-base;
+  }
+}
+
+/*
+Database
+*/
+//The align:center is hard coded in mod/data/index.php so have to overrride it here
+.path-mod-data #page-content .generaltable td {
+  text-align: right !important;
+}
+
+/* Activity block */
+.block_activity_modules ul.content {
+  margin-left: $spacer * 2;
+  @include media-breakpoint-up(sm) {
+    display: block; /* override boost rules for card-group in this specific case */
+  }
+  li a {
+    display: flex; /* so text doesn't wrap under image */
+    align-items: baseline;
+  }
+}
+
+/* Feedback */
+.path-mod-feedback .itemactions {
+   float: left;
+}
+
+/* American Questions activity */
+.path-mod-qcreate #status,
+.path-mod-qcreate #grade,
+.path-mod-qcreate #grading,
+.path-mod-qcreate #questions_overview{
+  display: none;
+}

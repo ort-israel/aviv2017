@@ -1,0 +1,413 @@
+/*Tsofiya: changes has been done*/
+body:not(.pagelayout-frontpage),
+  /*not sure why body doesnt strach to the bottom. Adding the wrapper fixed it for now*/
+body:not(.pagelayout-frontpage) #page-wrapper {
+  background-color: $page-background;
+  padding-bottom: 0;
+  margin-bottom: -8.7rem;
+}
+
+/*background wide image:*/
+.headerbkg {
+  margin-top: $headerbkg-margin-top;
+  height: $headerbkg-height;
+  box-shadow: none;
+
+  .withimage {
+    background-position: top 0rem right 0rem !important; // !important - to override inline style
+  }
+
+  @include breakpoint(medium) {
+    height: 37.2rem;
+    .withimage {
+      background-size: initial !important; // !important - to override inline style
+      background-position: top -7rem right -1rem !important; // !important - to override inline style
+    }
+  }
+
+  @include breakpoint(mobileonly) {
+    height: 37.2rem;
+    .withimage {
+      background-size: auto !important; // !important - to override inline style
+      background-position: top -3rem right -1rem !important; // !important - to override inline style
+    }
+  }
+}
+
+
+/*@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .headerbkg {
+    height: 61rem;
+  }
+}*/
+
+div#learningcontent {
+  margin-top: $learningcontent-margin-top;
+  background-color: $transparent;
+
+  @include breakpoint(medium) {
+    margin-top: 28.4rem;
+  }
+}
+
+/* headline color */
+body:not(.pagelayout-frontpage) #page-header {
+  padding: 2rem 5rem;
+  background-color: $gray-transparent;
+
+   h1 {
+     color: $headings-color;
+     font-weight: inherit;
+     padding: 0 4rem 3rem 1rem;
+     margin-bottom: 2rem;
+     .fullname{
+       font-size: $font-size-h1-x-large;
+       font-family: "liddarbold";
+       position: relative;
+       padding-left: 3rem;
+     }
+     .fullname::after{
+       content: '-';
+       position: absolute;
+       top: 23%;
+       /*rtl:begin:ignore*/
+       left: 0.2rem;
+       /*rtl:end:ignore*/
+     }
+    .shortname{
+      font-size: $font-size-h1-large;
+    }
+  }
+
+  .breadcrumb-nav {
+    .breadcrumb {
+      border-radius: 0;
+      padding: 1.5rem;
+      background-color: $breadcrumb-bg;
+    }
+  }
+
+  @include breakpoint(medium) {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+
+    h1 {
+      padding: 0;
+      text-align: center;
+      .fullname {
+        font-size: 5.3rem;
+        padding-left: 0;
+        display: block;
+        //margin-bottom: 0;
+        padding-right: 1rem;
+      }
+      .fullname::after {
+        display: none;
+      }
+      .shortname {
+        font-size: 2.9rem;
+        font-weight: bold;
+        display: block;
+        margin-top: 2rem;
+      }
+    }
+
+    .breadcrumb-nav{
+      padding: 0rem 2rem;
+      margin-top: 1rem;
+    }
+  }
+
+}
+
+
+#page-content{
+  padding-top: 2rem;
+  background-color: $course-content-bg;
+
+  @include breakpoint(mobileonly) {
+    div#gridmiddle-column > ul{
+      margin: 0;
+    }
+    .course-content ul.section{
+      margin: 1rem 0;
+      padding-right: 0;
+    }
+    .content div{
+      padding: 0;
+    }
+  }
+
+  /* Tsofiya 2018: indent all elements to the right according the PSD*/
+  ul{
+    padding-right: 0;
+    margin-right: 0;
+  }
+
+  .course-content ul.section{
+    margin-right: 0;
+  }
+
+  .section li.activity{
+    padding-right: 0;
+  }
+
+  .section .activity .availabilityinfo,
+  .section .activity .contentafterlink{
+    margin-right: 0;
+  }
+
+  .mod-indent-outer{
+    padding-right: 0;
+  }
+}
+
+/*Headlines*/
+//in inner pages
+body:not(.pagelayout-frontpage) .card-title {
+  font-size: $font-size-course-title;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+/*only featuredcourses needs padding in presentage on the right*/
+body:not(.pagelayout-frontpage):not(.pagelayout-mydashboard) .block_featuredcourses .card-title,
+body.pagelayout-coursecategory .block_featuredcourses .card-title {
+  padding-right: 5%;
+}
+
+/*COURSE CONTROL:*/
+div#coursecontrols {
+  top: -48px;
+  left: 0;
+  border-top: 0;
+  border-radius: 0;
+  background-color: $transparent;
+  font-weight: 600;
+  font-size: 2rem;
+  width: auto;
+  padding: 0;
+
+  @media screen and (max-width: 576px) { //Tsofiya: fix for style from fordson
+    position: absolute;
+  }
+}
+
+.teacherdashbutton,
+.thiscoursebutton,
+.editcogbutton {
+  /* Lea - this is part of what makes the cog button overlap the tab*/
+  text-align: left;
+  background-color: $course-upper-buttons-bg;
+  border-radius: 0;
+  &:hover {
+    background-color: $course-upper-buttons-bg;
+  }
+}
+
+.teacherdashbutton,
+.thiscoursebutton {
+  padding: 1.1rem 2rem;
+
+}
+
+.teacherdashboard,
+.studentdashboard{
+	i.dashicon {
+	  float: none;
+	  padding: 0 0 0 0.5rem;
+	}
+}
+.editcogbutton .context-header-settings-menu .dropdown {
+  padding-left: 1rem;
+  padding-right: 1.5rem;
+  margin-right: 0.4rem;
+}
+
+.editcogbutton ~ .teacherdashbutton,
+.editcogbutton ~ .thiscoursebutton{
+  margin-left: 0.5rem;
+}
+
+.path-mod,
+.courserole-student{
+  .editcogbutton ~ .thiscoursebutton,
+  .editcogbutton ~ .teacherdashbutton{
+    margin-left: 0;
+  }
+
+}
+
+
+/*editing cog in inner page should be aligned to title*/
+.path-mod #region-main-settings-menu > div {
+  left: -10px; /* leave a little space between this and the next element */
+  top: 2rem; /* that's the height of the top margin of the element next to it */
+}
+
+body.courserole-student:not(.courserole-admin) .has-enrol-link,
+body.courserole-student:not(.courserole-admin) .has-unenrol-link {
+  .editcogbutton {
+    width: 0;
+  }
+  /*enrol link button - only for students*/
+  .editcogbutton .context-header-settings-menu .dropdown {
+    padding: 0;
+  }
+  .dropdown-toggle {
+    display: none;
+  }
+  .dropdown-menu {
+    display: block;
+    position: absolute;
+    margin-top: 0;
+    top: -0.6rem;
+    left: 10.6rem;
+    border-radius: 0;
+    background-color: $brand-primary;
+    .dropdown-item {
+      color: $buttons-text-color;
+      font-size: $font-size-root;
+      font-weight: 600;
+      padding: 0.6rem 2rem;
+      border: 0;
+      &:hover,
+      &:focus {
+        background-color: $transparent;
+        color: $brand-inverse;
+      }
+      a,
+      a .icon {
+        color: inherit;
+      }
+    }
+
+  }
+}
+
+/*disenrol link button - only for students*/
+body.courserole-student:not(.courserole-admin) .has-unenrol-link {
+  .dropdown-menu {
+    top: -2.7rem;
+    background-color: $gray-strong;
+    a .icon:before {
+      content: "\f235";
+    }
+  }
+}
+
+/*Tsofiya 2018: change selector from ".collapse .in" to  ".teacherdashboard, .studentdashboard" */
+/*the part that is presented after pressing the button - in this course - teacher & student*/
+.teacherdashboard,
+.studentdashboard {
+  background-color: $course-upper-buttons-bg;
+
+  .row {
+    margin: 2rem 0;
+    .dashtitle {
+      background-color: $manage-course-headlines;
+      padding: 1rem 2rem;
+      h3,
+      .card-title {
+        font-weight: 600;
+        font-size: inherit;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  #page-header .logo {
+    width: 100%;
+  }
+}
+
+/*
+course that a student isn't enroll to it yet (after pressing the enroll button)
+*/
+.pagelayout-incourse.path-enrol {
+  h2 {
+    color: $brand-primary;
+    font-size: $font-size-h2-bigger;
+    font-weight: bold;
+  }
+  .box {
+    .coursebox {
+      @include breakpoint(tablet) {
+        @include flex-direction(row);
+        @include flex-wrap(wrap);
+      }
+
+      border: 0;
+      @include breakpoint(tablet) {
+        .courseimagewrapper {
+          width: 30%;
+        }
+        .courseinfowrapper {
+          width: 70%;
+          padding-top: 0;
+        }
+        .tagswrapper {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  /*text before button to continue or enroll*/
+  .form-control-static {
+    font-weight: 600;
+  }
+  .form-group {
+    text-align: center;
+  }
+}
+
+/*Student - Updates in my course - in archive or my courses - round icon and course name*/
+.course-info-container {
+  .media {
+    .media-body {
+      @include display-inline-flex();
+      @include flex-direction(column);
+      @include justify-content(center);
+    }
+  }
+}
+
+/*Student and Teacher - headed in grades*/
+#page-header .pull-xs-left .page-context-header {
+  @include display-flex();
+  @include align-items(center);
+}
+
+.grade-navigation {
+  .nav {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+
+
+/*for table borders*/
+.table th, table.collection th, table.flexible th, .generaltable th, .table td, table.collection td, table.flexible td, .generaltable td {
+  border-color: #ddd;
+}
+
+/* for table headers */
+.generaltable thead {
+  background-color: $brand-primary;
+  th.header {
+    background-color: transparent;
+    color: $white;
+  }
+}
+
+/* for table rows */
+table {
+  th,
+  tr:nth-child(2n) {
+    background-color: rgba(231, 231, 229, .9);
+  }
+}
+

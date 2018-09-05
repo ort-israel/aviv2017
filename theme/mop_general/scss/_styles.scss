@@ -1,0 +1,252 @@
+/*Tsofiya: changes has been done*/
+/**
+* including fonts
+**/
+@font-face {
+  font-family: 'liddarbold';
+  src: url([[font:theme|liddarbold.eot]]);
+  src: url([[font:theme|liddarbold.eot]]) format('embedded-opentype'),
+  url([[font:theme|liddarbold.woff]]) format('woff'),
+  url([[font:theme|liddarbold.woff2]]) format('woff2'),
+  url([[font:theme|liddarbold.ttf]]) format('truetype'),
+  url([[font:theme|liddarbold.svg]]) format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'comic';
+  src: url([[font:theme|COMIC.ttf]]) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+
+/**
+* resetting
+**/
+html {
+  font-size: 62.5%; /* Corrects text resizing oddly in IE6/7 when body font-size is set using em units http://clagnut.com/blog/348/#c790 */
+}
+
+body,
+pre {
+  color: $primary-text-color /*!important*/;
+  font-family: $font-family !important;
+  font-size: $font-size-middle;
+  line-height: $line-height-base;
+  -webkit-font-smoothing: antialiased;
+}
+
+body a{
+  color: $link-color;
+  background-color: transparent;
+
+  @include hover-focus-underline();
+  @include hover-focus{
+    color: $brand-inverse;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+}
+
+h4, .h4,
+h5, .h5 {
+  font-size: $font-size-base;
+}
+
+select {
+  margin-bottom: 1rem;
+}
+
+th, td {
+  border: none;
+}
+
+legend {
+  font-size: $font-size-root;
+}
+
+/**
+EDIT MODE */
+
+//this is the setting cog icon the header image.
+//because its part of the header and the header is in display: flex, than it no longer float. this will move it to the left:
+.context-header-settings-menu {
+  margin-left: auto;
+  /*was supposed to be right*/
+  width: 100%;
+  @include breakpoint(tablet) {
+    width: auto;
+  }
+
+}
+
+//for Lea that she can stop waining about not seeing the buttons
+.pull-xs-right.block-controls {
+  position: relative;
+  z-index: 1;
+  background-color: #fff;
+}
+
+// cog button
+/*remove hover:*/
+.teacherdashbutton:hover,
+.thiscoursebutton:hover,
+.enrollcodebutton:hover,
+.editcogbutton:hover {
+  background-color: $transparent;
+}
+
+.dropdown-toggle {
+  .icon {
+    color: inherit;
+    &:after {
+      border-top-color: currentColor;
+    }
+  }
+}
+
+.dropdown-toggle {
+  &:hover {
+    .icon {
+      color: inherit;
+      &:after {
+        border-top-color: currentColor;
+      }
+    }
+  }
+}
+
+.block-region {
+  width: 100%; /*needed for ie 10+ for full width*/
+}
+
+/**
+ * For background in content areas. Lea 2017/7: No background in content areas
+ */
+#block-region-side-pre {
+  padding-left: 0;
+}
+
+/* Lea 2017/07 */
+.p-a-1 {
+  padding: 0;
+}
+
+/* General definitions */
+
+/* just for development*/
+.notifytiny {
+  font-size: 1.75rem;
+}
+
+/* override higher difinitions*/
+.dropdown-menu,
+.form-control {
+  /* has too small font-size */
+  font-size: inherit;
+}
+
+/*Tsofiya 2018: override fordson*/
+.single-section h3.sectionname {
+  text-align: center;
+  font-size: $font-size-h1;
+}
+
+/*page*/
+@media screen and (min-width: 992px) {
+  .pagelayout-course #page.container-fluid {
+    padding: 0 $gutterwidth-course !important;
+  }
+}
+#page {
+  @include breakpoint(desktop) {
+    margin-top: $nav-bar-height-mobile;
+  }
+}
+
+#page-content { /* when in header, use the inherited style */
+  @include make-row(0);
+  /*Button design */
+  .btn-secondary:not(.qnbutton),
+  .btn-secondary:not(.qnbutton):hover,
+  .btn-primary,
+  .btn-primary:hover {
+    @include submit-button;
+
+    i {
+      color: inherit;
+      &:before {
+        color: inherit;
+      }
+    }
+  }
+}
+
+.btn-secondary#id_cancel {
+  background-color: #AAAAAA;
+}
+
+/*to repair all the buttons with small font*/
+.btn {
+  font-size: $font-size-root;
+}
+
+/*Rachel 28.1.2018 - until Lea will have time to check why it happened*/
+.row {
+  background-color: transparent;
+}
+
+/* Tsofiya 2018: back to top link */
+#back-to-top{
+  color: $buttons-text-color;
+  background-color: $button-all;
+  padding: 0rem 1.5rem;
+  bottom: 11rem;
+  /*rtl:begin:ignore*/
+  left: 2.7rem;
+  /*rtl:end:ignore*/
+  border: none;
+  @include hover-focus{
+    border: none;
+    background-color: $brand-inverse;
+  }
+
+  i{
+    font-size: 4.8rem;
+  }
+}
+
+
+/*HEADER*/
+@import "header";
+
+/* FOOTER */
+@import "footer";
+
+/* INNER PAGES */
+@import "innerpages";
+
+/* COURSE */
+@import "course";
+
+/* COURSE */
+@import "modules";
+
+/* BREADCRUMBS */
+@import "breadcrumb";
+
+/* LIST_GROUP */
+@import "list-group";
+
+/* DROPDOWN */
+@import "dropdown";

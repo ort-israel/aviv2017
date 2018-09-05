@@ -1,0 +1,181 @@
+/*Tsofiya: changes has been done*/
+.header[role="banner"] {
+  max-height: $nav-bar-height-mobile;
+  background-color: $navbar-dark-color;
+  padding: 1rem 4rem; //1rem 0.5rem
+
+  .navbar-nav {
+    display: flex;
+    //flex-direction: column;
+    //font-size: $font-size-middle;
+
+    .icons-area{
+      display: flex;
+    }
+
+    .user-area{
+      display: flex;
+      flex-direction: row-reverse;
+    }
+
+    .navbar-brand {
+      border-radius: $border-radius;
+      /*rtl:begin:ignore*/
+      padding: 0.4rem 2.1rem 0.4rem 1.3rem;
+      margin-right: $spacer * 2;
+      /*rtl:end:ignore*/
+
+      color: $navbarurl;
+      font-weight: $font-weight-light;
+      font-size: $font-size-middle;
+      background-color: $brand-campus;
+      position: relative;
+    }
+
+    .navbar-brand::before{
+      position: absolute;
+      content: url([[pix:theme|campus_logo]]);
+      top: 0.2rem;
+      /*rtl:begin:ignore*/
+      right: -1.6rem;
+      /*rtl:end:ignore*/
+    }
+
+    //this is the part of the user icon
+    .usermenu .menubar .dropdown-toggle {
+      color: $navbarurl;
+    }
+    .usermenu {
+      color: $white;
+      /*rtl:begin:ignore*/
+      float: left;
+      .dropdown-item a{
+        //Tsofiya: fix, for some reason the links don't get the correct color
+        color: $link-color;
+      }
+      .login {
+        display: inline-block;
+        margin-top: 0.5rem;
+        a {
+          color: $white;
+        }
+      }
+    }
+
+
+    .nav.popover-region{
+      font-weight: $font-weight-light;
+      /*rtl:begin:ignore*/
+      float: right;
+    }
+    .nav-link, .open .nav-link {
+      color: $navbarurl;
+      @include hover-focus {
+        color: $navbarurl;
+      }
+    }
+
+    .nav-link{
+      margin-top: 0.1rem;
+      padding: 0.6rem 0 0.3rem;
+    }
+
+    .search-input-wrapper>form>input{
+      margin-top: 0.5rem;
+    }
+
+    a .icon{
+      color: $link-color;
+    }
+  }
+  
+  @include breakpoint(tablet) {
+    padding: 0.7rem 4rem 0.6rem;
+    .navbar-nav {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  @include breakpoint(mobile-tablet) {
+    //max-height: $nav-bar-height;
+    height: auto;
+    .navbar-nav {
+      //flex-direction: row;
+      font-size: $font-size-middle;
+
+      &.not-guest{
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+  }
+
+  @include breakpoint(mobileonly) {
+    padding: 2rem 1rem 1rem 0.5rem;
+    .navbar-nav {
+      font-size: 1.5rem;
+      flex-direction: column;
+
+      &:not(.not-guest) .user-area{
+        flex-direction: row;
+      }
+
+      &.not-guest{
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      .usermenu{
+        /*rtl:begin:ignore*/
+        float: right;
+        /*rtl:end:ignore*/
+        .login{
+          margin-top: 1rem;
+        }
+      }
+    }
+  }
+
+  @include breakpoint(xsmall) {
+    .navbar-nav.not-guest{
+      flex-direction: column;
+    }
+  }
+
+}
+
+
+/*pop ups*/
+.navbar .popover-region-container,
+.navbar .popover-region .popover-region-container{
+  top: 9rem;
+  @include breakpoint(mobile-tablet){
+    top: 3.7rem;
+  }
+}
+
+
+/* User */
+img.userpicture {
+  border-radius: 50%;
+}
+
+/**
+side drawer
+ */
+
+[data-region="drawer"] {
+  top: $nav-bar-height-mobile;
+  height: calc(100% - #{$nav-bar-height-mobile});
+  background-color: rgba($gray-background, .8);
+  @include breakpoint(mobile-tablet) {
+    @include calc(top, #{" #{$nav-bar-height - 3.5} "});
+    @include calc(height, #{" 100% - #{$nav-bar-height - 3.5} "});
+  }
+  @include breakpoint(desktop) {
+    top: $nav-bar-height;
+    height: calc(100% - #{$nav-bar-height});
+  }
+}
+
+

@@ -1,0 +1,54 @@
+/*Tsofiya: changes has been done*/
+/* FOOTER */
+#page-footer {
+  min-height: auto;
+  /*padding: 2rem 0 0;*/
+  padding: 0;
+  margin-top: 7rem;
+  text-align: center;
+  background-color: $footer-background;
+  box-shadow: 0px -25px 0px 0px $gray-background;
+  @include breakpoint(tablet) {
+    text-align: right;
+  }
+  /*.row {
+    margin: 0;
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+  }*/
+  a {
+    color: inherit;
+  }
+
+  .footer-text-wrapper {
+    color: $footer-text-color;
+    font-size: $font-size-root;
+    text-align: center;
+    background-color: $footer-copyrights-background;
+    padding: 2rem;
+  }
+
+  .copyright{
+    margin-left: 0.5rem;
+  }
+
+  .site-rules{
+    position: relative;
+    margin-right: 0.5rem;
+  }
+  .site-rules:before{
+    position: absolute;
+    content: "|";
+    right: -1rem;
+  }
+}
+
+@-moz-document url-prefix() {
+  #page-footer .site-rules:before{
+    right: -0.5rem;
+  }
+}

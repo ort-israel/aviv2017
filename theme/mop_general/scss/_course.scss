@@ -1,0 +1,187 @@
+/*Tsofiya: changes has been done*/
+
+/*
+Course - content
+*/
+
+/*back or go up button*/
+.course-content-header {
+  margin: 2rem;
+}
+
+div.course-content ul.gridicons li.currentselected {
+  background-color: #d8edeb;
+}
+
+/*
+Course - All course details
+*/
+
+//-- Tsofiya : removed, check mobile before deleting -----------------------------//
+//fixing images inside course for mobile view
+/*.courseimagewrapper {
+  img {
+    max-width: 100%;
+  }
+}*/
+
+/*  The edit button */
+.breadcrumb-button a.btn{
+  @include edit-button;
+  @include hover-focus-underline;
+  &.btn-success {
+    background-color: $input-background;
+    color: $button-all;
+  }
+  &.btn-danger {
+    /* Tsofiya: changed for accessibility
+    background-color: $button-edit-bg;*/
+    background-color: $button-all;
+    color: $input-background;
+  }
+}
+
+.breadcrumb-button input[type="submit"]{
+  @include edit-button;
+  @include hover-focus-underline;
+  background-color: $input-background;
+  color: $button-all;
+  font-size: $font-size-root;
+}
+
+.topics.row-fluid {
+  display: block; /* override the .row-fluid definition for flex, in this case */
+}
+
+/* Tsofiya 05/09/2018: overrides and fixes for grid format*/
+#gridiconcontainer ul.gridicons li{
+  margin-bottom: 2rem;
+}
+.course-content ul.gridicons li .icon_content{
+  height: 3.5rem;
+  white-space: normal;
+}
+/* end of grid format */
+
+
+/*course count pages - when the course is defined to be a single page one*/
+.course-content .section-summary .section-summary-activities .activity-count {
+  font-size: $font-size-root;
+  margin: 0.3rem 0.3rem 0.3rem 1rem;
+}
+
+.folder .activityinstance,
+.forum .activityinstance{
+  a{
+    img{
+      /*Tsofiya: remove for images inside course*/
+      height: 17px;
+      width: 22px;
+      margin-bottom: 0.4rem;
+    }
+  }
+}
+
+.sectionname {
+  font-size: $font-size-h3;
+  margin-bottom: 1.5rem;
+
+  /*Tsofiya: add folder icon*/
+  >a{
+    position: relative;
+    padding-right: 3rem;
+    &:before {
+      display: block;
+      content: $fa-folder-open;
+      font-family: FontAwesome;
+      position: absolute;
+      /*rtl:begin:ignore*/
+      right: 0;
+    }
+  }
+
+}
+
+
+
+
+/*in a one topic on page there's topic navigation. This is for the section name not to be so close to navigation*/
+.section-navigation .sectionname {
+  margin-top: 5rem;
+}
+
+/*Tsofiya: override float so the h3 that comes after this element will get the margin from this element */
+.course-content .single-section .section-navigation .mdl-left {
+  float: none;
+}
+.course-content .single-section .section-navigation .mdl-right {
+  @include breakpoint(xsmall) {
+    float: none;
+    display: block;
+  }
+}
+
+.topics .section {
+  border: 0;
+  margin: 3rem 0;
+  background-color: $inner-bg;
+}
+
+/*when pressing one of the topic above - there's no need for the background color*/
+.section-navigation ~ .topics .section {
+  background-color: $transparent;
+}
+
+/* The title of each section needs to have space between it and the image. We need the specicifity to override previous css  */
+.course-content ul.gridicons li .icon_content {
+  margin-bottom: 0.5rem;
+}
+
+/* Make title font size smaller in grid format, so more words fit it*/
+div [id*="gridsectionname"]{
+  font-size: $font-size-middle;
+}
+
+
+/* background for sidebar blocks */
+[data-region="blocks-column"] .block-region .block {
+  background-color: $gray-background;
+}
+
+/*sidebar*/
+div#region-main-box {
+  &.col-xs-12 {
+    padding-right: 5rem; /*8rem;(tsofiya)*/
+    padding-left: 5rem; /*8rem; (tsofiya)*/
+    @include breakpoint(fordsonfall) {
+      padding-right: 2rem;
+      padding-left: 2rem;
+    }
+  }
+}
+
+/* Grid Images Layout */
+
+.course-content div ul.gridicons li,
+.course-content div ul.gridicons li:hover{
+  .image_holder{
+    border: none;
+    box-shadow: none;
+    background-image: url([[pix:theme|mooc]]);
+  }
+}
+
+.course-content ul.gridicons li.currentselected div.icon_content{
+  color: $link-color;
+  @include hover-focus{
+    color: $brand-inverse;
+  }
+}
+
+div.course-content ul.gridicons li.currentselected{
+  background-color: $yellow;
+}
+
+
+
+

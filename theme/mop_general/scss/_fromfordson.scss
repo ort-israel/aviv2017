@@ -1,0 +1,44 @@
+
+/**
+* Layout Header
+**/
+
+
+.withimage {
+  border-radius: $card-border-radius;
+}
+
+
+
+@media screen and (max-width: 450px) {
+  #page-navbar .dropdown-toggle {
+    display: none;
+    visibility: hidden;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  #page-navbar .breadcrumb-button .btn-success {
+    display: none;
+    visibility: hidden;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  #page-navbar .breadcrumb-button .btn-danger {
+    display: none;
+    visibility: hidden;
+  }
+}
+
+//-- Tsofiya : removed, check before deleting -----------------------------//
+//fixes alignment where group icons appear over edit menu
+/*.action-menu .menubar .dropdown {
+  float: left;
+}*/
+
+.course-content ul.topics li.section .left {
+  padding-top: initial;
+}
+
+

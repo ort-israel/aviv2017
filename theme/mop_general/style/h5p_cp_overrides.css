@@ -1,0 +1,71 @@
+/* Inputs */
+.h5p-blanks .h5p-text-input{
+    padding: 0.1875em 0.5em 0.1875em 1em;
+}
+
+/* Buttons */
+.h5p-question-buttons.h5p-question-visible{
+}
+
+.h5peditor .ui-dialog .h5p-joubelui-button,
+.h5peditor .h5p-joubelui-button {
+    background-color: #5e3da1;
+}
+
+.h5p-joubelui-button,
+.h5p-joubelui-button:focus,
+.h5p-joubelui-button:hover,
+.joubel-simple-rounded-button,
+.joubel-simple-rounded-button:focus,
+.joubel-simple-rounded-button:hover {
+    background-color: #5e3da1;
+}
+
+/* RTL support */
+.dir-rtl.h5p-content .h5p-box-wrapper,
+.h5p-course-presentation .h5p-presentation-wrapper{
+    direction: rtl;
+    text-align: right;
+}
+
+.dir-rtl.h5p-content .h5p-question-next,
+.dir-rtl.h5p-content .h5p-question .h5p-question-prev{
+    float: left;
+}
+
+.dir-rtl.h5p-content .h5p-question .h5p-question-next::before,
+.dir-rtl.h5p-content .h5p-footer .h5p-footer-next-slide::after{
+    content: "\f054";
+}
+
+.dir-rtl.h5p-content .h5p-question .h5p-question-prev::before,
+.dir-rtl.h5p-content .h5p-footer .h5p-footer-previous-slide::before{
+    content: "\f053";
+}
+
+.dir-rtl.h5p-content .h5p-question .h5p-question-next::before,
+.dir-rtl.h5p-content .h5p-question .h5p-question-prev::before {
+    left: auto;
+    right: 5px;
+}
+
+/* true-false question */
+.h5p-true-false-answer{
+    padding: .5em .5em .5em 3.5em;
+}
+
+.h5p-true-false-answer:after{
+    right: auto;
+    left: 0;
+}
+
+/* the check mark on the check button */
+.dir-rtl.h5p-content .h5p-joubelui-button::before {
+    padding-right: 0;
+    padding-left: 0.5em;
+}
+
+/* Drag & Drop activity */
+.h5p-drag-draggable.h5p-drag-dropped{
+    left: 1.7rem !important;
+}
