@@ -1,0 +1,97 @@
+/* In this file add css for courses which use the general theme but small specific styles are needed*/
+
+/* Course Name: Time
+** Course Id:   925
+*/
+.course-925 .images-container{
+	display: grid;
+	grid-template-rows: repeat(3, 1fr);
+	grid-gap: 1rem;
+	grid-template-columns: minmax(min-content, 350px);
+}
+
+.course-925 .images-container>div{
+	padding: 0 2rem 4rem;
+	background-image: url('../images/pt-alpa.png');
+	margin-bottom: 8rem;
+}
+
+.course-925 .images-container>div:first-child{
+	position:relative;
+	background-color: #eda036;
+    border: 1rem solid #eda036;
+}
+
+.course-925 .images-container>div:first-child:after{
+	content: url('../images/pic1.png');
+	position:absolute;
+	left: 1.5rem;
+    bottom: -8.7rem;
+}
+
+.course-925 .images-container>div:nth-child(2){
+	position:relative;
+	background-color: #50b2c3;
+    border: 1rem solid #50b2c3;
+}
+
+.course-925 .images-container>div:nth-child(2):after{
+	content: url('../images/pic2.png');
+	position:absolute;
+	left: 1.3rem;
+    bottom: -6rem;
+}
+
+.course-925 .images-container>div:nth-child(3){
+	position:relative;
+    background-color: #89b540;
+	border: 1rem solid #89b540;
+}
+
+.course-925 .images-container>div:nth-child(3):after{
+	content: url('../images/pic3.png');
+	position:absolute;
+	left: 0.4rem;
+    bottom: -6rem;
+}
+
+.course-925 .images-container a{
+	text-decoration: none;
+	color: initial;
+}
+
+.course-925 .images-container p{
+	margin-bottom: 0.8rem;
+	line-height: 1.2;
+}
+
+.course-925 .images-container .number{
+	font-size: 4rem;
+	font-weight: bold;
+}
+
+.course-925 .images-container div:first-child .number{
+	color: #eda036;
+}
+
+.course-925 .images-container div:nth-child(2) .number{
+	color: #50b2c3;
+}
+
+.course-925 .images-container div:nth-child(3) .number{
+	color: #89b540;
+}
+
+.course-925 .images-container .title{
+	font-size: 3rem;
+	font-weight: normal;
+	color: #464135;
+}
+
+@media only screen and (min-width: 1440px) {
+	.course-925 .images-container{
+		grid-template-columns: repeat(3, minmax(min-content, 350px));
+		grid-gap: 1rem;
+		grid-template-rows: initial;
+	}
+}
