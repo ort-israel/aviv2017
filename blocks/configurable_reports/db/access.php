@@ -52,8 +52,6 @@ $capabilities = array(
             'editingteacher' => CAP_ALLOW,
             'manager' => CAP_ALLOW
         ),
-
-        'clonepermissionsfrom' => 'moodle/site:manageblocks'
     ),
 
     'block/configurable_reports:managereports' => array(

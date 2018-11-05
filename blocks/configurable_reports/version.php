@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -30,10 +29,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2017021105;  // Plugin version.
-$plugin->requires = 2010112400; // require Moodle version.
+$plugin->version = 2016020108;  // Plugin version.
+$plugin->requires = 2015111600; // require Moodle version (3.0).
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '2.3';
+$plugin->release = '3.1.2';
 $plugin->component = 'block_configurable_reports'; // Full name of the plugin (used for diagnostics)
 $plugin->cron      = 86400; // = Once in 24h, Set min time between cron executions.
                             // Should probably be at night to off load CPU load.

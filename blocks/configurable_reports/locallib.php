@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,203 +14,277 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/** Configurable Reports
-  * A Moodle block for creating Configurable Reports
-  * @package blocks
-  * @author: Juan leyva <http://www.twitter.com/jleyvadelgado>
-  * @date: 2009
-  */
+/**
+ * Configurable Reports
+ * A Moodle block for creating Configurable Reports
+ * @package blocks
+ * @author: Juan leyva <http://www.twitter.com/jleyvadelgado>
+ * @date: 2009
+ */
 
-  function cr_print_js_function(){
-	?>
-		<script type="text/javascript">
-			function printDiv(id){
-				var cdiv, tmpw;
+function cr_print_js_function() {
+?>
+    <script type="text/javascript">
+        function printDiv(id){
+            var cdiv, tmpw;
 
-				cdiv = document.getElementById(id);
-				tmpw = window.open(" ","Print");
+            cdiv = document.getElementById(id);
+            tmpw = window.open(" ","Print");
 
-				tmpw.document.open();
-				tmpw.document.write('<html><body>');
-				tmpw.document.write(cdiv.innerHTML);
-				tmpw.document.write('</body></html>');
-				tmpw.document.close();
-				tmpw.print();
-				tmpw.close();
-			}
-		</script>
-	<?php
-  }
+            tmpw.document.open();
+            tmpw.document.write('<html><body>');
+            tmpw.document.write(cdiv.innerHTML);
+            tmpw.document.write('</body></html>');
+            tmpw.document.close();
+            tmpw.print();
+            tmpw.close();
+        }
+    </script>
+<?php
+}
 
-    function cr_add_jsdatatables($cssid){
+function cr_add_jsdatatables($cssid) {
+    global $DB, $CFG, $OUTPUT, $PAGE;
 
-        echo html_writer::script(false, new moodle_url('/blocks/configurable_reports/js/datatables/media/js/jquery.js'));
-        echo html_writer::script(false, new moodle_url('/blocks/configurable_reports/js/datatables/media/js/jquery.dataTables.min.js'));
-        echo html_writer::script(false, new moodle_url('/blocks/configurable_reports/js/datatables/extras/FixedHeader/js/FixedHeader.js'));
+    $PAGE->requires->string_for_js('thousandssep', 'langconfig');
+    $PAGE->requires->strings_for_js(array(
+        'datatables_sortascending',
+        'datatables_sortdescending',
+        'datatables_first',
+        'datatables_last',
+        'datatables_next',
+        'datatables_previous',
+        'datatables_emptytable',
+        'datatables_info',
+        'datatables_infoempty',
+        'datatables_infofiltered',
+        'datatables_lengthmenu',
+        'datatables_loadingrecords',
+        'datatables_processing',
+        'datatables_search',
+        'datatables_zerorecords',
+    ), 'block_configurable_reports');
 
-        $script = "$(document).ready(function() {
-            var oTable = $('$cssid').dataTable({
-                'iDisplayLength': 25,
-		        'aLengthMenu': [[25, 50, 100, 250, -1], [25, 50, 100, 250, 'All']],
-                'bAutoWidth': false,
-                'sPaginationType': 'full_numbers',
-//                'sScrollX': '100%',
-//                'sScrollXInner': '110%',
-//                'bScrollCollapse': true
-            });
-            new FixedHeader( oTable );
-        } );";
-        echo html_writer::script($script);
+    /*
+    $script = new moodle_url('/blocks/configurable_reports/js/jquery-latest.js');
+    $script = '
+        if (typeof jQuery == "undefined") {
+            document.write(unescape("%3Cscript type=\"text/javascript\" src=\"'.$script.'\"%3E%3C/script%3E"));
+        }
+    ';
+    echo html_writer::script($script);
+    */
+
+    $verticalscroll = '';
+    $fixheader = '';
+    // We can either have vertical scroll OR fixed header...
+    if(get_config('block_configurable_reports', 'verticalscroll')) {
+        $verticalscroll = " 'sScrollX': '100%',
+            //'sScrollXInner': '110%',
+            'sScrollY': '500',
+            'bScrollCollapse': true, ";
+        echo html_writer::tag('style', '.dataTables_scroll {overflow: auto;}');
+        if (right_to_left()) {
+            echo html_writer::tag('style', '.dataTables_scroll {overflow: auto;} .dataTables_scrollHeadInner{padding-right:0 !important; padding-left:14px;}');
+        }
+    } else {
+        $fixheader = "new FixedHeader( oTable, { footer: true } );";
     }
 
-  function cr_add_jsordering($cssid){
-	global $DB, $CFG, $OUTPUT;
-    echo html_writer::script(false, new moodle_url('/blocks/configurable_reports/js/jquery-latest.js'));
+    $script = "$(document).ready(function() {
+        var oTable = $('$cssid').dataTable({
+            //'bAutoWidth': true,
+            'aLengthMenu': [ [10, 25, 50, 100, -1], [10, 25, 50, 100, \"All\"] ],
+            'iDisplayLength': 25,
+            //'sPaginationType': 'full_numbers',
+            $verticalscroll
+            'oLanguage': {
+                'oAria': {
+                    'sSortAscending': M.str.block_configurable_reports.datatables_sortascending,
+                    'sSortDescending': M.str.block_configurable_reports.datatables_sortdescending,
+                },
+                'oPaginate': {
+                    'sFirst': M.str.block_configurable_reports.datatables_first,
+                    'sLast': M.str.block_configurable_reports.datatables_last,
+                    'sNext': M.str.block_configurable_reports.datatables_next,
+                    'sPrevious': M.str.block_configurable_reports.datatables_previous
+                },
+                'sEmptyTable': M.str.block_configurable_reports.datatables_emptytable,
+                'sInfo': M.str.block_configurable_reports.datatables_info,
+                'sInfoEmpty': M.str.block_configurable_reports.datatables_infoempty,
+                'sInfoFiltered': M.str.block_configurable_reports.datatables_infofiltered,
+                'sInfoThousands': M.str.langconfig.thousandssep,
+                'sLengthMenu': M.str.block_configurable_reports.datatables_lengthmenu,
+                'sLoadingRecords': M.str.block_configurable_reports.datatables_loadingrecords,
+                'sProcessing': M.str.block_configurable_reports.datatables_processing,
+                'sSearch': M.str.block_configurable_reports.datatables_search,
+                'sZeroRecords': M.str.block_configurable_reports.datatables_zerorecords
+            }
+        });
+        //debugger;
+        $fixheader
+        window.otable = oTable;
+        //M.block_configurable_reports.oTable = oTable;
+    } );";
+    echo html_writer::script($script);
+}
+
+function cr_use_datatables() {
+
+}
+
+function cr_add_jsordering($cssid) {
+    global $DB, $CFG, $OUTPUT;
+
+    $script = new moodle_url('/blocks/configurable_reports/js/jquery-latest.js');
+    $script = '
+        if (typeof jQuery == "undefined") {
+            document.write(unescape("%3Cscript type=\"text/javascript\" src=\"'.$script.'\"%3E%3C/script%3E"));
+        }
+    ';
+    echo html_writer::script($script);
+
     echo html_writer::script(false, new moodle_url('/blocks/configurable_reports/js/jquery.tablesorter.min.js'));
     $script = '$(document).ready(function() {
         // call the tablesorter plugin
         $("'.$cssid.'").tablesorter();
     });';
     echo html_writer::script($script);
-	?>
+    ?>
 
-		<style type="text/css">
-		<?php echo $cssid; ?> th.header{
-			background-image:url(<?php echo $OUTPUT->pix_url('normal', 'block_configurable_reports'); ?>);
-			background-position:right center;
-			background-repeat:no-repeat;
-			cursor:pointer;
-		}
-
-		<?php echo $cssid; ?> th.headerSortUp{
-		 background-image:url(<?php echo $OUTPUT->pix_url('asc', 'block_configurable_reports');?>);
-		}
-
-		<?php echo $cssid; ?> th.headerSortDown{
-		 background-image:url(<?php echo $OUTPUT->pix_url('desc', 'block_configurable_reports');?>);
-		}
-		</style>
-	<?php
-  }
-
-  function urlencode_recursive($var) {
-    if (is_object($var)) {
-        $new_var = new stdClass();
-        $properties = get_object_vars($var);
-        foreach($properties as $property => $value) {
-            $new_var->$property = urlencode_recursive($value);
+        <style type="text/css">
+        <?php echo $cssid; ?> th.header{
+            background-image:url(<?php echo $OUTPUT->pix_url('normal', 'block_configurable_reports'); ?>);
+            background-position:right center;
+            background-repeat:no-repeat;
+            cursor:pointer;
         }
 
+        <?php echo $cssid; ?> th.headerSortUp{
+         background-image:url(<?php echo $OUTPUT->pix_url('asc', 'block_configurable_reports');?>);
+        }
+
+        <?php echo $cssid; ?> th.headerSortDown{
+         background-image:url(<?php echo $OUTPUT->pix_url('desc', 'block_configurable_reports');?>);
+        }
+        </style>
+    <?php
+}
+
+function urlencode_recursive($var) {
+    if (is_object($var)) {
+        $newvar = new \stdClass();
+        $properties = get_object_vars($var);
+        foreach ($properties as $property => $value) {
+            $newvar->$property = urlencode_recursive($value);
+        }
     } else if (is_array($var)) {
-        $new_var = array();
-        foreach($var as $property => $value) {
-            $new_var[$property] = urlencode_recursive($value);
+        $newvar = array();
+        foreach ($var as $property => $value) {
+            $newvar[$property] = urlencode_recursive($value);
         }
-
     } else if (is_string($var)) {
-        $new_var = urlencode($var);
-
-    } else { // nulls, integers, etc.
-        $new_var = $var;
+        $newvar = urlencode($var);
+    } else {
+        // Nulls, integers, etc.
+        $newvar = $var;
     }
 
-    return $new_var;
-  }
+    return $newvar;
+}
 
-  function urldecode_recursive($var) {
+function urldecode_recursive($var) {
     if (is_object($var)) {
-        $new_var = new stdClass();
+        $newvar = new \stdClass();
         $properties = get_object_vars($var);
-        foreach($properties as $property => $value) {
-            $new_var->$property = urldecode_recursive($value);
+        foreach ($properties as $property => $value) {
+            $newvar->$property = urldecode_recursive($value);
         }
-
-    } else if(is_array($var)) {
-        $new_var = array();
-        foreach($var as $property => $value) {
-            $new_var[$property] = urldecode_recursive($value);
+    } else if (is_array($var)) {
+        $newvar = array();
+        foreach ($var as $property => $value) {
+            $newvar[$property] = urldecode_recursive($value);
         }
-
-    } else if(is_string($var)) {
-        $new_var = urldecode($var);
-
+    } else if (is_string($var)) {
+        $newvar = urldecode($var);
     } else {
-        $new_var = $var;
+        $newvar = $var;
     }
 
-    return $new_var;
+    return $newvar;
 }
 
-function cr_get_my_reports($courseid, $userid, $allcourses=true){
-	global $DB;
+function cr_get_my_reports($courseid, $userid, $allcourses = true) {
+    global $DB;
 
-	$reports = array();
-    if ($courseid == SITEID){
-        $context = context_system::instance();
+    $reports = [];
+    if ($courseid == SITEID) {
+        $context = \context_system::instance();
     } else {
-        $context = context_course::instance($courseid);
+        $context = \context_course::instance($courseid);
     }
 
-
-    if(has_capability('block/configurable_reports:managereports', $context, $userid)){
-		if($courseid == SITEID && $allcourses)
-			$reports = $DB->get_records('block_configurable_reports',null,'name ASC');
-		else
-			$reports = $DB->get_records('block_configurable_reports',array('courseid' => $courseid),'name ASC');
-	}
-	else{
-		$reports = $DB->get_records_select('block_configurable_reports','ownerid = ? AND courseid = ? ORDER BY name ASC',array($userid,$courseid));
-	}
-	return $reports;
+    if (has_capability('block/configurable_reports:managereports', $context, $userid)) {
+        if ($courseid == SITEID && $allcourses) {
+            $reports = $DB->get_records('block_configurable_reports', null, 'name ASC');
+        } else {
+            $reports = $DB->get_records('block_configurable_reports', array('courseid' => $courseid), 'name ASC');
+        }
+    } else {
+        $reports = $DB->get_records_select('block_configurable_reports', 'ownerid = ? AND courseid = ? ORDER BY name ASC', array($userid, $courseid));
+    }
+    return $reports;
 }
 
- function cr_serialize($var){
-	return serialize(urlencode_recursive($var));
- }
+function cr_serialize($var) {
+    return serialize(urlencode_recursive($var));
+}
 
- function cr_unserialize($var){
-	return urldecode_recursive(unserialize($var));
- }
+function cr_unserialize($var) {
+    return urldecode_recursive(unserialize($var));
+}
 
- function cr_check_report_permissions($report, $userid, $context){
-	global $DB, $CFG;
+function cr_check_report_permissions($report, $userid, $context) {
+    global $DB, $CFG;
 
-	require_once($CFG->dirroot.'/blocks/configurable_reports/report.class.php');
-	require_once($CFG->dirroot.'/blocks/configurable_reports/reports/'.$report->type.'/report.class.php');
+    require_once($CFG->dirroot.'/blocks/configurable_reports/report.class.php');
+    require_once($CFG->dirroot.'/blocks/configurable_reports/reports/'.$report->type.'/report.class.php');
 
-	$classn = 'report_'.$report->type;
-	$classi = new $classn($report->id);
-	return $classi->check_permissions($userid, $context);
- }
+    $classn = 'report_'.$report->type;
+    $classi = new $classn($report->id);
+    return $classi->check_permissions($userid, $context);
+}
 
- function cr_get_report_plugins($courseid){
+function cr_get_report_plugins($courseid) {
+    $pluginoptions = array();
+    $context = ($courseid == SITEID) ? \context_system::instance() : \context_course::instance($courseid);
+    $plugins = get_list_of_plugins('blocks/configurable_reports/reports');
 
-	$pluginoptions = array();
-	$context = ($courseid == SITEID)? context_system::instance() : context_course::instance($courseid);
-	$plugins = get_list_of_plugins('blocks/configurable_reports/reports');
+    if ($plugins) {
+        foreach ($plugins as $p) {
+            if ($p == 'sql' && !has_capability('block/configurable_reports:managesqlreports', $context)) {
+                continue;
+            }
+            $pluginoptions[$p] = get_string('report_'.$p, 'block_configurable_reports');
+        }
+    }
+    return $pluginoptions;
+}
 
-	if($plugins)
-		foreach($plugins as $p){
-			if($p == 'sql' && !has_capability('block/configurable_reports:managesqlreports',$context))
-				continue;
-			$pluginoptions[$p] = get_string('report_'.$p,'block_configurable_reports');
-		}
-	return $pluginoptions;
- }
+function cr_get_export_plugins() {
 
- function cr_get_export_plugins(){
+    $exportoptions = array();
+    $plugins = get_list_of_plugins('blocks/configurable_reports/export');
 
-	$exportoptions = array();
-	$plugins = get_list_of_plugins('blocks/configurable_reports/export');
+    if ($plugins) {
+        foreach ($plugins as $p) {
+            $pluginoptions[$p] = get_string('export_'.$p, 'block_configurable_reports');
+        }
+    }
+    return $pluginoptions;
+}
 
-	if($plugins)
-		foreach($plugins as $p){
-			$pluginoptions[$p] = get_string('export_'.$p,'block_configurable_reports');
-		}
-	return $pluginoptions;
- }
-
- function cr_print_table($table, $return=false) {
+function cr_print_table($table, $return = false) {
     global $COURSE;
 
     $output = '';
@@ -219,7 +292,7 @@ function cr_get_my_reports($courseid, $userid, $allcourses=true){
     if (isset($table->align)) {
         foreach ($table->align as $key => $aa) {
             if ($aa) {
-                $align[$key] = ' text-align:'. fix_align_rtl($aa) .';';  // Fix for RTL languages
+                $align[$key] = ' text-align:'. fix_align_rtl($aa) .';';  // Fix for RTL languages.
             } else {
                 $align[$key] = '';
             }
@@ -264,13 +337,31 @@ function cr_get_my_reports($courseid, $userid, $allcourses=true){
         $table->class = 'generaltable';
     }
 
+    $action = '';
+    foreach ($table->head as $key => $heading) {
+        if ($heading === 'sendemail') {
+            $action = 'sendemail';
+        }
+        if ($heading === 'addtogroup') {
+            $action = 'addtogroup';
+        }
+    }
+
     $tableid = empty($table->id) ? '' : 'id="'.$table->id.'"';
-    $output .= '<form action="send_emails.php" method="post" id="sendemail">';
+    switch ($action) {
+        case 'sendemail':
+            $output .= '<form action="send_emails.php" method="post" id="sendemail">';
+            break;
+        case 'addtogroup':
+            $output .= '<form action="add_to_group.php" method="post" id="addtogroup">';
+            break;
+    }
+
     $output .= '<table width="'.$table->width.'" ';
     if (!empty($table->summary)) {
         $output .= " summary=\"$table->summary\"";
     }
-    $output .= " cellpadding=\"$table->cellpadding\" cellspacing=\"$table->cellspacing\" class=\"$table->class boxalign$table->tablealign\" $tableid rules=\"all\">\n";
+    $output .= " cellpadding=\"$table->cellpadding\" cellspacing=\"$table->cellspacing\" class=\"$table->class boxalign$table->tablealign\" $tableid>\n";
 
     $countcols = 0;
     $isuserid = -1;
@@ -278,10 +369,13 @@ function cr_get_my_reports($courseid, $userid, $allcourses=true){
     if (!empty($table->head)) {
         $countcols = count($table->head);
         $output .= '<thead><tr>';
-        $keys=array_keys($table->head);
+        $keys = array_keys($table->head);
         $lastkey = end($keys);
         foreach ($table->head as $key => $heading) {
             if ($heading == 'sendemail') {
+                $isuserid = $key;
+            }
+            if ($heading == 'addtogroup') {
                 $isuserid = $key;
             }
             if (!isset($size[$key])) {
@@ -303,7 +397,7 @@ function cr_get_my_reports($courseid, $userid, $allcourses=true){
 
     if (!empty($table->data)) {
         $oddeven = 1;
-        $keys=array_keys($table->data);
+        $keys = array_keys($table->data);
         $lastrowkey = end($keys);
         foreach ($table->data as $key => $row) {
             $oddeven = $oddeven ? 0 : 1;
@@ -314,30 +408,30 @@ function cr_get_my_reports($courseid, $userid, $allcourses=true){
                 $table->rowclass[$key] .= ' lastrow';
             }
             $output .= '<tr class="r'.$oddeven.' '.$table->rowclass[$key].'">'."\n";
-            if ($row == 'hr' and $countcols) {
+            if ($row === 'hr' and $countcols) {
                 $output .= '<td colspan="'. $countcols .'"><div class="tabledivider"></div></td>';
-            } else {  /// it's a normal row of data
-                $keys2=array_keys($row);
+            } else {  // It's a normal row of data.
+                $keys2 = array_keys($row);
                 $lastkey = end($keys2);
-                foreach ($row as $key => $item) {
-                    if (!isset($size[$key])) {
-                        $size[$key] = '';
+                foreach ($row as $rkey => $item) {
+                    if (!isset($size[$rkey])) {
+                        $size[$rkey] = '';
                     }
-                    if (!isset($align[$key])) {
-                        $align[$key] = '';
+                    if (!isset($align[$rkey])) {
+                        $align[$rkey] = '';
                     }
-                    if (!isset($wrap[$key])) {
-                        $wrap[$key] = '';
+                    if (!isset($wrap[$rkey])) {
+                        $wrap[$rkey] = '';
                     }
-                    if ($key == $lastkey) {
-                      $extraclass = ' lastcol';
+                    if ($rkey == $lastkey) {
+                        $extraclass = ' lastcol';
                     } else {
-                      $extraclass = '';
+                        $extraclass = '';
                     }
-                    if ($key == $isuserid) {
-                        $output .= '<td style="'. $align[$key].$size[$key].$wrap[$key] .'" class="cell c'.$key.$extraclass.'"><input name="userids[]" type="checkbox" value="'.$item.'"></td>';
+                    if ($rkey == $isuserid) {
+                        $output .= '<td style="'. $align[$rkey].$size[$rkey].$wrap[$rkey] .'" class="cell c'.$rkey.$extraclass.'"><input name="userids[]" type="checkbox" value="'.$item.'"></td>';
                     } else {
-                        $output .= '<td style="'. $align[$key].$size[$key].$wrap[$key] .'" class="cell c'.$key.$extraclass.'">'. $item .'</td>';
+                        $output .= '<td style="'. $align[$rkey].$size[$rkey].$wrap[$rkey] .'" class="cell c'.$rkey.$extraclass.'">'. $item .'</td>';
                     }
 
                 }
@@ -346,11 +440,26 @@ function cr_get_my_reports($courseid, $userid, $allcourses=true){
         }
     }
     $output .= '</table>'."\n";
+
+    // Action form
     $output .= '<input type="hidden" name="courseid" value="'.$COURSE->id.'">';
-    if ($isuserid != -1) {
-        $output .= '<input type="submit" value="'.get_string('sendemails','block_configurable_reports').'">';
+    $reportid = optional_param('id', 1, PARAM_INT);
+    $output .= '<input type="hidden" name="reportid" value="'.$reportid.'">';
+    switch ($action) {
+        case 'sendemail':
+            if ($isuserid != -1) {
+                $output .= '<input type="submit" value="'.get_string('email_sendemails', 'block_configurable_reports').'">';
+                $output .= '</form>';
+            }
+            break;
+        case 'addtogroup':
+            //$output .= '';
+            $output .= '<br>'.get_string('group_newgroupname', 'block_configurable_reports').
+                        '<div id="newgroupname"><input type="text" name="newgroupname"></div>';
+            $output .= '<input type="submit" value="'.get_string('group_addtogroup', 'block_configurable_reports').'">';
+            $output .= '</form>';
+            break;
     }
-    $output .= '</form>';
 
     if ($return) {
         return $output;
@@ -360,40 +469,39 @@ function cr_get_my_reports($courseid, $userid, $allcourses=true){
     return true;
 }
 
-function table_to_excel($filename,$table){
+function table_to_excel($filename, $table) {
     global $DB, $CFG;
 
     require_once($CFG->dirroot.'/lib/excellib.class.php');
 
-
     if (!empty($table->head)) {
         $countcols = count($table->head);
-        $keys=array_keys($table->head);
+        $keys = array_keys($table->head);
         $lastkey = end($keys);
         foreach ($table->head as $key => $heading) {
-                $matrix[0][$key] = str_replace("\n",' ',htmlspecialchars_decode(strip_tags(nl2br($heading))));
+                $matrix[0][$key] = str_replace("\n", ' ', htmlspecialchars_decode(strip_tags(nl2br($heading))));
         }
     }
 
     if (!empty($table->data)) {
         foreach ($table->data as $rkey => $row) {
             foreach ($row as $key => $item) {
-                $matrix[$rkey + 1][$key] = str_replace("\n",' ',htmlspecialchars_decode(strip_tags(nl2br($item))));
+                $matrix[$rkey + 1][$key] = str_replace("\n", ' ', htmlspecialchars_decode(strip_tags(nl2br($item))));
             }
         }
     }
 
     $downloadfilename = clean_filename($filename);
-    /// Creating a workbook
+    // Creating a workbook.
     $workbook = new MoodleExcelWorkbook("-");
-    /// Sending HTTP headers
+    // Sending HTTP headers.
     $workbook->send($downloadfilename);
-    /// Adding the worksheet
+    // Adding the worksheet.
     $myxls =& $workbook->add_worksheet($filename);
 
-    foreach($matrix as $ri=>$col){
-        foreach($col as $ci=>$cv){
-            $myxls->write_string($ri,$ci,$cv);
+    foreach ($matrix as $ri => $col) {
+        foreach ($col as $ci => $cv) {
+            $myxls->write_string($ri, $ci, $cv);
         }
     }
 
@@ -401,46 +509,194 @@ function table_to_excel($filename,$table){
     exit;
 }
 
+/**
+ * Returns contexts in deprecated and current modes
+ *
+ * @param  int $context The context
+ * @param  int $id      The context id
+ * @param  int $flags   The flags to be used
+ * @return stdClass     An object instance
+ */
+function cr_get_context($context, $id = null, $flags = null) {
 
-
-function is_mysqlserver_loaded(){
-    global $CFG, $COURSE, $PAGE;
-
-    // Use a custom $remoteDB (and not current system's $DB)
-    // todo: major security issue
-    $remoteDBhost = get_config('block_configurable_reports', 'dbhost');
-    if (empty($remoteDBhost)) {
-        $remoteDBhost = $CFG->dbhost;
+    if ($context == CONTEXT_SYSTEM) {
+        if (class_exists('context_system')) {
+            return context_system::instance();
+        } else {
+            return get_context_instance(CONTEXT_SYSTEM);
+        }
+    } else if ($context == CONTEXT_COURSE) {
+        if (class_exists('context_course')) {
+            return context_course::instance($id, $flags);
+        } else {
+            return get_context_instance($context, $id, $flags);
+        }
+    } else if ($context == CONTEXT_COURSECAT) {
+        if (class_exists('context_coursecat')) {
+            return context_coursecat::instance($id, $flags);
+        } else {
+            return get_context_instance($context, $id, $flags);
+        }
+    } else if ($context == CONTEXT_BLOCK) {
+        if (class_exists('context_block')) {
+            return context_block::instance($id, $flags);
+        } else {
+            return get_context_instance($context, $id, $flags);
+        }
+    } else if ($context == CONTEXT_MODULE) {
+        if (class_exists('context_module')) {
+            return get_context_instance::instance($id, $flags);
+        } else {
+            return get_context_instance($context, $id, $flags);
+        }
+    } else if ($context == CONTEXT_USER) {
+        if (class_exists('context_user')) {
+            return context_user::instance($id, $flags);
+        } else {
+            return get_context_instance($context, $id, $flags);
+        }
     }
-    $remoteDBuser = get_config('block_configurable_reports', 'dbuser');
-    if (empty($remoteDBuser)) {
-        $remoteDBuser = $CFG->dbuser;
+
+    return get_context_instance($context, $id, $flags);
+}
+
+function cr_make_categories_list(&$list, &$parents, $requiredcapability = '', $excludeid = 0, $category = null, $path = '') {
+    global $CFG, $DB;
+    require_once($CFG->libdir.'/coursecatlib.php');
+
+    // For categories list use just this one function.
+    if (empty($list)) {
+        $list = array();
     }
-    $remoteDBpass = get_config('block_configurable_reports', 'dbpass');
-    if (empty($remoteDBpass)) {
-        $remoteDBpass = $CFG->dbpass;
+    $list += coursecat::make_categories_list($requiredcapability, $excludeid);
+
+    // Building the list of all parents of all categories in the system is highly undesirable and hardly ever needed.
+    // Usually user needs only parents for one particular category, in which case should be used:
+    // coursecat::get($categoryid)->get_parents().
+    if (empty($parents)) {
+        $parents = array();
     }
-
-    // Test for MYSQL server load before running query.
-    // TODO: using direct php mysql calls, should be an issue with other DBs
-    $link = mysqli_connect($remoteDBhost, $remoteDBuser, $remoteDBpass);
-    //$status = explode('  ', mysql_stat($link));
-
-    // Innodb_row_lock_current_waits
-    //$sql_dbload = "SHOW GLOBAL STATUS WHERE Variable_name = 'Connections'";
-    //$sql_dbload = "SHOW GLOBAL STATUS WHERE Variable_name = 'Threads_running'";
-    $sql_dbload = "SHOW GLOBAL STATUS WHERE Variable_name = 'Threads_connected'";
-
-    $serverload = get_config('block_configurable_reports', 'serverload');
-
-    $result = $link->query($sql_dbload);
-    $row = mysqli_fetch_array($result);
-    //echo $row['Variable_name'] . ' = ' . $row['Value'] . "\n";
-    if ( $row['Value'] > $serverload ) {
-        $PAGE->set_pagelayout('incourse');
-        notice(get_string('serverloadnotice', 'block_configurable_reports', $row['Value']),
-            "$CFG->wwwroot/course/view.php?id={$COURSE->id}");
+    $all = $DB->get_records_sql('SELECT id, parent FROM {course_categories} ORDER BY sortorder');
+    foreach ($all as $record) {
+        if ($record->parent) {
+            $parents[$record->id] = array_merge($parents[$record->parent], array($record->parent));
+        } else {
+            $parents[$record->id] = array();
+        }
     }
+}
 
+function cr_import_xml($xml, $course) {
+    global $CFG, $DB, $USER;
+
+    require_once($CFG->dirroot.'/lib/xmlize.php');
+    $data = xmlize($xml, 1, 'UTF-8');
+
+    if (isset($data['report']['@']['version'])) {
+        $newreport = new stdclass;
+        foreach ($data['report']['#'] as $key => $val) {
+            if ($key == 'components') {
+                $val[0]['#'] = base64_decode(trim($val[0]['#']));
+                // Fix url_encode " and ' when importing SQL queries.
+                $tempcomponents = cr_unserialize($val[0]['#']);
+                $tempcomponents['customsql']['config']->querysql = str_replace("\'", "'", $tempcomponents['customsql']['config']->querysql);
+                $tempcomponents['customsql']['config']->querysql = str_replace('\"', '"', $tempcomponents['customsql']['config']->querysql);
+                $val[0]['#'] = cr_serialize($tempcomponents);
+            }
+            $newreport->{$key} = trim($val[0]['#']);
+        }
+        $newreport->courseid = $course->id;
+        $newreport->ownerid = $USER->id;
+        $newreport->name .= " (" . userdate(time()) . ")";
+
+        if (!$DB->insert_record('block_configurable_reports', $newreport)) {
+            return false;
+        }
+        return true;
+    }
     return false;
+}
+
+/**
+ * Add an entry to the legacy log table.
+ *
+ * @deprecated since 2.7 use new events instead
+ *
+*/
+function cr_add_to_log($courseid, $module, $action, $url='', $info='', $cm=0, $user=0) {
+    // Depricated.
+    global $CFG;
+
+    if ($CFG->version < 2014051200) {
+        add_to_log($courseid, $module, $action, $url, $info, $cm, $user);
+    }
+}
+
+function cr_logging_info() {
+    global $DB, $CFG;
+
+    static $uselegacyreader;
+    static $useinternalreader;
+    static $logtable;
+
+    if (isset($uselegacyreader) && isset($useinternalreader) && isset($logtable)) {
+        return array($uselegacyreader, $useinternalreader, $logtable);
+    }
+
+    $uselegacyreader = false; // Flag to determine if we should use the legacy reader.
+    $useinternalreader = false; // Flag to determine if we should use the internal reader.
+    $logtable = '';
+
+    // Pre 2.7.
+    if ($CFG->version < 2014051200) {
+        $uselegacyreader = true;
+        $logtable = 'log';
+    } else {
+
+        // Get list of readers.
+        $logmanager = get_log_manager();
+        $readers = $logmanager->get_readers();
+
+        // Get preferred reader.
+        if (!empty($readers)) {
+            foreach ($readers as $readerpluginname => $reader) {
+                // If legacy reader is preferred reader.
+                if ($readerpluginname == 'logstore_legacy') {
+                    $uselegacyreader = true;
+                    $logtable = 'log';
+                }
+
+                // If sql_internal_table_reader is preferred reader.
+                if ($reader instanceof \core\log\sql_internal_table_reader or $reader instanceof \core\log\sql_internal_reader) {
+                    $useinternalreader = true;
+                    $logtable = $reader->get_internal_log_table_name();
+                }
+            }
+        }
+    }
+
+    return array($uselegacyreader, $useinternalreader, $logtable);
+}
+
+/**
+ * Returns reports tagged with a specified tag.
+ *
+ * This is a callback used by the tag area block_configurable_reports/report to search for reports
+ * tagged with a specific tag.
+ *
+ * @param core_tag_tag $tag
+ * @param bool $exclusivemode if set to true it means that no other entities tagged with this tag
+ *             are displayed on the page and the per-page limit may be bigger
+ * @param int $fromctx context id where the link was displayed, may be used by callbacks
+ *            to display items in the same context first
+ * @param int $ctx context id where to search for records
+ * @param bool $rec search in subcontexts as well
+ * @param int $page 0-based number of page being displayed
+ * @return \core_tag\output\tagindex
+ */
+function block_configurable_reports_get_tagged_entries($tag, $exclusivemode = false, $fromctx = 0, $ctx = 0, $rec = 1, $page = 0) {
+    global $OUTPUT;
+    //mod/glossary/locallib.php:655
+
+    return ;
 }
