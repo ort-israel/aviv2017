@@ -87,7 +87,7 @@
 }
 
 .que.formulas .formulation .formulaspart {
-    display: block;
+    display: inline-block; /* Lea 2018/12: changed to value from previous version. Details here: https://github.com/jmvedrine/moodle-qtype_formulas/issues/7 */
     margin: 0 0 1.2em 0;
     padding-bottom: 0;
 }
