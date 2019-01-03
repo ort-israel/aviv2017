@@ -161,7 +161,7 @@ if ($frm and isset($frm->username)) {                             // Login WITH 
         echo $OUTPUT->header();
         echo $OUTPUT->heading(get_string('restoredaccount'));
         echo $OUTPUT->box(get_string('restoredaccountinfo'), 'generalbox boxaligncenter');
-        require_once(__DIR__ . 'restored_password_form.php'); // Use our "supplanter" login_forgot_password_form. MDL-20846
+        require_once(__DIR__ . '../login/restored_password_form.php'); // Use our "supplanter" login_forgot_password_form. MDL-20846
         $form = new login_forgot_password_form('forgot_password.php', array('username' => $frm->username));
         $form->display();
         echo $OUTPUT->footer();
