@@ -310,7 +310,7 @@ body:not(.pagelayout-coursecategory):not(pagelayout-pagelayout-frontpage) {
     background-color: transparent;
     border: 1px solid $white;
 
-    a {
+    a, & {
       color: $white;
     }
   }
