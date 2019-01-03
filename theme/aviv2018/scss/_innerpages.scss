@@ -28,6 +28,7 @@ body:not(.pagelayout-frontpage) #page-header {
   margin-bottom: 4rem;
   background-color: $header-background;
   position: relative;
+
   &:before {
     /* This should also apply to #page-header on every page except front page */
     content: "";
@@ -95,11 +96,14 @@ div#coursecontrols {
   text-align: left;
   background-color: $course-upper-buttons-bg;
   border-radius: 0;
+
   &:hover {
     background-color: $course-upper-buttons-bg;
   }
+
   a {
     color: inherit;
+
     &:hover {
       color: inherit;
     }
@@ -142,13 +146,16 @@ body.courserole-student:not(.courserole-admin) .has-unenrol-link {
   .editcogbutton {
     width: 0;
   }
+
   /*enrol link button - only for students*/
   .editcogbutton .context-header-settings-menu .dropdown {
     padding: 0;
   }
+
   .dropdown-toggle {
     display: none;
   }
+
   .dropdown-menu {
     display: block;
     position: absolute;
@@ -157,16 +164,19 @@ body.courserole-student:not(.courserole-admin) .has-unenrol-link {
     left: 10.6rem;
     border-radius: 0;
     background-color: $brand-primary;
+
     .dropdown-item {
       color: $buttons-text-color;
       font-size: $font-size-root;
       font-weight: 600;
       padding: 0.6rem 2rem;
       border: 0;
+
       &:hover,
       &:focus {
         background-color: $transparent;
       }
+
       a,
       a .icon {
         color: inherit;
@@ -181,6 +191,7 @@ body.courserole-student:not(.courserole-admin) .has-unenrol-link {
   .dropdown-menu {
     top: -2.7rem;
     background-color: $gray-strong;
+
     a .icon:before {
       content: "\f235";
     }
@@ -195,9 +206,11 @@ body.courserole-student:not(.courserole-admin) .has-unenrol-link {
 
   .row {
     margin: 2rem 0;
+
     .dashtitle {
       background-color: $manage-course-headlines;
       padding: 1rem 2rem;
+
       h3,
       .card-title {
         font-weight: 600;
@@ -217,6 +230,7 @@ course that a student isn't enroll to it yet (after pressing the enroll button)
     font-size: $font-size-h2-bigger;
     font-weight: bold;
   }
+
   .box {
     .coursebox {
       @include breakpoint(tablet) {
@@ -244,6 +258,7 @@ course that a student isn't enroll to it yet (after pressing the enroll button)
   .form-control-static {
     font-weight: 600;
   }
+
   .form-group {
     text-align: center;
   }
@@ -290,9 +305,14 @@ body:not(.pagelayout-coursecategory):not(pagelayout-pagelayout-frontpage) {
 /* for table headers */
 .generaltable thead {
   background-color: $brand-primary;
+
   th.header {
     background-color: transparent;
-    color: $white;
+    border: 1px solid $white;
+
+    a {
+      color: $white;
+    }
   }
 }
 
@@ -314,12 +334,14 @@ body:not(.pagelayout-coursecategory):not(pagelayout-pagelayout-frontpage) {
       &:hover {
         border-bottom-color: $transparent;
       }
+
       .active {
         color: $navbar-light-color;
         background-color: $brand-primary;
       }
     }
   }
+
   .tab-content {
     .row.text-xs-center {
       @include justify-content(center);
@@ -346,6 +368,7 @@ body:not(.pagelayout-coursecategory):not(pagelayout-pagelayout-frontpage) {
   .generalbox {
     .row.form-group {
       @include flex-direction(column);
+
       .col-form-label {
         font-weight: 600;
       }
@@ -411,11 +434,13 @@ We have to adjust the height because our fon-size is larger */
         height: 51rem;
       }
     }
+
     .contacts-area {
       height: 61rem;
       @media (max-height: 670px) {
         height: 51rem;
       }
+
       .tabs {
         height: 6rem;
       }
