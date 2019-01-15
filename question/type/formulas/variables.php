@@ -45,7 +45,7 @@ function perm($n, $r) {
         return perm($n, ($n - $r));
     $return = 1;
     for ($i=0; $i<$r; $i++){
-        $return *= ($n - $i);
+         $return *= ($n - $i);
     }
     return $return;
 }
@@ -59,7 +59,7 @@ function comb($n, $r) {
         return comb($n, ($n - $r));
     $return = 1;
     for ($i=0; $i<$r; $i++){
-        $return *= ($n - $i) / ($i + 1);
+         $return *= ($n - $i) / ($i + 1);
     }
     return $return;
 }
@@ -75,7 +75,7 @@ function gcd($a,$b) {
         $a=$b;
         $b=$rest;
     } while($rest >0);
-    return $a;
+return $a;
 }
 
 function lcm($a, $b) {
@@ -98,9 +98,9 @@ class qtype_formulas_variables {
     function initialize_function_list() {
         $this->func_const = array_flip( array('pi')) ;
         $this->func_unary = array_flip( array('abs', 'acos', 'acosh', 'asin', 'asinh', 'atan', 'atanh', 'ceil'
-        , 'cos', 'cosh' , 'deg2rad', 'exp', 'expm1', 'floor', 'is_finite', 'is_infinite', 'is_nan'
-        , 'log10', 'log1p', 'rad2deg', 'sin', 'sinh', 'sqrt', 'tan', 'tanh', 'log', 'round', 'fact') );
-        $this->func_binary = array_flip( array('log', 'round', 'atan2', 'fmod', 'pow', 'min', 'max', 'comb', 'perm','ncr', 'npr', 'gcd', 'lcm') );
+            , 'cos', 'cosh' , 'deg2rad', 'exp', 'expm1', 'floor', 'is_finite', 'is_infinite', 'is_nan'
+            , 'log10', 'log1p', 'rad2deg', 'sin', 'sinh', 'sqrt', 'tan', 'tanh', 'log', 'round', 'fact') );
+        $this->func_binary = array_flip( array('log', 'round', 'atan2', 'fmod', 'pow', 'min', 'max', 'ncr', 'npr', 'gcd', 'lcm') );
         $this->func_special = array_flip( array('fill', 'len', 'pick', 'sort', 'sublist', 'inv', 'map', 'sum', 'concat', 'join', 'str', 'diff', 'poly') );
         $this->func_all = array_merge($this->func_const, $this->func_unary, $this->func_binary, $this->func_special);
         $this->binary_op_map = array_flip( array('+','-','*','/','%','>','<','==','!=','&&','||','&','|','<<','>>','^') );
@@ -235,12 +235,7 @@ class qtype_formulas_variables {
 
     // return the text with the variables, or evaluable expressions, substituted by their values
     function substitute_variables_in_text(&$vstack, $text) {
-        // Original funcPattern:
-        //$funcPattern = '/(\{=[^{}]+\}|\{([A-Za-z][A-Za-z0-9_]*)(\[([0-9]+)\])?\})/';
-
-        // Changed funcPattern to allow curly braces within text. e.g: {=f("hi{yo}")}
-        $funcPattern = '/(\{=(("[^"]*")*[^{}])+\}|\{([A-Za-z][A-Za-z0-9_]*)(\[([0-9]+)\])?\})/';
-
+        $funcPattern = '/(\{=[^{}]+\}|\{([A-Za-z][A-Za-z0-9_]*)(\[([0-9]+)\])?\})/';
         $results = array();
         $ts = explode("\n`",$text);     // the ` is the separator, so split it first
         foreach ($ts as $text) {
@@ -932,7 +927,12 @@ class qtype_formulas_variables {
         $results = array();
         foreach ($all as $a) {
             $res = null;
-            eval('$res = '.implode(' ',$splitted).';');
+            // In PHP 7 eval() terminates the script if the evaluated code generate a fatal error
+            try {
+                eval('$res = '.implode(' ',$splitted).';');
+            } catch (Throwable $t) {
+                throw new Exception(get_string('error_eval_numerical','qtype_formulas'));
+            }
             if (!isset($res))  throw new Exception(get_string('error_eval_numerical','qtype_formulas'));
             $results[] = floatval($res);    // make sure it is a number, not other data type such as bool
         }
@@ -1268,31 +1268,31 @@ class qtype_formulas_variables {
                 case 'is_infinite': case 'is_nan': case 'log10': case 'log1p':
                 case 'octdec': case 'rad2deg': case 'sin': case 'sinh': case 'sqrt':
                 case 'tan': case 'tanh': case 'fact':
-                if (strlen($regs[4])!=0 || strlen($regs[3])==0) {
-                    return get_string('functiontakesonearg','qtype_formulas',$regs[2]);
-                }
-                break;
+                    if (strlen($regs[4])!=0 || strlen($regs[3])==0) {
+                        return get_string('functiontakesonearg','qtype_formulas',$regs[2]);
+                    }
+                    break;
 
                 // Functions that take one or two arguments
                 case 'log': case 'round':
-                if (strlen($regs[5])!=0 || strlen($regs[3])==0) {
-                    return get_string('functiontakesoneortwoargs','qtype_formulas',$regs[2]);
-                }
-                break;
+                    if (strlen($regs[5])!=0 || strlen($regs[3])==0) {
+                        return get_string('functiontakesoneortwoargs','qtype_formulas',$regs[2]);
+                    }
+                    break;
 
                 // Functions that must have two arguments
-                case 'atan2': case 'fmod': case 'pow': case 'ncr': case 'npr':case 'lcm': case 'gcd':
-                if (strlen($regs[5])!=0 || strlen($regs[4])==0) {
-                    return get_string('functiontakestwoargs', 'qtype_formulas', $regs[2]);
-                }
-                break;
+                case 'atan2': case 'fmod': case 'pow': case 'ncr': case 'npr': case 'lcm': case 'gcd':
+                    if (strlen($regs[5])!=0 || strlen($regs[4])==0) {
+                        return get_string('functiontakestwoargs', 'qtype_formulas', $regs[2]);
+                    }
+                    break;
 
                 // Functions that take two or more arguments
                 case 'min': case 'max':
-                if (strlen($regs[4])==0) {
-                    return get_string('functiontakesatleasttwo','qtype_formulas',$regs[2]);
-                }
-                break;
+                    if (strlen($regs[4])==0) {
+                        return get_string('functiontakesatleasttwo','qtype_formulas',$regs[2]);
+                    }
+                    break;
 
                 default:
                     return get_string('unsupportedformulafunction','qtype_formulas',$regs[2]);
@@ -1317,4 +1317,4 @@ class qtype_formulas_variables {
         }
 
     }
-    }
+}
