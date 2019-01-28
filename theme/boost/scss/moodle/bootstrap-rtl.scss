@@ -12,3 +12,12 @@
         content: "#{$breadcrumb-divider}"; /* stylelint-disable-line declaration-block-no-duplicate-properties */
     }
 }
+
+/* Lea 2019/01: Add fix from version 3.5. to fix dropdwons in atto editor butons, such as font-size */
+/*rtl:raw:
+.dropdown-menu {
+    right: auto;
+    left: 0;
+    text-align: right;
+}
+*/
