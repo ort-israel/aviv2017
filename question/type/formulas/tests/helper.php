@@ -42,6 +42,7 @@ class qtype_formulas_test_helper extends question_test_helper {
             'test2', // 4 parts, separated and combined unit field, not ramdomized,
             'test3', // one part, not randomized, answer = 0 (to test problem with 0 as answer,
             'test4', // 4 parts, separated and combined unit field, ramdomized.
+            'test5', // One part not randomized multichoice answer.
         );
     }
 
@@ -59,6 +60,7 @@ class qtype_formulas_test_helper extends question_test_helper {
         $q->contextid = context_system::instance()->id;
         $q->varsrandom = '';
         $q->varsglobal = '';
+        $q->answernumbering = 'abc';
         $q->qv = new qtype_formulas_variables();
         $q->penalty = 0.2; // The default.
         test_question_maker::set_standard_combined_feedback_fields($q);
@@ -92,6 +94,12 @@ class qtype_formulas_test_helper extends question_test_helper {
         $p->subqtextformat = 1;
         $p->feedback = '';
         $p->feedbackformat = 1;
+        $p->partcorrectfb = '';
+        $p->partcorrectfbformat = 1;
+        $p->partpartiallycorrectfb = '';
+        $p->partpartiallycorrectfbformat = 1;
+        $p->partincorrectfb = '';
+        $p->partincorrectfbformat = 1;
         $p->partindex = 0;
 
         return $p;
@@ -104,11 +112,13 @@ class qtype_formulas_test_helper extends question_test_helper {
         $q = self::make_a_formulas_question();
 
         $q->name = 'test-0';
-        $q->questiontext = '<p>Minimal question : For a minimal question, you must define a part with (1) mark, (2) answer, (3) grading criteria, and optionally (4) question text.</p>';
+        $q->questiontext = '<p>Minimal question : For a minimal question, you must define a part with'
+                . ' (1) mark, (2) answer, (3) grading criteria, and optionally (4) question text.</p>';
 
         $q->penalty = 0.3; // Non-zero and not the default.
-        $q->textfragments = array(0 => '<p>Minimal question : For a minimal question, you must define a part with (1) mark, (2) answer, (3) grading criteria, and optionally (4) question text.</p>',
-                1 => '');
+        $q->textfragments = array(0 => '<p>Minimal question : For a minimal question, you must define a part with'
+                                  . ' (1) mark, (2) answer, (3) grading criteria, and optionally (4) question text.</p>',
+                                  1 => '');
         $q->numpart = 1;
         $q->defaultmark = 2;
         $p = self::make_a_formulas_part();
@@ -142,6 +152,9 @@ class qtype_formulas_test_helper extends question_test_helper {
         $p0->answermark = 2;
         $p0->answer = '5';
         $p0->subqtext = 'This is first part.';
+        $p0->partcorrectfb = 'Part 1 correct feedback.';
+        $p0->partpartiallycorrectfb = 'Part 1 partially correct feedback.';
+        $p0->partincorrectfb = 'Part 1 incorrect feedback.';
         $q->parts[0] = $p0;
         $p1 = self::make_a_formulas_part();
         $p1->placeholder = '#2';
@@ -150,6 +163,9 @@ class qtype_formulas_test_helper extends question_test_helper {
         $p1->answermark = 2;
         $p1->answer = '6';
         $p1->subqtext = 'This is second part.';
+        $p1->partcorrectfb = 'Part 2 correct feedback.';
+        $p1->partpartiallycorrectfb = 'Part 2 partially correct feedback.';
+        $p1->partincorrectfb = 'Part 2 incorrect feedback.';
         $q->parts[1] = $p1;
         $p2 = self::make_a_formulas_part();
         $p2->placeholder = '#3';
@@ -158,6 +174,9 @@ class qtype_formulas_test_helper extends question_test_helper {
         $p2->answermark = 2;
         $p2->answer = '7';
         $p2->subqtext = 'This is third part.';
+        $p2->partcorrectfb = 'Part 3 correct feedback.';
+        $p2->partpartiallycorrectfb = 'Part 3 partially correct feedback.';
+        $p2->partincorrectfb = 'Part 3 incorrect feedback.';
         $q->parts[2] = $p2;
 
         return $q;
@@ -178,6 +197,7 @@ class qtype_formulas_test_helper extends question_test_helper {
         $form->penalty = 0.3;
         $form->varsrandom = '';
         $form->varsglobal = '';
+        $form->answernumbering = 'abc';
         $form->answer = array('5', '6', '7');
         $form->answermark = array('2', '2', '2');
         $form->numbox = array(1, 1, 1);
@@ -201,6 +221,21 @@ class qtype_formulas_test_helper extends question_test_helper {
             array('text' => '', 'format' => FORMAT_HTML),
             array('text' => '', 'format' => FORMAT_HTML),
             array('text' => '', 'format' => FORMAT_HTML),
+        );
+        $form->partcorrectfb = array(
+            array('text' => 'Part 1 correct feedback.', 'format' => FORMAT_HTML),
+            array('text' => 'Part 2 correct feedback.', 'format' => FORMAT_HTML),
+            array('text' => 'Part 3 correct feedback.', 'format' => FORMAT_HTML),
+        );
+        $form->partpartiallycorrectfb = array(
+            array('text' => 'Part 1 partially correct feedback.', 'format' => FORMAT_HTML),
+            array('text' => 'Part 2 partially correct feedback.', 'format' => FORMAT_HTML),
+            array('text' => 'Part 3 partially correct feedback.', 'format' => FORMAT_HTML),
+        );
+        $form->partincorrectfb = array(
+            array('text' => 'Part 1 incorrect feedback.', 'format' => FORMAT_HTML),
+            array('text' => 'Part 2 incorrect feedback.', 'format' => FORMAT_HTML),
+            array('text' => 'Part 3 incorrect feedback.', 'format' => FORMAT_HTML),
         );
         $form->correctfeedback = array('text' => '', 'format' => FORMAT_HTML);
         $form->partiallycorrectfeedback = array('text' => '', 'format' => FORMAT_HTML);
@@ -286,6 +321,7 @@ class qtype_formulas_test_helper extends question_test_helper {
         $form->penalty = 0.3;
         $form->varsrandom = '';
         $form->varsglobal = 'v = 40;dt = 3;s = v*dt;';
+        $form->answernumbering = 'abc';
         $form->answer = array('v', 'v', 'v', 'v');
         $form->answermark = array('2', '2', '2', '2');
         $form->numbox = array(1, 1, 1, 1);
@@ -307,6 +343,24 @@ class qtype_formulas_test_helper extends question_test_helper {
             array('text' => '<p>If a car travel {s} m in {dt} s, what is the speed of the car? speed = {_0}{_u}</p>', 'format' => FORMAT_HTML),
         );
         $form->feedback = array(
+            array('text' => '', 'format' => FORMAT_HTML),
+            array('text' => '', 'format' => FORMAT_HTML),
+            array('text' => '', 'format' => FORMAT_HTML),
+            array('text' => '', 'format' => FORMAT_HTML),
+        );
+        $form->partcorrectfb = array(
+            array('text' => '', 'format' => FORMAT_HTML),
+            array('text' => '', 'format' => FORMAT_HTML),
+            array('text' => '', 'format' => FORMAT_HTML),
+            array('text' => '', 'format' => FORMAT_HTML),
+        );
+        $form->partpartiallycorrectfb = array(
+            array('text' => '', 'format' => FORMAT_HTML),
+            array('text' => '', 'format' => FORMAT_HTML),
+            array('text' => '', 'format' => FORMAT_HTML),
+            array('text' => '', 'format' => FORMAT_HTML),
+        );
+        $form->partincorrectfb = array(
             array('text' => '', 'format' => FORMAT_HTML),
             array('text' => '', 'format' => FORMAT_HTML),
             array('text' => '', 'format' => FORMAT_HTML),
@@ -420,6 +474,7 @@ class qtype_formulas_test_helper extends question_test_helper {
         $form->penalty = 0.3;
         $form->varsrandom = 'v = {20:100:10}; dt = {2:6};';
         $form->varsglobal = 's = v*dt;';
+        $form->answernumbering = 'abc';
         $form->answer = array('v', 'v', 'v', 'v');
         $form->answermark = array('2', '2', '2', '2');
         $form->numbox = array(1, 1, 1, 1);
@@ -446,6 +501,24 @@ class qtype_formulas_test_helper extends question_test_helper {
             array('text' => '', 'format' => FORMAT_HTML),
             array('text' => '', 'format' => FORMAT_HTML),
         );
+        $form->partcorrectfb = array(
+            array('text' => '', 'format' => FORMAT_HTML),
+            array('text' => '', 'format' => FORMAT_HTML),
+            array('text' => '', 'format' => FORMAT_HTML),
+            array('text' => '', 'format' => FORMAT_HTML),
+        );
+        $form->partpartiallycorrectfb = array(
+            array('text' => '', 'format' => FORMAT_HTML),
+            array('text' => '', 'format' => FORMAT_HTML),
+            array('text' => '', 'format' => FORMAT_HTML),
+            array('text' => '', 'format' => FORMAT_HTML),
+        );
+        $form->partincorrectfb = array(
+            array('text' => '', 'format' => FORMAT_HTML),
+            array('text' => '', 'format' => FORMAT_HTML),
+            array('text' => '', 'format' => FORMAT_HTML),
+            array('text' => '', 'format' => FORMAT_HTML),
+        );
         $form->correctfeedback = array('text' => '', 'format' => FORMAT_HTML);
         $form->partiallycorrectfeedback = array('text' => '', 'format' => FORMAT_HTML);
         $form->shownumcorrect = '0';
@@ -458,5 +531,29 @@ class qtype_formulas_test_helper extends question_test_helper {
         $form->hintclearwrong = array('0', '0');
         $form->hintshownumcorrect = array('0', '0');
         return $form;
+    }
+
+    /**
+     * @return qtype_formulas_question with a multichoice answer.
+     */
+    public static function make_formulas_question_test5() {
+        $q = self::make_a_formulas_question();
+
+        $q->name = 'test-5';
+        $q->questiontext = '<p>This question has a multichoice answer.</p>';
+        $q->varsglobal = 'mychoices=["Dog","Cat","Bird","Fish"];';
+        $q->penalty = 0.3; // Non-zero and not the default.
+        $q->textfragments = array(0 => '<p>This question has a multichoice answer.</p>',
+                                  1 => '');
+        $q->numpart = 1;
+        $q->defaultmark = 2;
+        $p = self::make_a_formulas_part();
+        $p->id = 14;
+        $p->answermark = 1;
+        $p->answer = '1';
+        $p->subqtext = 'This is first part. The menu {_0:mychoices:MCE}.';
+        $q->parts[0] = $p;
+
+        return $q;
     }
 }

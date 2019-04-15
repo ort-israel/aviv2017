@@ -89,7 +89,8 @@ class qtype_formulas_attempt_upgrader_test extends question_attempt_upgrader_tes
             'category' => '3',
             'parent' => '0',
             'name' => '1.4: Placeholder of answer and unit',
-            'questiontext' => '<i><b> Placeholder of answer  and unit  </b></i>: This question shows different display methods of the answer and unit box.
+            'questiontext' => '<i><b> Placeholder of answer  and unit  </b>'
+                    . '</i>: This question shows different display methods of the answer and unit box.
  <br>
  <br>',
             'questiontextformat' => '1',
@@ -302,7 +303,9 @@ class qtype_formulas_attempt_upgrader_test extends question_attempt_upgrader_tes
             'minfraction' => 0,
             'maxfraction' => 1,
             'flagged' => 0,
-            'questionsummary' => '_ PLACEHOLDER OF ANSWER AND UNIT _: This question shows different display methods of the answer and unit box.If a car travel {s} m in {dt} s, what is the speed of the car?
+            'questionsummary' => '_ PLACEHOLDER OF ANSWER AND UNIT _:'
+                    . 'This question shows different display methods of the answer and unit box.'
+                    . 'If a car travel {s} m in {dt} s, what is the speed of the car?
             {_0}{_u}If a car travel {s} m in {dt} s, what is the speed of the car?
             {_0} {_u}If a car travel {s} m in {dt} s, what is the speed of the car?
             {_0} m/sIf a car travel {s} m in {dt} s, what is the speed of the car?

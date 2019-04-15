@@ -603,9 +603,9 @@ class qtype_formulas_variables_test extends advanced_testcase {
             array(false, 10, 'sin(3)'),
             array(false, 10, '3+exp(4)'),
 
-            // Numerical formula is basically a subset of algebraic formula, so test below together
+            // Numerical formula is basically a subset of algebraic formula, so test below together.
             array(true, 100, '3.1e-10', 3.1e-10),
-            array(true, 100, '- 3', -3), // it is valid for this type
+            array(true, 100, '- 3', -3), // It is valid for this type.
             array(false, 100, '3 e10'),
             array(false, 100, '3e 10'),
             array(false, 100, '3e8e8'),
@@ -731,10 +731,8 @@ class qtype_formulas_variables_test extends advanced_testcase {
         $result = $qv->compute_algebraic_formula_difference($v, array('x', '1+x+y+3', '(1+sqrt(x))^2'), array('0', '2+x+y+2', '1+x'), 100);
         $this->assertEquals($result[1], 0);
         $this->assertEquals($result[2], INF);
-        // var_dump($result);
         $result = $qv->compute_algebraic_formula_difference($v, array('x', '(x+y)^2'), array('0', 'x^2+2*x*y+y^2'), 100);
         $this->assertEquals($result[1], 0);
-        // var_dump($result);
     }
 
     /**
@@ -810,5 +808,23 @@ class qtype_formulas_variables_test extends advanced_testcase {
             $this->assertEquals($testcase[1][0], $result[0]);
             $this->assertEquals($testcase[1][1], $result[1]);
         }
+    }
+
+    /**
+     * Test 8: Sigfig function.
+     */
+    public function test_sigfig() {
+        $number = .012345;
+        $this->assertEquals(sigfig($number, 3), '.0123');
+        $this->assertEquals(sigfig($number, 4), '.01235');
+        $this->assertEquals(sigfig($number, 6), '.0123450');
+        $number = 123.45;
+        $this->assertEquals(sigfig($number, 2), '120');
+        $this->assertEquals(sigfig($number, 4), '123.5');
+        $this->assertEquals(sigfig($number, 6), '123.450');
+        $number = -123.45;
+        $this->assertEquals(sigfig($number, 2), '-120');
+        $this->assertEquals(sigfig($number, 4), '-123.5');
+        $this->assertEquals(sigfig($number, 6), '-123.450');
     }
 }

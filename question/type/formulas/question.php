@@ -228,8 +228,8 @@ class qtype_formulas_question extends question_graded_automatically_with_countba
     }
 
      /**
-     * Return the number of parts of the question
-     */
+      * Return the number of parts of the question
+      */
     public function get_number_of_parts() {
         return $this->numpart;
     }
@@ -506,6 +506,43 @@ class qtype_formulas_question extends question_graded_automatically_with_countba
         return $responses;
     }
 
+    // Compute the correct response for the given question part.
+    // Formatted for display.
+    public function correct_response_formatted($part) {
+        $localvars = $this->get_local_variables($part);
+        $tmp = $this->get_correct_responses_individually($part);
+        // Get all part's answer boxes.
+        $boxes = $part->part_answer_boxes($part->subqtext);
+
+        // Find all multichoice coordinates in the part.
+        foreach ($boxes as $key => $box) {
+            if (strlen($box->options) != 0) { // It's a multichoice coordinate.
+                // Calculate all the choices.
+                try {
+                    // Remove the : at the beginning of options and evaluate it.
+                    $stexts = $this->qv->evaluate_general_expression($localvars, substr($box->options, 1));
+                } catch (Exception $e) {
+                    // The $stexts variable will be null if evaluation fails.
+                    $stexts = null;
+                }
+                if ($stexts != null) {
+                    // Replace index with calculated choice.
+                     $tmp["{$part->partindex}". $key] = $stexts->value[$tmp["{$part->partindex}". $key]];
+                }
+            }
+
+        }
+        if ($part->part_has_combined_unit_field()) {
+            $correctanswer = implode(' ', $tmp);
+        } else {
+            if (!$part->part_has_separate_unit_field()) {
+                unset($tmp["{$part->partindex}_" . (count($tmp) - 1)]);
+            }
+            $correctanswer = implode(', ', $tmp);
+        }
+        return $correctanswer;
+    }
+
     // Add the set of special variables that may be useful to check the correctness of the user input.
     public function add_special_correctness_variables(&$vars, $_a, $_r, $diff, $is_number) {
         // Calculate other special variables.
@@ -757,7 +794,8 @@ class qtype_formulas_question extends question_graded_automatically_with_countba
 
     public function check_file_access($qa, $options, $component, $filearea, $args, $forcedownload) {
         $itemid = reset($args);
-        if ($component == 'qtype_formulas' && ($filearea == 'answersubqtext' || $filearea == 'answerfeedback')) {
+        if ($component == 'qtype_formulas' && ($filearea == 'answersubqtext' || $filearea == 'answerfeedback'
+                || $filearea == 'partcorrectfb' || $filearea == 'partpartiallycorrectfb' || $filearea == 'partincorrectfb')) {
             // Check if answer id exists.
             for ($i = 0; $i < $this->numpart; $i++) {
                 if ($this->parts[$i]->id == $itemid) {
@@ -767,7 +805,7 @@ class qtype_formulas_question extends question_graded_automatically_with_countba
             return false;
         } else if ($component == 'question' && in_array($filearea,
                 array('correctfeedback', 'partiallycorrectfeedback', 'incorrectfeedback'))) {
-            return $this->check_combined_feedback_file_access($qa, $options, $filearea);
+            return $this->check_combined_feedback_file_access($qa, $options, $filearea, $args);
         } else if ($component == 'question' && $filearea == 'hint') {
             return $this->check_hint_file_access($qa, $options, $args);
 
@@ -841,12 +879,23 @@ class qtype_formulas_part {
     public $subqtext;
     public $subqtextformat;
     public $feedback;
+    public $feedbackformat;
+    public $partcorrectfb;
+    public $partcorrectfbformat;
+    public $partpartiallycorrectfb;
+    public $partpartiallycorrectfbformat;
+    public $partincorrectfb;
+    public $partincorrectfbformat;
 
 
     /**
      * Constructor.
      */
     public function __construct() {
+    }
+
+    public function part_has_unit() {
+        return strlen($this->postunit) != 0;
     }
 
     public function part_has_separate_unit_field() {
@@ -892,16 +941,35 @@ class qtype_formulas_part {
         }
         return $expected;
     }
+    /**
+     * Parse a string with placeholders and return
+     * the corresponding array of answer boxes.
+     * Each box is an object with 3 strings properties
+     * pattern, options and stype.
+     * pattern is the placeholder as _0, _1, ..., _u
+     * options is empty except for multichoice answers
+     * where it is the name of a variable containing the list of choices
+     * stype is empty for radio buttons or :MCE for drop down
+     * select menu.
+     *
+     * @param $text string to be parsed.
+     * @return array.
+     */
 
-    public function part_has_multichoice_coordinate() {
+    public function part_answer_boxes($text) {
         $pattern = '\{(_[0-9u][0-9]*)(:[^{}:]+)?(:[^{}:]+)?\}';
-        preg_match_all('/'.$pattern.'/', $this->subqtext, $matches);
+        preg_match_all('/'.$pattern.'/', $text, $matches);
         $boxes = array();
         foreach ($matches[1] as $j => $match) {
             if (!array_key_exists($match, $boxes)) {  // If there is duplication, it will be skipped.
                 $boxes[$match] = (object)array('pattern' => $matches[0][$j], 'options' => $matches[2][$j], 'stype' => $matches[3][$j]);
             }
         }
+        return $boxes;
+    }
+
+    public function part_has_multichoice_coordinate() {
+        $boxes = $this->part_answer_boxes($this->subqtext);
         foreach ($boxes as $box) {
             if (strlen($box->options) != 0) { // Multichoice.
                 return true;

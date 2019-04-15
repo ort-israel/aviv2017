@@ -245,13 +245,131 @@ function xmldb_qtype_formulas_upgrade($oldversion=0) {
         // Formulas savepoint reached.
         upgrade_plugin_savepoint(true, 2012071407, 'qtype', 'formulas');
     }
-    // Moodle v2.2.0 release upgrade line.
-    // Put any upgrade step following this.
 
-    // Moodle v2.3.0 release upgrade line.
-    // Put any upgrade step following this.
+    if ($oldversion < 2018042800) {
+        // Add combined feedback fields for each question part.
+        $table = new xmldb_table('qtype_formulas_answers');
 
-    // Moodle v2.4.0 release upgrade line.
-    // Put any upgrade step following this.
+        // Define field partcorrectfb to be added to qtype_formulas_answers.
+        $field = new xmldb_field('partcorrectfb', XMLDB_TYPE_TEXT, 'small', null,
+                null, null, null, 'feedbackformat');
+
+        // Conditionally launch add field partcorrectfb.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+
+            // Now fill it with ''.
+            $DB->set_field('qtype_formulas_answers', 'partcorrectfb', '');
+
+            // Now add the not null constraint.
+            $field = new xmldb_field('partcorrectfb', XMLDB_TYPE_TEXT, 'small', null,
+                    XMLDB_NOTNULL, null, null, 'feedbackformat');
+            $dbman->change_field_notnull($table, $field);
+        }
+
+        // Define field partcorrectfbformat to be added to qtype_formulas_answers.
+        $field = new xmldb_field('partcorrectfbformat', XMLDB_TYPE_INTEGER, '2', null,
+                XMLDB_NOTNULL, null, '0', 'partcorrectfb');
+
+        // Conditionally launch add field partcorrectfbformat.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+            // Now fill it with FORMAT_HTML.
+            $DB->set_field('qtype_formulas_answers', 'partcorrectfbformat', FORMAT_HTML);
+
+        }
+
+        // Define field partpartiallycorrectfb to be added to qtype_formulas_answers.
+        $field = new xmldb_field('partpartiallycorrectfb', XMLDB_TYPE_TEXT, 'small', null,
+                null, null, null, 'partcorrectfbformat');
+
+        // Conditionally launch add field partpartiallycorrectfb.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+
+            // Now fill it with ''.
+            $DB->set_field('qtype_formulas_answers', 'partpartiallycorrectfb', '');
+
+            // Now add the not null constraint.
+            $field = new xmldb_field('partpartiallycorrectfb', XMLDB_TYPE_TEXT, 'small', null,
+                    XMLDB_NOTNULL, null, null, 'partcorrectfbformat');
+            $dbman->change_field_notnull($table, $field);
+        }
+
+        // Define field partpartiallycorrectfbformat to be added to qtype_formulas_answers.
+        $field = new xmldb_field('partpartiallycorrectfbformat', XMLDB_TYPE_INTEGER, '2', null,
+                XMLDB_NOTNULL, null, '0', 'partpartiallycorrectfb');
+
+        // Conditionally launch add field partpartiallycorrectfbformat.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+            // Now fill it with FORMAT_HTML.
+            $DB->set_field('qtype_formulas_answers', 'partpartiallycorrectfbformat', FORMAT_HTML);
+        }
+
+        // Define field partincorrectfb to be added to qtype_formulas_answers.
+        $field = new xmldb_field('partincorrectfb', XMLDB_TYPE_TEXT, 'small', null,
+                null, null, null, 'partpartiallycorrectfbformat');
+
+        // Conditionally launch add field partincorrectfb.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+
+            // Now fill it with ''.
+            $DB->set_field('qtype_formulas_answers', 'partincorrectfb', '');
+
+            // Now add the not null constraint.
+            $field = new xmldb_field('partincorrectfb', XMLDB_TYPE_TEXT, 'small', null,
+                    XMLDB_NOTNULL, null, null, 'partpartiallycorrectfbformat');
+            $dbman->change_field_notnull($table, $field);
+        }
+
+        // Define field partincorrectfbformat to be added to qtype_formulas_answers.
+        $field = new xmldb_field('partincorrectfbformat', XMLDB_TYPE_INTEGER, '2', null,
+                XMLDB_NOTNULL, null, '0', 'partincorrectfb');
+
+        // Conditionally launch add field partincorrectfbformat.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+            // Now fill it with FORMAT_HTML.
+            $DB->set_field('qtype_formulas_answers', 'partincorrectfbformat', FORMAT_HTML);
+        }
+
+        // Formulas savepoint reached.
+        upgrade_plugin_savepoint(true, 2018042800, 'qtype', 'formulas');
+    }
+    if ($oldversion < 2018042801) {
+        $sql = "UPDATE {qtype_formulas_answers} SET partincorrectfb = feedback";
+        $DB->execute($sql);
+        $DB->set_field('qtype_formulas_answers', 'feedback', '');
+        upgrade_plugin_savepoint(true, 2018042801, 'qtype', 'formulas');
+    }
+
+    if ($oldversion < 2018060400) {
+        // Define field answernumbering to be added to qtype_formulas_options.
+        $table = new xmldb_table('qtype_formulas_options');
+        $field = new xmldb_field('answernumbering', XMLDB_TYPE_CHAR, '10', null, XMLDB_NOTNULL, null, 'none', 'shownumcorrect');
+
+        // Conditionally launch add field answernumbering.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+            // Now fill it with 'none' for compatibility with existing questions'.
+            $DB->set_field('qtype_formulas_options', 'answernumbering', 'none');
+        }
+
+        // Formulas savepoint reached.
+        upgrade_plugin_savepoint(true, 2018060400, 'qtype', 'formulas');
+    }
+
+    if ($oldversion < 2018080300) {
+        // Import from xml code was wrong for answernumbering,
+        // There was also a typo in the upgrade code.
+        // Fix all broken questions in database.
+        $DB->set_field('qtype_formulas_options', 'answernumbering', 'none', array('answernumbering' => ''));
+
+
+        // Formulas savepoint reached.
+        upgrade_plugin_savepoint(true, 2018080300, 'qtype', 'formulas');
+    }
     return true;
 }
