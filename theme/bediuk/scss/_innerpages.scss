@@ -22,8 +22,12 @@ body:not(.pagelayout-frontpage) #page-wrapper {
 }
 
 div#learningcontent {
-  margin-top: 34rem;
+  margin-top: 31.2rem;
   background-color: $transparent;
+}
+
+#page-header .logo{
+  max-width: 30rem;
 }
 
 /* purple headline*/
