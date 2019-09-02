@@ -15,19 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 require_once("../../config.php");
-require_once($CFG->dirroot.'/mod/questionnaire/questionnaire.class.php');
+require_once($CFG->dirroot . '/mod/questionnaire/questionnaire.class.php');
 
-$id     = optional_param('id', 0, PARAM_INT);
-$sid    = optional_param('sid', 0, PARAM_INT);
+$id = optional_param('id', 0, PARAM_INT);
+$sid = optional_param('sid', 0, PARAM_INT);
 
 if ($id) {
-    if (! $cm = get_coursemodule_from_id('questionnaire', $id)) {
+    if (!$cm = get_coursemodule_from_id('questionnaire', $id)) {
         print_error('invalidcoursemodule');
     }
-    if (! $course = $DB->get_record("course", array("id" => $cm->course))) {
+    if (!$course = $DB->get_record("course", array("id" => $cm->course))) {
         print_error('coursemisconf');
     }
-    if (! $questionnaire = $DB->get_record("questionnaire", array("id" => $cm->instance))) {
+    if (!$questionnaire = $DB->get_record("questionnaire", array("id" => $cm->instance))) {
         print_error('invalidcoursemodule');
     }
 }
@@ -46,7 +46,7 @@ if ($sid) {
 $questionnaire = new questionnaire(0, $questionnaire, $course, $cm);
 $questions = $questionnaire->questions;
 $sid = $questionnaire->survey->id;
-$viewform = data_submitted($CFG->wwwroot."/mod/questionnaire/fbsections.php");
+$viewform = data_submitted($CFG->wwwroot . "/mod/questionnaire/fbsections.php");
 $feedbacksections = $questionnaire->survey->feedbacksections;
 $errormsg = '';
 
@@ -90,7 +90,7 @@ if (data_submitted()) {
         $sectionsnotset = '';
         for ($section = 1; $section <= $feedbacksections; $section++) {
             if (!isset($scorecalculation[$section])) {
-                $sectionsnotset .= $section.'&nbsp;';
+                $sectionsnotset .= $section . '&nbsp;';
             }
         }
         $errormsg = get_string('sectionsnotset', 'questionnaire', $sectionsnotset);
@@ -116,7 +116,7 @@ if (data_submitted()) {
         // must also insert section heading!
         for ($section = 1; $section <= $feedbacksections; $section++) {
             if ($existsection = $DB->get_record('questionnaire_fb_sections',
-                array('survey_id' => $sid, 'section' => $section), '*', IGNORE_MULTIPLE) ) {
+                array('survey_id' => $sid, 'section' => $section), '*', IGNORE_MULTIPLE)) {
                 $DB->set_field('questionnaire_fb_sections', 'scorecalculation', serialize($scorecalculation[$section]),
                     array('survey_id' => $sid, 'section' => $section));
             } else {
@@ -128,11 +128,15 @@ if (data_submitted()) {
             }
         }
 
+
         $currentsection = 1;
         $SESSION->questionnaire->currentfbsection = 1;
-        redirect ($CFG->wwwroot.'/mod/questionnaire/fbsettings.php?id='.
-            $questionnaire->cm->id.'&currentsection='.$currentsection, '', 0);
+        redirect($CFG->wwwroot . '/mod/questionnaire/fbsettings.php?id=' .
+            $questionnaire->cm->id . '&currentsection=' . $currentsection, '', 0);
     }
+}
+if (!$questionnaire->capabilities->editquestions) {
+    print_error('nopermissions', 'error', '', 'mod:questionnaire:editquestions');
 }
 
 // If no data from the form, extract any existing score weights from the database, and note if we are using sections beyond the
@@ -203,7 +207,7 @@ foreach ($questionnaire->questions as $question) {
     // Questions to be included in feedback sections must be required, have a name
     // and must not be child of a parent question.
     // Radio buttons need different names.
-    if ($qtype != QUESPAGEBREAK ) { // && $qtype != QUESSECTIONTEXT ) {
+    if ($qtype != QUESPAGEBREAK) { // && $qtype != QUESSECTIONTEXT ) {
         $n++;
     }
 
@@ -226,7 +230,7 @@ foreach ($questionnaire->questions as $question) {
 
         if (!$cannotuse) {
             if ($question->valid_feedback()) {
-                $questionnaire->page->add_to_page('formarea', '<div id="group_'.$qid.'">');
+                $questionnaire->page->add_to_page('formarea', '<div id="group_' . $qid . '">');
                 $emptyisglobalfeedback = ($questionnaire->survey->feedbacksections == 1) && empty($questionsinsections);
                 $questionnaire->page->add_to_page('formarea', '<div style="margin-bottom:5px;">[' . $qname . ']</div>');
                 for ($i = 0; $i < $feedbacksections; $i++) {
@@ -237,12 +241,12 @@ foreach ($questionnaire->questions as $question) {
                         // onclick: Section > 0 selected? -> uncheck section 0.
                         $output .= '<div class="' . $bg . '"><input type="checkbox" style="width: 60px;" name="' . $n . '_' . $i . '"' .
                             ' id="' . $qid . '_' . $i . '" value="' . $i . '_' . $qid . '" ' .
-                            'onclick="document.getElementsByName(\''.$n.'_0\')[0].checked=false;"';
+                            'onclick="document.getElementsByName(\'' . $n . '_0\')[0].checked=false;"';
                     } else {
                         // Section 0
                         // onclick: uncheck_boxes see below.
                         $output .= '<div class="' . $bg . '">' .
-                            '<input type="checkbox" style="width: 60px;" onclick="uncheck_boxes(\''.$n.'\');" name="' .
+                            '<input type="checkbox" style="width: 60px;" onclick="uncheck_boxes(\'' . $n . '\');" name="' .
                             $n . '_' . $i . '"' . ' id="' . $i . '" value="' . $i . '"';
                     }
 
@@ -272,7 +276,7 @@ foreach ($questionnaire->questions as $question) {
                         if (isset($scorecalculationweights[$qid][$i]) && $scorecalculationweights[$qid][$i]) {
                             $output .= '<input type="number" style="width: 80px;" id="weight' . $qname . "_" . $i . '" ' .
                                 'name="weight|' . $qid . '|' . $i . '" min="0.0" max="1.0" step="0.01" ' .
-                                'value="'. $scorecalculationweights[$qid][$i] .'">';
+                                'value="' . $scorecalculationweights[$qid][$i] . '">';
                         } else {
                             $output .= '<input type="number" style="width: 80px;" id="weight' . $qname . "_" . $i . '" ' .
                                 'name="weight|' . $qid . '|' . $i . '" min="0.0" max="1.0" step="0.01" value="0">';
@@ -319,9 +323,9 @@ $strfunc .= "\n</script>\n";
 $questionnaire->page->add_to_page('formarea', $strfunc);
 
 // Submit/Cancel buttons.
-$url = $CFG->wwwroot.'/mod/questionnaire/view.php?id='.$cm->id;
+$url = $CFG->wwwroot . '/mod/questionnaire/view.php?id=' . $cm->id;
 $questionnaire->page->add_to_page('formarea', '<div><input type="submit" name="savesettings" value="' .
-    get_string('feedbackeditmessages', 'questionnaire').'" class="btn btn-primary" /></div>');
+    get_string('feedbackeditmessages', 'questionnaire') . '" class="btn btn-primary" /></div>');
 $questionnaire->page->add_to_page('formarea', $questionnaire->renderer->box_end());
 echo $questionnaire->renderer->header();
 echo $questionnaire->renderer->render($questionnaire->page);
