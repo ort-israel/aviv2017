@@ -89,6 +89,7 @@ EDIT MODE */
 .dropdown-toggle {
   .icon {
     color: inherit;
+
     &:after {
       border-top-color: currentColor;
     }
@@ -99,6 +100,7 @@ EDIT MODE */
   &:hover {
     .icon {
       color: inherit;
+
       &:after {
         border-top-color: currentColor;
       }
@@ -159,6 +161,7 @@ body:not(.editing) .block_myoverview .card-title,
 
     i {
       color: inherit;
+
       &:before {
         color: inherit;
       }
@@ -178,6 +181,12 @@ body:not(.editing) .block_myoverview .card-title,
 /*Rachel 28.1.2018 - until Lea will have time to check why it happened*/
 .row {
   background-color: transparent;
+}
+
+/* override from boost. Spoils block on My Page */
+.block_lifeneighbor a:first-of-type > .icon,
+.block_lifeneighbor span:first-of-type > .icon {
+  margin-left: 0;
 }
 
 /* LOGIN PAGE */
