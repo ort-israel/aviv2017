@@ -18,7 +18,7 @@
 }
 
 .dir-rtl.h5p-content .h5p-question-next,
-.dir-rtl.h5p-content .h5p-question .h5p-question-prev{
+.dir-rtl.h5p-content .h5p-question .h5p-question-prev {
     float: left;
 }
 
@@ -40,4 +40,16 @@
 .dir-rtl.h5p-content .h5p-joubelui-button::before {
     padding-right: 0;
     padding-left: 0.5em;
+}
+
+/* The embed pop up */
+.dir-rtl .h5p-popup-dialog .h5p-close:after {
+    right: auto;
+    left: 0;
+}
+
+.dir-rtl .h5p-embed-dialog .h5p-inner {
+    left: 0;
+    right: 50%;
+    margin: 0 -150px 0 0;
 }
