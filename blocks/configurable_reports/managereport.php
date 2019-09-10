@@ -207,7 +207,7 @@ if ($reports) {
     echo $OUTPUT->heading(get_string('noreportsavailable', 'block_configurable_reports'));
 }
 
-echo $OUTPUT->heading('<div class="addbutton"><a class="linkbutton" href="'.
+echo $OUTPUT->heading('<div class="addbutton"><a class="btn btn-primary" href="'.
     $CFG->wwwroot.'/blocks/configurable_reports/editreport.php?courseid='.$course->id.'">'.
     (get_string('addreport', 'block_configurable_reports')).'</a></div>');
 
