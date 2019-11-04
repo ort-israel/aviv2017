@@ -16,10 +16,9 @@
 
 namespace theme_aviv2018\output;
 
-use html_writer;
-use custom_menu;
-use moodle_url;
 use context_course;
+use html_writer;
+use moodle_url;
 use theme_config;
 
 defined('MOODLE_INTERNAL') || die;
@@ -254,7 +253,7 @@ class core_renderer extends \theme_fordson\output\core_renderer {
 
         $editcog = html_writer::div($this->context_header_settings_menu(), 'pull-xs-right context-header-settings-menu ');
         /* Tsofiya: add this if to remove editcog div if it is empty */
-        if(empty($this->context_header_settings_menu())){
+        if (empty($this->context_header_settings_menu())) {
             $haseditcog = false;
         };
         $thiscourse = $this->thiscourse_menu();
@@ -527,15 +526,29 @@ class core_renderer extends \theme_fordson\output\core_renderer {
      */
     public function fp_statistics() {
         global $DB;
+        define("ARCHIVE_CATEGORY", 166);
+        $select = 'SELECT COUNT(*) FROM {course} AS mc ';
+        $inner_join = 'INNER JOIN {course_categories} AS mcc ON mc.category = mcc.id ';
+        /* There are a few criteria for actibve courses:
+        1. They are visible
+        2. Their category is visible
+        3. They are not directly in, or in a descendent categroy of, the ARCHIVE category - id 166
+        4. Their end date is not specified (i.e., is 0)
+        5. Their end date is later than today */
+        $where = 'WHERE mc.visible=1 and mcc.visible=1 '; /* criteria 1+2 */
+        $where .= sprintf("AND mcc.path NOT LIKE '%%/%1\$s/%%' AND mcc.path not LIKE '%%/%1\$s'", ARCHIVE_CATEGORY); /* criteria 3 */
+        $where .= 'AND (mc.enddate = 0 OR mc.enddate >= UNIX_TIMESTAMP(NOW())) '; /* criteria 5 */
+        $sql = $select . $inner_join . $where;
+
         /* Get Cours Count*/
-        $coursecount = $DB->count_records('course'); // Get course count
+        $coursecount = $DB->get_field_sql($sql); // Get course count of courses not in archive category
 
         /* Get teacher count - editingteacher + teacher */
         $teacherrole = $DB->get_records_list('role', 'shortname', array('editingteacher', 'teacher'), '', 'id');
         $teacherroleids = array_column($teacherrole, 'id');
         // because we want to get the count of 2 kinds of teachers, we create the sql query ourselves
         //list($cnd, $params) = $DB->get_in_or_equal($teacherroleids);
-        $teachercountsql = "SELECT id FROM mdl_role_assignments WHERE roleid in (" . implode($teacherroleids, ',') . ")";
+        $teachercountsql = "SELECT id FROM {role_assignments} WHERE roleid in (" . implode($teacherroleids, ',') . ")";
         $teachercount = isset($teacherrole) ? count($DB->get_records_sql($teachercountsql, $teacherroleids)) : '';
 
         /* Get student count - student */
@@ -642,6 +655,7 @@ class core_renderer extends \theme_fordson\output\core_renderer {
         $setting = $theme->settings->facebook;
         return $setting != '' ? $setting : '';
     }
+
     public function footer_siteregulation_url() {
         $theme = theme_config::load('aviv2018');
         $setting = $theme->settings->siteregulation;
