@@ -2916,8 +2916,18 @@ class global_navigation extends navigation_node {
             $CFG->navsortmycoursessort = 'sortorder';
         }
         // Append the chosen sortorder.
-        $sortorder = $sortorder . ',' . $CFG->navsortmycoursessort . ' ASC';
+        // Lea 2019/10 - change idnumber to id, because is more intuitive
+        if ('idnumber' === $CFG->navsortmycoursessort) {
+            $CFG->navsortmycoursessort = 'id';
+        }
+        $sortorder = $sortorder . ',' . $CFG->navsortmycoursessort;
+        // Lea 2019/10 - if it's id, we want the recent courses on top
+        $sortorder .= $CFG->navsortmycoursessort == 'id' ? ' DESC' : ' ASC';
         $courses = enrol_get_my_courses('*', $sortorder);
+        // Lea 2019/10 - after getting the course list, if we changed the sortordet to id, return the sort order to idnumber
+        if ($CFG->navsortmycoursessort == 'id') {
+            $CFG->navsortmycoursessort = 'idnumber';
+        }
         $flatnavcourses = [];
 
         // Go through the courses and see which ones we want to display in the flatnav.
