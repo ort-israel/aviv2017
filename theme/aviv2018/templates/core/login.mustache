@@ -163,17 +163,20 @@
                             {{#str}} cookiesenabled {{/str}}
                             {{{cookieshelpiconformatted}}}
                         </div>
-                        {{#canloginasguest}}
-                            <div class="m-t-2">
-                                <p>{{#str}}someallowguest{{/str}}</p>
-                                <form action="{{loginurl}}" method="post" id="guestlogin">
-                                    <input type="hidden" name="username" value="guest"/>
-                                    <input type="hidden" name="password" value="guest"/>
-                                    <button class="btn btn-secondary btn-block" type="submit">{{#str}}
-                                        loginguest{{/str}}</button>
-                                </form>
-                            </div>
-                        {{/canloginasguest}}
+<!--                        {{!#canloginasguest}}-->
+<!--                            <div class="m-t-2">-->
+<!--                                <p>{{!#str}}someallowguest{{!/str}}</p>-->
+<!--                                <form action="{{!loginurl}}" method="post" id="guestlogin">-->
+<!--                                    <input type="hidden" name="username" value="guest"/>-->
+<!--                                    <input type="hidden" name="password" value="guest"/>-->
+<!--                                    <button class="btn btn-secondary btn-block" type="submit">{{!#str}}-->
+<!--                                        loginguest{{!/str}}</button>-->
+<!--                                </form>-->
+<!--                            </div>-->
+<!--                        {{!/canloginasguest}}-->
+                        <p>{{#str}}someallowsuperguest, theme_aviv2018{{/str}}</p>
+                        <p>{{#str}}forsupportcontact, theme_aviv2018{{/str}}</p>
+
 
                         {{#hasidentityproviders}}
                             <h6 class="m-t-2">{{#str}} potentialidps, auth {{/str}}</h6>

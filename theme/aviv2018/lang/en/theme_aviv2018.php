@@ -249,3 +249,7 @@ $string['copyrighttext'] = 'Copyright © 2016';
 
 // Course page
 $string['about_course'] = 'About the Course';
+
+// Text on login page
+$string['someallowsuperguest'] = 'Some courses allow guest access by clickg the Guset Login button in the course description';
+$string['forsupportcontact'] = 'For support please contact <a href="mailto:MapaSupport@admin.ort.org.il">MapaSupport@admin.ort.org.il</a> or 03-6301381';
