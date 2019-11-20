@@ -11,22 +11,15 @@ class delete_anonymous_users extends \core\task\scheduled_task {
 
     public function execute() {
         global $DB;
-        $users = $DB->get_records_sql('SELECT * FROM {user} WHERE username LIKE \'anonymous_%\'');
-        print_object($users);
-//        if () {
-//            echo "Cool! , no redundant users";
-//        }
+        $users = $DB->get_records_sql('SELECT * FROM {user} WHERE username LIKE \'anonymous_%\' AND HOUR( TIMEDIFF( NOW() , FROM_UNIXTIME( lastaccess ) ) ) >=2  and deleted=0');
+
 
         foreach ($users as $user) {
+            $user->deleted = 1;
+            user_update_user($user, false);
+            // delete_user($user);
             echo "Found username: $user->username , created time = $user->lastaccess <br/>";
         }
 
-        // delete_records
-        $deletedusers = $DB->get_records_sql("DELETE FROM {user} WHERE username LIKE 'anonymous_%' AND HOUR( TIMEDIFF( NOW() , FROM_UNIXTIME( lastaccess ) ) ) >=2 ");
-        echo $deletedusers;
-        // e.k - Please note! php NOW() function and mySQL time are not the same! use the FROM_UNIXTIME() function.
-//        if ( ) {
-//            echo "Cool! , no redundant users";
-//        }
     }
 }

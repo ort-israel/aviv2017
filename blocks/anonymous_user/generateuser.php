@@ -14,7 +14,7 @@ class generate_user {
 // e.k 9.12.2012 - Find out How many Guests are currently inside the system.
 // If more than Allowed --> Do not proceed to the site!
         $maxGuestsAllowed = $CFG->MaxGuests;
-        $numberOfGuests = $DB->count_records_sql('SELECT COUNT(username) FROM `mdl_user` WHERE username LIKE \'anonymous_%\'');
+        $numberOfGuests = $DB->count_records_sql('SELECT COUNT(username) FROM {user} WHERE username LIKE \'anonymous_%\' and deleted=0');
 
         if ($numberOfGuests >= $maxGuestsAllowed) {
             echo "Sorry the Server has reached the maximum limit of guests, please try later .... ";
