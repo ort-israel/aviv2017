@@ -50,11 +50,11 @@ $templatecontext = [
     'regionmainsettingsmenu' => $regionmainsettingsmenu,
     'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu)
 ];
-//$PAGE->requires->jquery();
-//$PAGE->requires->css('/theme/aviv2018/style/select2.min.css');
-//$PAGE->requires->js('/theme/aviv2018/javascript/select2.min.js', true); // Lea 2019/10 - without the "true", an error is thrown in console: "Error: Mismatched anonymous define() module"
-//$PAGE->requires->js('/theme/aviv2018/javascript/applyselect2.js?ver=' . filemtime($CFG->dirroot . '/theme/aviv2018/javascript/applyselect2.js'));
-
+/* Lea 2019/11 - add search functionality to the select element. Used on the question category select in the question bank screen */
+$PAGE->requires->jquery();
+$PAGE->requires->css('/theme/aviv2018/style/select2.min.css');
+$PAGE->requires->js('/theme/aviv2018/javascript/select2.min.js', true); // Lea 2019/10 - without the "true", an error is thrown in console: "Error: Mismatched anonymous define() module"
+$PAGE->requires->js('/theme/aviv2018/javascript/applyselect2.js?ver=' . filemtime($CFG->dirroot . '/theme/aviv2018/javascript/applyselect2.js'));
 $templatecontext['flatnavigation'] = $PAGE->flatnav;
 echo $OUTPUT->render_from_template('theme_aviv2018/columns2', $templatecontext);
 
