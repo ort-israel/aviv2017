@@ -354,54 +354,125 @@ class course_login {
 // Lea 25/08/2014 - Activate the redirect command accroding to if logged in or not
         if (isloggedin()) { // take the user to the section in the course id, accroding to the parameters sent from the refferer
             redirect($CFG->wwwroot . '/course/view.php?id=' . $courseid . '&amp;section=' . $sectionid);// Lea 2015/08 - &amp; needed in order to prevent &sect from becoming §
-        } else { // user isn't logged in, redirect them to regulat HTML login page
-            /* The url is made up of 3 parts:
-            1. The domain name
-            2. The specific site name
-            3. The page on the site */
-
-            // 1. The domain name
-            $course_portal = 'https://mapa-linux-test.ort.org.il/';
-
-            // 2. The specific site name
-            switch ($courseid) {
-                case 28:
-                    $course_portal .= 'brain_login';
-                    break;
-                case 266:
-                    $course_portal .= 'heart_login';
-                    break;
-                case 144:
-                case 145:
-                    $course_portal .= 'madait-login';
-                    break;
-                case 399:
-                    $course_portal .= 'hshmal_login';
-                    break;
-                case 192:
-                    $course_portal .= 'philosophy_login';
-                    break;
-                case 518:
-                    $course_portal .= 'money2016';
-                    break;
-                default:
-                    $course_portal .= 'madait-login';
-                    break;
-            }
-
-            //3. The page on the site
-            switch ($courseid) {
-                case 518:
-                    $course_portal .= '/בחן-את-עצמך';
-                    break;
-                default:
-                    $course_portal .= '/login.html';
-            }
+        } else {
+            /* User isn't logged in, redirect them back to the site they came from.
+             * Differentiate between development and production servers */
+            $course_portal = strpos($CFG->wwwroot, 'campusdev') ? $this->get_redirect_link_development_server($courseid) : get_redirect_link_production_server($courseid);
 
             $redirect_url = $course_portal . '#courseid=' . $courseid . '&amp;section=' . $sectionid; // Lea 2015/08 - &amp; needed in order to prevent &sect from becoming §
 
             redirect($redirect_url);
         }
+    }
+
+    /**
+     * @param $courseid
+     * @return string
+     */
+    protected function get_redirect_link_development_server($courseid) {
+        /* The url is made up of 3 parts:
+                    1. The domain name
+                    2. The specific site name
+                    3. The page on the site */
+
+        // 1. The domain name
+        $course_portal = 'https://mapa-linux-test.ort.org.il/';
+
+        // 2. The specific site name
+        switch ($courseid) {
+            case 28:
+                $course_portal .= 'brain_login';
+                break;
+            case 266:
+                $course_portal .= 'heart_login';
+                break;
+            case 144:
+            case 145:
+                $course_portal .= 'madait-login';
+                break;
+            case 399:
+                $course_portal .= 'hshmal_login';
+                break;
+            case 192:
+                $course_portal .= 'philosophy_login';
+                break;
+            case 518:
+                $course_portal .= 'money2016';
+                break;
+            default:
+                $course_portal .= 'madait-login';
+                break;
+        }
+
+        //3. The page on the site
+        switch ($courseid) {
+            case 518:
+                $course_portal .= '/בחן-את-עצמך';
+                break;
+            default:
+                $course_portal .= '/login.html';
+        }
+        return $course_portal;
+    }
+
+    function get_redirect_link_production_server($courseid) {
+        /* The url is usually only the domain name.
+        In cases where the login is from a WordPress site, we also add the specific page */
+
+        // 1. Initialize the url variable
+        $course_portal = '';
+
+        // 2. The specific site url
+        switch ($courseid) {
+            case 28:
+                $course_portal .= 'https://brain.ort.org.il';
+                break;
+            case 266:
+                $course_portal .= 'https://lev.ort.org.il';
+                break;
+            case 144:
+            case 145:
+                $course_portal .= 'https://bigbrain.ort.org.il';
+                break;
+            case 399:
+                $course_portal .= 'https://electri.ort.org.il';
+                break;
+            case 192:
+                $course_portal .= 'https://philosophy.ort.org.il';
+                break;
+            case 1105:
+            case 1286:
+                $course_portal .= 'https://money.ort.org.il';
+                break;
+            case 1116:
+            case 1269:
+                $course_portal .= 'https://catch-cash.ort.org.il';
+                break;
+            case 1268:
+                $course_portal .= 'https://finteacher.ort.org.il';
+                break;
+            default:
+                $course_portal .= 'https://brain.ort.org.il';
+                break;
+        }
+
+        //3. The page on the site (relevant in WordPress sites. Otherwise the default is /login.html )
+        switch ($courseid) {
+            case 1105:
+            case 1286:
+                $course_portal .= '/בחן-את-עצמך';
+                break;
+            case 1116:
+            case 1269:
+                $course_portal .= '/?page_id=1838';
+                break;
+            case 1268:
+                $course_portal .= '/חדש-mooc-פיננסי-למורים';
+                break;
+            default:
+                $course_portal .= '/login.html';
+        }
+        return $course_portal;
     }
 }
 
