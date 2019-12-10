@@ -357,7 +357,7 @@ class course_login {
         } else {
             /* User isn't logged in, redirect them back to the site they came from.
              * Differentiate between development and production servers */
-            $course_portal = strpos($CFG->wwwroot, 'campusdev') ? $this->get_redirect_link_development_server($courseid) : get_redirect_link_production_server($courseid);
+            $course_portal = strpos($CFG->wwwroot, 'campusdev') ? $this->get_redirect_link_development_server($courseid) : $this->get_redirect_link_production_server($courseid);
 
             $redirect_url = $course_portal . '#courseid=' . $courseid . '&amp;section=' . $sectionid; // Lea 2015/08 - &amp; needed in order to prevent &sect from becoming §
 
