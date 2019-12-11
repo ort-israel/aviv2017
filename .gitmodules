@@ -1,0 +1,6 @@
+[submodule "auth/basic"]
+	path = auth/basic
+	url = https://github.com/catalyst/moodle-auth_basic
+[submodule "admin/tool/crawler"]
+	path = admin/tool/crawler
+	url = https://github.com/central-queensland-uni/moodle-tool_crawler.git
