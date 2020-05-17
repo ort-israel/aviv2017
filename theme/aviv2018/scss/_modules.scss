@@ -24,6 +24,7 @@ Grades
 /* The grades table is too wide and makes horizontal scroll on page. Make the scroll on table */
 .path-grade-report-grader #region-main {
   max-width: 100%;
+
   .gradeparent {
     overflow-x: scroll;
   }
@@ -41,6 +42,7 @@ Grades
   .letter {
     color: $pagination-color;
   }
+
   .letter.active {
     border-color: $pagination-active-border;
     background-color: $pagination-active-bg;
@@ -51,6 +53,7 @@ Grades
 .que {
   .formulation {
     color: $primary-text-color;
+
     select, input {
       &.incorrect {
         color: $state-danger-text;
@@ -62,6 +65,7 @@ Grades
         background-color: $state-success-bg;
       }
     }
+
     .qtext {
       img {
         max-width: 100%;
@@ -85,6 +89,7 @@ Grades
   {
     color: $link-color;
   }
+
   .btn {
     white-space: normal;
   }
@@ -100,6 +105,7 @@ Grades
       width: 28rem;
     }
   }
+
   .col-md-2,
   .col-md-3,
   .col-md-9,
@@ -110,9 +116,10 @@ Grades
 
 /* we would like submit button to get class btn-secondary but it can't so applying the style as is */
 .que .formulation {
-  th, td{
+  th, td {
     border: 1px solid $primary-text-color;
   }
+
   .btn.submit {
     @include submit-button;
   }
@@ -133,6 +140,7 @@ Grades
 /* Question tyoe ddwtos - control the gap width*/
 .que.ddwtos {
   font-size: $font-size-root;
+
   span {
     &.drop,
     &.drag {
@@ -151,10 +159,12 @@ Grades
   .confirmation-buttons {
     text-align: center;
   }
+
   /* the X */
   .yui3-widget-buttons {
     background-color: $brand-primary;
     color: $buttons-text-color;
+
     .closebutton {
       opacity: 1;
       text-shadow: none;
@@ -167,8 +177,24 @@ Grades
 Book
 */
 
-.path-mod-book .atto_bsgrid .row {
-  background-color: $light-gray;
+.path-mod-book {
+  .navtop, .navbottom {
+    background-color: $gray-middle;
+    padding: 1rem 5%;
+    margin-bottom: 1rem;
+
+    &.navtext a.booknext {
+      text-align: left;
+    }
+  }
+
+  .book_content {
+    background-color: $light-gray;
+  }
+
+  .atto_bsgrid .row {
+    background-color: $light-gray;
+  }
 }
 
 /*
@@ -242,16 +268,17 @@ Database
   @include media-breakpoint-up(sm) {
     display: block; /* override boost rules for card-group in this specific case */
   }
+
   li a {
     display: flex; /* so text doesn't wrap under image */
     align-items: baseline;
   }
 }
 
-.block_configurable_reports .card-group{
+.block_configurable_reports .card-group {
   display: initial;
 }
 
-#page-blocks-configurable_reports-viewreport .generaltable th.header{
+#page-blocks-configurable_reports-viewreport .generaltable th.header {
   background-color: transparent;
 }
