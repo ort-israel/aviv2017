@@ -1,0 +1,285 @@
+/*Tsofiya: changes has been done*/
+/*
+Course - category
+*/
+/*category combo select*/
+.categorypicker .form-inline {
+  background-color: $input-background;
+  padding: 1rem 1rem 0;
+  .custom-select {
+    background-color: $transparent;
+    border: 0;
+    /* override boost vertical-align */
+    vertical-align: initial;
+  }
+}
+
+#page-course-index-category .generalbox.info {
+  border: none;
+  font-size: $font-size-base;
+}
+
+/*course search*/
+
+body.pagelayout-coursecategory .card-title.category-name {
+  color: $brand-primary;
+  font-size: 3rem;
+}
+
+#coursesearch {
+  margin-bottom: 3rem;
+  label {
+    vertical-align: middle;
+    vertical-align: -moz-middle-with-baseline;
+    vertical-align: -webkit-baseline-middle;
+  }
+  input[type="text"] {
+    border: 0;
+    background-color: $input-background;
+    padding: 0.8rem 0.8rem 0.9rem 0.8rem;
+    vertical-align: top;
+  }
+  input[type="submit"] {
+    background-image: url([[pix:theme|search]]);
+    border: none;
+    text-indent: -99999px;
+    overflow: hidden;
+    width: 5rem;
+    height: 4.5rem;
+    vertical-align: top;
+  }
+}
+
+/*
+Course - content
+*/
+
+/*back or go up button*/
+.course-content-header {
+  margin: 2rem;
+}
+
+.format-flexsections .header.backto {
+  border: 0;
+}
+
+.dir-rtl.format-flexsections .course-content ul.flexsections li.section,
+.dir-rtl.course-content ul.flexsections li.movehere {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+div.course-content ul.gridicons li.currentselected {
+  background-color: #d8edeb;
+}
+
+/*
+Course - All course details
+*/
+
+.course-about {
+  background-color: $course-about-bg;
+  font-weight: 600;
+  line-height: $line-height-big;
+  padding: 1.5rem;
+  bottom: 2rem;
+  &.row {
+    margin: 0;
+  }
+
+  /*course-about*/
+  .about-title {
+    width: 100%;
+    padding-right: 1.5rem;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .about-title::after {
+    content: "-";
+    border: 1px solid;
+    display: block;
+    width: 1.1rem;
+    height: 1.1rem;
+    font-weight: normal;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 0.2;
+    position: absolute;
+    top: 1rem;
+    right: 99%;
+  }
+  .about-title.hiddencontent::after {
+    content: '+';
+    font-size: 1.4rem;
+    line-height: 0.4;
+  }
+
+  .card {
+    border: none;
+    background-color: transparent;
+  }
+  .courseinfowrapper {
+    padding: 2rem 3rem 3rem;
+  }
+  .metadata {
+    margin: 0;
+    position: relative;
+    .fielddefinition {
+      // this is to prevent line to break into 2 in chrome
+      white-space: nowrap;
+    }
+
+  }
+  .fielddefinition, .fieldvalue {
+    display: inline-block;
+    margin: 0;
+  }
+
+  .metadatacontact {
+    padding: 0 2.5rem 0 0;
+    border-bottom: 1px solid;
+    text-decoration: none;
+    &:before {
+      display: block;
+      content: "";
+      font-family: FontAwesome;
+      position: absolute;
+      right: 0;
+      top: -0.3rem;
+    }
+  }
+
+}
+
+//fixing images inside course for mobile view
+.courseimagewrapper {
+  img {
+    max-width: 100%;
+  }
+}
+
+/*  The edit button */
+.breadcrumb-button a.btn{
+  @include edit-button;
+  @include hover-focus-underline;
+  &.btn-success {
+    background-color: $input-background;
+    color: $button-all;
+  }
+  &.btn-danger {
+    /* Tsofiya: changed for accessibility
+    background-color: $button-edit-bg;*/
+    background-color: $button-all;
+    color: $input-background;
+  }
+}
+
+.breadcrumb-button input[type="submit"]{
+  @include edit-button;
+  @include hover-focus-underline;
+  background-color: $input-background;
+  color: $button-all;
+  font-size: $font-size-root;
+}
+
+.topics.row-fluid {
+  display: block; /* override the .row-fluid definition for flex, in this case */
+}
+
+/*course count pages - when the course is defined to be a single page one*/
+.course-content .section-summary .section-summary-activities .activity-count {
+  font-size: $font-size-root;
+  margin: 0.3rem 0.3rem 0.3rem 1rem;
+}
+
+.folder .activityinstance,
+.forum .activityinstance{
+  a{
+    //@include hover-focus-underline();
+    img{
+      /*Tsofiya: remove for images inside course*/
+      height: 17px;
+      width: 22px;
+      margin-bottom: 0.4rem;
+    }
+  }
+}
+
+.sectionname {
+  font-size: $font-size-h3;
+  margin-bottom: 1.5rem;
+
+  /*Tsofiya: add folder icon*/
+  >a{
+    //@include hover-focus-underline();
+    position: relative;
+    padding-right: 3rem;
+    &:before {
+      display: block;
+      content: $fa-folder-open;
+      font-family: FontAwesome;
+      position: absolute;
+      top: 2px;;
+      /*rtl:begin:ignore*/
+      right: 0;
+    }
+  }
+
+}
+
+
+
+
+/*in a one topic on page there's topic navigation. This is for the section name not to be so close to navigation*/
+.section-navigation .sectionname {
+  margin-top: 5rem;
+}
+
+.format-flexsections .course-content ul.flexsections-level-1 > li.section.main,
+.topics .section {
+  border: 0;
+  margin: 3rem 0;
+  background-color: $inner-bg;
+}
+
+/*when pressing one of the topic above - there's no need for the background color*/
+.section-navigation ~ .topics .section {
+  background-color: $transparent;
+}
+
+.format-topics .course-content ul.topics li.section,
+.format-weeks .course-content ul.weeks li.section,
+.format-flexsections .course-content ul.flexsections-level-1 li.section {
+  padding: 2.5rem;
+}
+
+/* The title of each section needs to have space between it and the image. We need the specicifity to override previous css  */
+.course-content ul.gridicons li .icon_content {
+  margin-bottom: 0.5rem;
+}
+
+/* Make title font size smaller in grid format, so more words fit it*/
+div [id*="gridsectionname"]{
+  font-size: $font-size-middle;
+}
+
+
+/* background for sidebar blocks */
+[data-region="blocks-column"] .block-region .block {
+  background-color: $gray-background;
+}
+
+/*sidebar*/
+div#region-main-box {
+  &.col-xs-12 {
+    padding-right: 5rem; /*8rem;(tsofiya)*/
+    padding-left: 5rem; /*8rem; (tsofiya)*/
+    @include breakpoint(fordsonfall) {
+      padding-right: 2rem;
+      padding-left: 2rem;
+    }
+  }
+}
+
+

@@ -1,0 +1,124 @@
+/*Tsofiya: changes has been done*/
+$bootstrap-sass-asset-helper: false !default;
+
+// Colors
+$black: #000;
+$dark-purple: #5e3da1;
+$primary-text-color: #4b4a4a;
+$gray-strong: #9a9a9a;
+$gray-middle: #d8d8d8;
+$gray-middle-plus: #aeaeae;
+$light-gray: #f5f5f5;
+$light-gray-2: #f0f0f0;
+$gray-transparent: rgba(249, 249, 249, 0.7);
+$gray-transparent-2: rgba(231,231,229,.9);
+$white: #fff;
+$orange: #e09a17;
+$transparent: transparent;
+$green: #1e7c33;
+$dark-purple: #5e3da1;
+
+$state-danger-text: #a94442 !default;
+$state-danger-bg: #f2dede !default;
+
+$state-success-text: #3c763d !default;
+$state-success-bg: #dff0d8 !default;
+
+$gray-background: #d8d8d8;
+$gray-dark: #3a3a3a;
+$gray-very-dark: #181818;
+$brand-inverse: #464646;
+
+
+
+//Colors use:
+$primary-text-color: $gray-base;
+$brand-primary: $dark-purple;
+$headline-background: $gray-transparent;
+$header-background: $transparent;
+$link-color: $brand-primary;
+$inner-bg: $light-gray;
+$page-background: $light-gray-2;
+
+$navbarurl: $brand-primary;
+$navbar-light-color: $white;
+$navbar-dark-color: $gray-dark;
+
+$login-background: $white;
+$pagination-active-bg: $brand-primary;
+$pagination-active-border: $brand-primary;
+$pagination-color: $brand-primary;
+
+/*Cards - Home page*/
+$card-title-background-color: $brand-primary;
+$card-courses: $light-gray;
+$card-knowledge: $white;
+$card-tag: $gray-middle;
+$category-list-background: $gray-middle;
+
+/* course */
+$course-header-bg: $gray-transparent-2;
+$course-content-bg: $white;
+$course-about-bg: $light-gray;
+$course-upper-buttons-bg: $light-gray;
+$manage-course-headlines: $gray-middle;
+
+/*footer*/
+$footer-background: $gray-base;
+$footer-copyrights-background: $gray-strong;
+$footer-border: $brand-primary;
+$footer-text-color: $black;
+
+/*buttons*/
+$buttons-text-color: $white;
+$button-all: $brand-primary;
+$buttons-secondary: $gray-middle-plus;
+$button-edit-bg: $orange;
+
+$input-background: $light-gray;
+
+// Spacing
+$spacer: 1rem !default;
+$spacer-x: $spacer !default;
+$spacer-y: $spacer !default;
+$border-width: 1px !default;
+$gutterwidth-course: 9rem !default;
+
+// the height of the header influence the margin-top of the drawer
+$nav-bar-height-mobile: 11rem;
+$nav-bar-height: 9.5rem;
+
+// Typography
+$font-family: 'Assistant', Arial, sans-serif !default;
+$font-weight-light: 200;
+$font-size-root: 1.6rem;
+$font-size-base: 2rem;
+$line-height-base: 1.4;
+$line-height-small: 1.2;
+$line-height-big: 1.8;
+$font-size-title: 2.5rem;
+$font-size-h1: 3rem;
+$font-size-h2: 2rem;
+$font-size-h2-bigger: 3rem;
+$font-size-h3: 2rem;
+$font-size-sectionname: 2.2rem;
+$footer-font-size-h3: 3rem;
+$toggle-button: 2.2rem;
+$font-size-course-title: 2.5rem;
+$font-size-course-button: 2.5rem;
+$font-size-button-homepage: 3rem;
+$font-size-middle: 1.8rem;
+
+// FontAwesome
+$fa-folder-open: "\f07c";
+
+// Alert
+$alert-info-text: $primary-text-color !default;
+
+// Breadcrumbs
+$breadcrumb-bg: $light-gray ;
+$breadcrumb-divider-color: $brand-inverse;
+
+// Footer
+$footer-bg: $brand-inverse; // override $brand-inverse which is declared in _variables.scss in the boost theme
+

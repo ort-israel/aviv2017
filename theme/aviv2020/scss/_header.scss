@@ -1,0 +1,145 @@
+.header {
+  max-height: $nav-bar-height-mobile;
+  background-color: $navbar-light-color;
+  padding: 1rem 0.5rem;
+  @include breakpoint(mobile-tablet) {
+    padding: 1rem;
+    max-height: $nav-bar-height;
+    height: auto;
+  }
+  @include breakpoint(desktop) {
+    //max-height: $nav-bar-height;
+    padding: 2rem 1rem 2rem 1rem;
+  }
+
+  .navbar-nav {
+    @include display-flex();
+    @include flex-wrap(wrap);
+    @include justify-content(center);
+
+    @include breakpoint(mobile-tablet) {
+      @include justify-content(space-between);
+    }
+
+    //wrapper for the hamburger button and the 2 logos
+    .button-logos {
+      @include display-flex();
+      @include flex-wrap(wrap);
+      @include justify-content(flex-start);
+      min-width: 30rem;
+      margin-bottom: 1rem;
+      @include breakpoint(mobile-tablet) {
+        margin-bottom: 0;
+      }
+      @include breakpoint(tablet) {
+        width: auto;
+      }
+
+      /*hamburger button*/
+      .btn-secondary {
+        color: $brand-primary;
+        background-color: transparent;
+        font-size: $toggle-button;
+        text-shadow: 0 1px 0;
+        text-decoration: none;
+        border: none;
+        padding: 0;
+        @include breakpoint(desktop) {
+          padding: 0 1rem;
+          @include calc(font-size, #{" #{$toggle-button + 0.8} "});
+        }
+      }
+
+      .navbar-brand.has-logo {
+        background-color: transparent;
+        padding-top: 0;
+        padding-bottom: 0;
+        @include breakpoint(desktop) {
+          margin-right: 4rem;
+        }
+      }
+
+      .navbar-brand.ort-logo {
+        /*rtl:begin:ignore*/
+        margin-left: 0;
+        @include breakpoint(tablet) {
+          margin-left: 3rem;
+        }
+      }
+
+      .logo img {
+        @include breakpoint(desktop) {
+          max-height: 6rem;
+        }
+      }
+
+    }
+
+    a .icon{
+      color: $navbarurl;
+    }
+
+    //the wrapper of user name and all the other icons of messages, alerts and grades
+    .top-menu-user{
+      @include display-flex();
+      @include align-items(baseline);
+      @include flex-direction(row-reverse);
+    }
+
+    //this is the part of the user icon
+    .usermenu .menubar .dropdown-toggle {
+      color: $navbarurl;
+    }
+    .usermenu {
+      color: $navbarurl;
+    }
+
+    .nav-link {
+      color: $navbarurl;
+    }
+
+
+  }
+}
+
+
+/*pop ups*/
+.navbar .popover-region-container,
+.navbar .popover-region .popover-region-container{
+  top: 9rem;
+  @include breakpoint(mobile-tablet){
+    top: 3.7rem;
+  }
+
+}
+/* User */
+img.userpicture {
+  border-radius: 50%;
+}
+
+/**
+side drawer
+ */
+
+[data-region="drawer"] {
+  top: $nav-bar-height-mobile;
+  height: calc(100% - #{$nav-bar-height-mobile});
+  background-color: rgba($gray-background, .8);
+  @include breakpoint(mobile-tablet) {
+    @include calc(top, #{" #{$nav-bar-height - 3.5} "});
+    @include calc(height, #{" 100% - #{$nav-bar-height - 3.5} "});
+  }
+  @include breakpoint(desktop) {
+    top: $nav-bar-height;
+    height: calc(100% - #{$nav-bar-height});
+  }
+  a {
+    text-decoration: none;
+  }
+}
+
+.pagelayout-frontpage [data-region="drawer"] {
+  @include breakpoint(tablet) {
+    background-color: $gray-background;
+  }
+}
