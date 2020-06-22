@@ -1,0 +1,218 @@
+//Fron page - header design (image + H1+H2, search)
+.pagelayout-frontpage #page-header {
+  background-image: url([[pix:theme|headerbg]]);
+  background-position: center;
+  background-size: cover;
+  /*height: $headerimagepadding;*/
+  margin-top: $nav-bar-height-mobile;
+
+  @include breakpoint(mobile-tablet) {
+    margin-top: calc(#{$nav-bar-height} - 3.5rem);
+    @include display-flex();
+    @include flex-wrap(wrap);
+    @include align-content(flex-start);
+  }
+  @include breakpoint(desktop) {
+    margin-top: $nav-bar-height;
+  }
+  @include breakpoint(tablet) {
+    height: 62rem;
+  }
+  .pull-xs-left {
+    text-align: center;
+    /*to override the float right important*/
+    float: none !important;
+    width: 90%;
+    margin: 2rem auto 0;
+
+    @include breakpoint(tablet) {
+      width: 100%;
+      /*rtl:begin:ignore*/
+      text-align: right;
+      margin: 2rem 2rem 24rem 0; /*the 24rem bottom is in order to separate it from the search. For some reason, margin top for search doesn't work */
+      /*rtl:end:ignore*/
+      @include display-flex();
+      @include flex-direction(column);
+      /*to prevent the h1+h2 to strach: https://stackoverflow.com/questions/40141163/make-flex-items-take-content-width-not-width-of-parent-container*/
+      @include align-items(flex-start);
+    }
+    @include breakpoint(laptop) {
+      margin: 2rem 0 24rem 0;
+    }
+  }
+  & h1, h2 {
+    color: $primary-text-color;
+    background-color: $headline-background;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    text-align: inherit;
+    @include breakpoint(tablet) {
+      padding: 1rem 2rem 1rem 1rem;
+    }
+    @include breakpoint(laptop) {
+      /*rtl:begin:ignore*/
+      padding-right: 5rem;
+      /*rtl:end:ignore*/
+    }
+  }
+
+  h1 {
+    font-size: $font-size-h1;
+    font-weight: 800;
+    @include breakpoint(desktop) {
+      @include calc(font-size, #{" #{$font-size-h1 + 2.2} "});
+    }
+  }
+
+  h2 {
+    font-size: $font-size-h2;
+    @include breakpoint(desktop) {
+      @include calc(font-size, #{" #{$font-size-h2 + 1} "});
+    }
+  }
+
+  //search box
+
+  #region-in-header-blocks {
+    margin: auto 0 3rem; /*the margin top: suto should align it to the bottom of the box because of flex, but that doesn't work */
+    .block_searchcourses {
+      background-color: $transparent;
+
+      .card-title,
+      #my_courses_container {
+        // hiding the title and the 'my courses'
+        display: none;
+        //visibility: hidden;
+      }
+
+    }
+  }
+}
+
+#course_search_ac {
+  position: relative;
+  /*overflow: hidden; Lea 2018 - this was hiding search results so commented out */
+  max-width: 76.5rem;
+  margin: 0 auto;
+  font-size: $font-size-button-homepage; /* needed both for label and input */
+  @include breakpoint(mobileonly) {
+    max-width: 30rem;
+    font-size: $font-size-middle; /* needed both for label and input */
+  }
+  & label {
+    position: absolute;
+    right: 3rem;
+    top: 3rem;
+    margin: 0;
+    @include breakpoint(mobileonly) {
+      top: 2rem;
+    }
+  }
+  & input {
+    border: none;
+    border-radius: 10px;
+    padding: 3rem;
+    width: 100%;
+    &:focus {
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    @include breakpoint(mobileonly) {
+      padding: 2rem;
+      width: 98%;
+    }
+  }
+
+}
+
+#course_search_ac input:focus + label {
+  display: none;
+}
+
+.pagelayout-frontpage {
+  // this is for all the 'aside' on the homepage
+  .m-b-1 {
+    //margin-bottom: 0 !important;
+    border: none;
+  }
+  //this is the design for purple headlines on front-page with little triangle
+  .card-block {
+    padding-right: 0;
+    padding-left: 0;
+    padding-top: 0;
+  }
+  //the headeline - H3
+  .container-fluid .block-region .card-title {
+    color: $navbar-light-color;
+    font-size: $font-size-h3;
+    font-weight: 600;
+    position: relative;
+    padding: 1.6rem;
+    margin-bottom: 5rem;
+    background-color: $card-title-background-color;
+    text-align: center;
+    @include breakpoint(tablet) {
+      /* compensate on the padding of container-fluid by giving a big box shadow the same color as the title background */
+      box-shadow: 10rem 0 0 0 $card-title-background-color, -10rem 0 0 0 $card-title-background-color;
+      text-align: right;
+      /*rtl:begin:ignore*/
+      //padding-right: 10rem;
+      padding-right: 5vw;
+      /*rtl:end:ignore*/
+    }
+    @include breakpoint(desktop) {
+      @include calc(font-size, #{" #{$font-size-h3 + 1} "});
+    }
+    &:before {
+      /* This should also apply to #page-header on every page except front page */
+      content: "";
+      border-style: solid;
+      border-width: 1.5rem 1.5rem 0 1.5rem;
+      border-color: $card-title-background-color transparent transparent transparent;
+      position: absolute;
+      bottom: -1.5rem;
+      left: 50%;
+      transform: translate(-50%, 0);
+      @include breakpoint(laptop) {
+        transform: none;
+        left: auto;
+        //right: 8rem;
+        right: 8vw;
+      }
+
+    }
+
+  }
+  /* Buttons */
+  #page-content .btn-secondary {
+    font-size: $font-size-button-homepage;
+    padding-right: 3.5rem;
+    padding-left: 3.5rem;
+    &:hover {
+      font-size: $font-size-button-homepage;
+    }
+    @include breakpoint(mobileonly) {
+      font-size: $font-size-middle;
+      padding-right: 2.2rem;
+      padding-left: 2.2rem;
+      &:hover {
+        font-size: $font-size-middle;
+      }
+    }
+  }
+
+  .footer {
+    text-align: center;
+  }
+  /* page-header is out of #page, so it neeeds to get the top margin instead of page */
+  #page {
+    margin-top: 0;
+  }
+
+  &:not(.editing) {
+    /* The personal blogs link can't be romved so it has to be hidden */
+    .modtype_oublog {
+      display: none;
+    }
+  }
+}

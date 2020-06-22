@@ -1,0 +1,9 @@
+/*Tsofiya: changes has been done*/
+/* fix for links that didn't get the right color */
+a.list-group-item-action,
+a.dropdown-item,
+.dropdown-item a,
+a .icon{
+  color: $link-color;
+
+}
