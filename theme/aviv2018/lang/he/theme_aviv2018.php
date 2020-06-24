@@ -253,3 +253,6 @@ $string['about_course'] = 'על הקורס';
 // Text on login page
 $string['someallowsuperguest'] = 'לחלק מהקורסים ניתן להיכנס על-ידי לחיצה על כפתור כניסת אורח בתיאור הקורס.';
 $string['forsupportcontact'] = 'לעזרה ניתן לפנות ל: <a href="mailto:MapaSupport@admin.ort.org.il">MapaSupport@admin.ort.org.il</a> או 03-6301381';
+$string['registered'] = 'רשומים';
+$string['guests'] = 'אורחים';
+$string['login_as_superguest'] = 'התחברו כאורחים';

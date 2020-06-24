@@ -1,16 +1,18 @@
 .pagelayout-login {
   font-weight: bold;
+
   #page-wrapper {
     background-image: url([[pix:theme|headerbg]]);
     background-position: center;
     background-size: cover;
 
-    #region-main{
+    #region-main {
       padding-left: 0;
       padding-right: 0;
       padding-bottom: 10rem;
     }
   }
+
   // had to do it this way because of the hierarchy and the important
   #page.container-fluid {
     padding: 0 !important;
@@ -18,15 +20,19 @@
 
   .row {
     margin: 0;
+
     .card {
       background-color: $transparent;
       border: 0;
+
       .card-title {
         border-bottom: 0;
+
         h2 {
           font-size: 3rem;
         }
       }
+
       .card-block {
         border: inherit;
 
@@ -39,29 +45,45 @@
 
         .col-md-5 {
           text-align: center;
+
           .m-t-1 {
             font-weight: 600;
-            .icon{
+
+            .icon {
               color: $buttons-secondary !important;
             }
           }
+
           .m-t-2 {
             margin-top: 0 !important;
             font-weight: 600;
+
             form .btn-secondary {
               margin: 0;
               display: inline-block;
             }
           }
         }
+
+        form#login {
+          display: inline-block; // so buttons can be cntered to it
+
+          section[class*="section_"]:not(:first-child) {
+            margin-top: 2rem;
+          }
+
+          .guset_section {
+            display: flex;
+            flex-direction: column;
+          }
+        }
+
         /*login button*/
         .btn-primary,
         .btn-secondary {
           width: auto;
           padding: 1rem 2.5rem;
-          /*rtl:begin:ignore*/
-          margin-right: 4rem;
-          /*rtl:end:ignore*/
+          margin: 0 auto;
           border-radius: 0;
           border: 0;
           background-color: $button-all;
@@ -69,6 +91,7 @@
           font-weight: 600;
           font-size: $font-size-base;
         }
+
         .btn-secondary {
           background-color: $buttons-secondary;
           color: $primary-text-color;
@@ -78,6 +101,7 @@
     }
 
   }
+
   .login-wrapper {
     margin: 0;
     margin-top: 5%;
