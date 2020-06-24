@@ -253,3 +253,6 @@ $string['about_course'] = 'About the Course';
 // Text on login page
 $string['someallowsuperguest'] = 'Some courses allow guest access by clickg the Guset Login button in the course description';
 $string['forsupportcontact'] = 'For support please contact <a href="mailto:MapaSupport@admin.ort.org.il">MapaSupport@admin.ort.org.il</a> or 03-6301381';
+$string['registered'] = 'Registered';
+$string['guests'] = 'Gusets';
+$string['login_as_superguest'] = 'Login as Super Guset';

@@ -123,34 +123,42 @@
                         <form class="m-t-1" action="{{loginurl}}" method="post" id="login">
                             <input id="anchor" type="hidden" name="anchor" value="">
                             <script>document.getElementById('anchor').value = location.hash;</script>
+                            <section class="registered_section">
+                                <div>{{#str}}registered, theme_aviv2018{{/str}}?</div>
+                                <label for="username" class="sr-only">
+                                    {{^canloginbyemail}}
+                                        {{#str}} username {{/str}}
+                                    {{/canloginbyemail}}
+                                    {{#canloginbyemail}}
+                                        {{#str}} usernameemail {{/str}}
+                                    {{/canloginbyemail}}
+                                </label>
+                                <input type="text" name="username" id="username"
+                                       class="form-control"
+                                       value="{{username}}"
+                                       placeholder={{#quote}}{{^canloginbyemail}}{{#str}}username{{/str}}{{/canloginbyemail}}{{#canloginbyemail}}{{#str}}usernameemail{{/str}}{{/canloginbyemail}}{{/quote}}>
+                                <label for="password" class="sr-only">{{#str}} password {{/str}}</label>
+                                <input type="password" name="password" id="password" value=""
+                                       class="form-control"
+                                       placeholder={{#quote}}{{#str}}password{{/str}}{{/quote}}>
 
-                            <label for="username" class="sr-only">
-                                {{^canloginbyemail}}
-                                    {{#str}} username {{/str}}
-                                {{/canloginbyemail}}
-                                {{#canloginbyemail}}
-                                    {{#str}} usernameemail {{/str}}
-                                {{/canloginbyemail}}
-                            </label>
-                            <input type="text" name="username" id="username"
-                                   class="form-control"
-                                   value="{{username}}"
-                                    placeholder={{#quote}}{{^canloginbyemail}}{{#str}}username{{/str}}{{/canloginbyemail}}{{#canloginbyemail}}{{#str}}usernameemail{{/str}}{{/canloginbyemail}}{{/quote}}>
-                            <label for="password" class="sr-only">{{#str}} password {{/str}}</label>
-                            <input type="password" name="password" id="password" value=""
-                                   class="form-control"
-                                    placeholder={{#quote}}{{#str}}password{{/str}}{{/quote}}>
+                                {{#rememberusername}}
+                                    <div class="rememberpass m-t-1">
+                                        <input type="checkbox" name="rememberusername" id="rememberusername" value="1"
+                                               {{#username}}checked="checked"{{/username}} />
+                                        <label for="rememberusername">{{#str}} rememberusername, admin {{/str}}</label>
+                                    </div>
+                                {{/rememberusername}}
 
-                            {{#rememberusername}}
-                                <div class="rememberpass m-t-1">
-                                    <input type="checkbox" name="rememberusername" id="rememberusername" value="1"
-                                           {{#username}}checked="checked"{{/username}} />
-                                    <label for="rememberusername">{{#str}} rememberusername, admin {{/str}}</label>
-                                </div>
-                            {{/rememberusername}}
+                                <button type="submit" class="btn btn-primary btn-block m-t-1" id="loginbtn">{{#str}}
+                                    login{{/str}}</button>
+                            </section>
 
-                            <button type="submit" class="btn btn-primary btn-block m-t-1" id="loginbtn">{{#str}}
-                                login{{/str}}</button>
+                            <section class="guset_section">
+                                <div>{{#str}}guests, theme_aviv2018{{/str}}?</div>
+                                <a href="{{{rooturl}}}/blocks/anonymous_user/generateuser.php?courseid=-1" class="btn btn-primary" style="margin:0 auto">{{#str}}login_as_superguest, theme_aviv2018{{/str}}</a>
+                            </section>
+
                         </form>
                     </div>
 
@@ -163,17 +171,7 @@
                             {{#str}} cookiesenabled {{/str}}
                             {{{cookieshelpiconformatted}}}
                         </div>
-<!--                        {{!#canloginasguest}}-->
-<!--                            <div class="m-t-2">-->
-<!--                                <p>{{!#str}}someallowguest{{!/str}}</p>-->
-<!--                                <form action="{{!loginurl}}" method="post" id="guestlogin">-->
-<!--                                    <input type="hidden" name="username" value="guest"/>-->
-<!--                                    <input type="hidden" name="password" value="guest"/>-->
-<!--                                    <button class="btn btn-secondary btn-block" type="submit">{{!#str}}-->
-<!--                                        loginguest{{!/str}}</button>-->
-<!--                                </form>-->
-<!--                            </div>-->
-<!--                        {{!/canloginasguest}}-->
+
                         <p>{{#str}}someallowsuperguest, theme_aviv2018{{/str}}</p>
                         <p>{{#str}}forsupportcontact, theme_aviv2018{{/str}}</p>
 
@@ -185,10 +183,10 @@
                                     <div class="potentialidp">
                                         <a href="{{url}}" title={{#quote}}{{name}}{{/quote}} class="btn btn-secondary
                                            btn-block">
-                                        {{#iconurl}}
-                                            <img src="{{iconurl}}" alt="" width="24" height="24"/>
-                                        {{/iconurl}}
-                                        {{name}}
+                                            {{#iconurl}}
+                                                <img src="{{iconurl}}" alt="" width="24" height="24"/>
+                                            {{/iconurl}}
+                                            {{name}}
                                         </a>
                                     </div>
                                 {{/identityproviders}}

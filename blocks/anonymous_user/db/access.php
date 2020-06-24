@@ -14,24 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
- * A login page layout for the boost theme.
+ * Admin bookmarks block caps.
  *
- * @package   theme_boost
- * @copyright 2016 Damyon Wiese
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    block_admin_bookmarks
+ * @copyright  Mark Nelson <markn@moodle.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$bodyattributes = $OUTPUT->body_attributes();
+defined('MOODLE_INTERNAL') || die();
 
-$templatecontext = [
-    'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
-    'output' => $OUTPUT,
-    'bodyattributes' => $bodyattributes,
-    'rooturl'=>$CFG->wwwroot
-];
+$capabilities = array(
 
-echo $OUTPUT->render_from_template('theme_aviv2018/login', $templatecontext);
+    'block/anonymous_user:addinstance' => array(
+        'riskbitmask' => RISK_SPAM | RISK_XSS,
 
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_BLOCK,
+        'archetypes' => array(
+            'manager' => CAP_ALLOW
+        ),
+
+        'clonepermissionsfrom' => 'moodle/site:manageblocks'
+    ),
+);
