@@ -169,6 +169,8 @@ body:not(.editing) .block_myoverview .card-title,
 }
 
 #page-content { /* when in header, use the inherited style */
+  margin-left:  0;
+  margin-right: 0;
   /*Button design */
   .btn-secondary:not(.qnbutton),
   .btn-secondary:not(.qnbutton):hover,
