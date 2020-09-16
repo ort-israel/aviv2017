@@ -16,10 +16,9 @@
 
 namespace theme_growth_pedagogy\output;
 
-use html_writer;
-use custom_menu;
-use moodle_url;
 use context_course;
+use html_writer;
+use moodle_url;
 use theme_config;
 
 defined('MOODLE_INTERNAL') || die;
@@ -135,58 +134,6 @@ class core_renderer extends \theme_fordson\output\core_renderer {
         return $ret;
     }
 
-    /**
-     * Allow plugins to provide some content to be rendered in the navbar.
-     * The plugin must define a PLUGIN_render_navbar_output function that returns
-     * the HTML they wish to add to the navbar.
-     *
-     * Lea 2017 - Override in order to add text before the notifications and messages icons
-     *
-     * @return string HTML for the navbar
-     */
-//    public function navbar_plugin_output() {
-//        $output = '';
-//
-//        if ($pluginsfunction = get_plugins_with_function('render_navbar_output')) {
-//            foreach ($pluginsfunction as $plugintype => $plugins) {
-//                foreach ($plugins as $pluginfunction) {
-//                    $output .= $pluginfunction($this);
-//                }
-//            }
-//        }
-//        /**** Overridden for this part: ****/
-//        if (!empty($output)) {
-//            // Use the Core mapping between strings a fontwasome:
-//            $instance = \core\output\icon_system::instance(\core\output\icon_system::FONTAWESOME);
-//            $map = $instance->get_icon_name_map();
-//
-//            // Add string to notifications
-//            $notifications_text = html_writer::span(get_string('notifications', 'message'), 'menu-action-text'); // span to insert
-//            $notification_pos = strpos($output, $map['core:i/notifications']); // look for the icon class in the output. This will be the position from which to look for the closing tag
-//            if ($notification_pos) {
-//                $notification_close_i_pos = strpos($output, '</i>', $notification_pos); // find the ending tag after the icon class
-//                if ($notification_close_i_pos) {
-//                    $output = substr_replace($output, $notifications_text, $notification_close_i_pos + strlen('</i>'), 0); // position the index after the closing tag and insert the span with the text
-//                }
-//            }
-//
-//            // Add string to messages
-//            $messages_text = html_writer::span(get_string('messages', 'message'), 'menu-action-text'); // span to insert
-//            $messages_pos = strpos($output, $map['core:t/message']); // look for the icon class in the output. This will be the position from which to look for the closing tag
-//            if ($messages_pos) {
-//                $messages_close_i_pos = strpos($output, '</i>', $messages_pos); // find the ending tag after the icon class
-//                if ($messages_close_i_pos) {
-//                    $output = substr_replace($output, $messages_text, $messages_close_i_pos + strlen('</i>'), 0); // position the index after the closing tag and insert the span with the text
-//                }
-//            }
-//
-//            // Lea 2017 - remove the popover-region-toggle class because it causes the width to be too narrow
-//            $output = str_replace('popover-region-toggle', '', $output);
-//        }
-//
-//        return $output;
-//    }
-
     public function teacherdash() {
         global $PAGE, $COURSE, $CFG, $DB, $OUTPUT;
 
@@ -195,7 +142,7 @@ class core_renderer extends \theme_fordson\output\core_renderer {
         $togglebuttonstudent = '';
         $hasteacherdash = '';
         $hasstudentdash = '';
-        if (isloggedin() && ISSET($COURSE->id) && $COURSE->id > 1) {
+        if (isloggedin() && isset($COURSE->id) && $COURSE->id > 1) {
             $course = $this->page->course;
             $context = context_course::instance($course->id);
             $hasteacherdash = has_capability('moodle/course:viewhiddenactivities', $context);
@@ -251,10 +198,10 @@ class core_renderer extends \theme_fordson\output\core_renderer {
 
         $editcog = html_writer::div($this->context_header_settings_menu(), 'pull-xs-right context-header-settings-menu ');
         /* Add this if to remove editcog div if it is empty */
-        if(empty($this->context_header_settings_menu())){
+        if (empty($this->context_header_settings_menu())) {
             $haseditcog = false;
         };
-		$thiscourse = $this->thiscourse_menu();
+        $thiscourse = $this->thiscourse_menu();
         $showincourseonly = isset($COURSE->id) && $COURSE->id > 1 /*&& $PAGE->theme->settings->coursemanagementtoggle */ && isloggedin() && !isguestuser();
         $globalhaseasyenrollment = enrol_get_plugin('easy');
         $coursehaseasyenrollment = '';
