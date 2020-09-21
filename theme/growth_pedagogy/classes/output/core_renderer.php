@@ -116,6 +116,52 @@ class core_renderer extends \theme_fordson\output\core_renderer {
         return $html;
     }
 
+    public function headerimage() {
+        global $CFG, $COURSE, $PAGE, $OUTPUT;
+
+        // Get course overview files as images - set $courseimage.
+        $courseimage = $this->get_image_from_area_files('cover');
+
+        $headerbg = $PAGE->theme->setting_file_url('headerdefaultimage', 'headerdefaultimage');
+        $headerbgimgurl = $PAGE->theme->setting_file_url('headerdefaultimage', 'headerdefaultimage', true);
+        $defaultimgurl = $OUTPUT->image_url('headerbg', 'theme');
+
+        // Create html for header.
+        $html = html_writer::start_div('headerbkg');
+        // If course image display it in separate div to allow css styling of inline style.
+        if (theme_fordson_get_setting('showcourseheaderimage') && $courseimage) {
+            $html .= html_writer::start_div('withimage', array(
+                'style' => 'background-image: url("' . $courseimage . '"); background-size: cover; background-position:center;
+                width: 100%; height: 100%;'));
+            $html .= html_writer::end_div(); // End withimage inline style div.
+        } elseif (theme_fordson_get_setting('showcourseheaderimage') && !$courseimage && isset($headerbg)) {
+            $html .= html_writer::start_div('customimage', array(
+                'style' => 'background-image: url("' . $headerbgimgurl . '"); background-size: cover; background-position:center;
+                width: 100%; height: 100%;'));
+            $html .= html_writer::end_div(); // End withoutimage inline style div.
+        } elseif ($courseimage && isset($headerbg) && !theme_fordson_get_setting('showcourseheaderimage')) {
+            $html .= html_writer::start_div('customimage', array(
+                'style' => 'background-image: url("' . $headerbgimgurl . '"); background-size: cover; background-position:center;
+                width: 100%; height: 100%;'));
+            $html .= html_writer::end_div(); // End withoutimage inline style div.
+        } elseif (!$courseimage && isset($headerbg) && !theme_fordson_get_setting('showcourseheaderimage')) {
+            $html .= html_writer::start_div('customimage', array(
+                'style' => 'background-image: url("' . $headerbgimgurl . '"); background-size: cover; background-position:center;
+                width: 100%; height: 100%;'));
+            $html .= html_writer::end_div(); // End withoutimage inline style div.
+        } else {
+            $html .= html_writer::start_div('default', array(
+                'style' => 'background-image: url("' . $defaultimgurl . '"); background-size: cover; background-position:center;
+                width: 100%; height: 100%;'));
+            $html .= html_writer::end_div(); // End default inline style div.
+        }
+
+        $html .= html_writer::end_div();
+
+        return $html;
+
+    }
+
     /**
      * Override to inject the header titles.
      *
@@ -127,7 +173,12 @@ class core_renderer extends \theme_fordson\output\core_renderer {
         global $CFG, $PAGE, $COURSE;
 
         // Tsofiya 2018: In course page and inside a course we should display course logo instead course name
-        $logo = new moodle_url($CFG->wwwroot . '/theme/growth_pedagogy/pix/logo.png');//$this->get_logo_url();//(null, 150)
+        $logo = $this->get_image_from_area_files('logo');
+
+        if (empty($logo)) {
+            $logo = new moodle_url($CFG->wwwroot . '/theme/growth_pedagogy/pix/logo.png');
+        }
+
         $sitename = format_string($COURSE->fullname, true);
         $ret = html_writer::img($logo, $sitename, array('class' => 'logo'));
 
@@ -633,6 +684,57 @@ class core_renderer extends \theme_fordson\output\core_renderer {
         }
 
         return $result;
+    }
+
+    /**
+     * @param \stdClass $CFG
+     * @param \stdClass $COURSE
+     * @return string
+     * @throws \coding_exception
+     */
+    private function get_image_from_area_files($imgname) {
+        global $CFG, $COURSE;
+        require_once($CFG->libdir . '/filestorage/file_storage.php');
+        require_once($CFG->dirroot . '/course/lib.php');
+
+        // Get course overview files.
+
+        if (empty($CFG->courseoverviewfileslimit)) {
+            return '';
+        }
+
+        $fs = get_file_storage();
+        $context = context_course::instance($COURSE->id);
+        $files = $fs->get_area_files($context->id, 'course', 'overviewfiles', false, 'filename', false);
+        if (count($files)) {
+            $overviewfilesoptions = course_overviewfiles_options($COURSE->id);
+            $acceptedtypes = $overviewfilesoptions['accepted_types'];
+            if ($acceptedtypes !== '*') {
+                // Filter only files with allowed extensions.
+                require_once($CFG->libdir . '/filelib.php');
+                foreach ($files as $key => $file) {
+                    if (!file_extension_in_typegroup($file->get_filename(), $acceptedtypes)) {
+                        unset($files[$key]);
+                    }
+                }
+            }
+            if (count($files) > $CFG->courseoverviewfileslimit) {
+                // Return no more than $CFG->courseoverviewfileslimit files.
+                $files = array_slice($files, 0, $CFG->courseoverviewfileslimit, true);
+            }
+        }
+        $image = '';
+        foreach ($files as $file) {
+            $isimage = $file->is_valid_image();
+            if ($isimage) {
+                if (strpos($file->get_filename(), $imgname) !== false) {
+                    $image = new moodle_url("$CFG->wwwroot/pluginfile.php" .
+                        '/' . $file->get_contextid() . '/' . $file->get_component() . '/' .
+                        $file->get_filearea() . $file->get_filepath() . $file->get_filename());
+                }
+            }
+        }
+        return $image;
     }
 
 }
