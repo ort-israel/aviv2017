@@ -243,6 +243,7 @@
 }
 
 .path-mod-pdfannotator .pdfViewer .page {
+    /*rtl:ignore*/
     direction: ltr;
     width: 816px;
     height: 1056px;
