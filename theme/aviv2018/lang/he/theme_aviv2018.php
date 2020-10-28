@@ -245,7 +245,8 @@ $string['phone'] = 'טלפון';
 $string['tutorials'] = 'מדריכים לשימוש ב-moodle';
 $string['siteregulation'] = 'תקנון אתר';
 $string['footnoteabouttitle'] = 'אודות';
-$string['copyrighttext'] =  'Copyright © 2016 - האתר פותח על ידי היחידה לטכנולוגיות אינטרנט, המרכז למו״פ, <a href="http://ort.org.il">אורט ישראל</a> ומבוסס moodle';;
+$string['copyrighttext'] =  'Copyright © ';
+$string['credittext'] = ' - האתר פותח על ידי היחידה לטכנולוגיות אינטרנט, המרכז למו״פ, <a href="http://ort.org.il">אורט ישראל</a> ומבוסס moodle';
 
 // Course page
 $string['about_course'] = 'על הקורס';

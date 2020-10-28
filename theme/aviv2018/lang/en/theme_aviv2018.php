@@ -245,7 +245,8 @@ $string['phone'] = 'Phone';
 $string['tutorials'] = 'tutorials';
 $string['siteregulation'] = 'Site Regulation';
 $string['footnoteabouttitle'] = 'About';
-$string['copyrighttext'] = 'Copyright © 2016';
+$string['copyrighttext'] = 'Copyright © ';
+$string['credittext'] = ' - Developed by the Internet Technologies Unit in <a href="http://ort.org.il">ORT Israel\'s</a> R&D center, and is Moodle based';
 
 // Course page
 $string['about_course'] = 'About the Course';

@@ -684,7 +684,13 @@ class core_renderer extends \theme_fordson\output\core_renderer {
         global $USER, $COURSE;
 
         return user_mygrades_url($USER->id, $COURSE->id);
+
     }
+
+    public function current_year(){
+        return date("Y");
+    }
+
 
     /**
      * Taken from: https://moodle.org/mod/forum/discuss.php?d=324948#p1305540
