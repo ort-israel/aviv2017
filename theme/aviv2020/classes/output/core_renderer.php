@@ -16,10 +16,9 @@
 
 namespace theme_aviv2020\output;
 
-use html_writer;
-use custom_menu;
-use moodle_url;
 use context_course;
+use html_writer;
+use moodle_url;
 use theme_config;
 
 defined('MOODLE_INTERNAL') || die;
@@ -190,7 +189,7 @@ class core_renderer extends \theme_fordson\output\core_renderer {
         $togglebuttonstudent = '';
         $hasteacherdash = '';
         $hasstudentdash = '';
-        if (isloggedin() && ISSET($COURSE->id) && $COURSE->id > 1) {
+        if (isloggedin() && isset($COURSE->id) && $COURSE->id > 1) {
             $course = $this->page->course;
             $context = context_course::instance($course->id);
             $hasteacherdash = has_capability('moodle/course:viewhiddenactivities', $context);
@@ -246,10 +245,10 @@ class core_renderer extends \theme_fordson\output\core_renderer {
 
         $editcog = html_writer::div($this->context_header_settings_menu(), 'pull-xs-right context-header-settings-menu ');
         /* Add this if to remove editcog div if it is empty */
-        if(empty($this->context_header_settings_menu())){
+        if (empty($this->context_header_settings_menu())) {
             $haseditcog = false;
         };
-		$thiscourse = $this->thiscourse_menu();
+        $thiscourse = $this->thiscourse_menu();
         $showincourseonly = isset($COURSE->id) && $COURSE->id > 1 /*&& $PAGE->theme->settings->coursemanagementtoggle */ && isloggedin() && !isguestuser();
         $globalhaseasyenrollment = enrol_get_plugin('easy');
         $coursehaseasyenrollment = '';
@@ -658,6 +657,11 @@ class core_renderer extends \theme_fordson\output\core_renderer {
 
         return user_mygrades_url($USER->id, $COURSE->id);
     }
+
+    public function current_year() {
+        return date("Y");
+    }
+
 
     /**
      * Taken from: https://moodle.org/mod/forum/discuss.php?d=324948#p1305540
