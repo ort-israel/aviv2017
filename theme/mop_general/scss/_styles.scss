@@ -175,7 +175,6 @@ EDIT MODE */
 }
 
 #page-content { /* when in header, use the inherited style */
-  @include make-row(0);
   /*Button design */
   .btn-secondary:not(.qnbutton),
   .btn-secondary:not(.qnbutton):hover,
